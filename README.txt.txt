@@ -13,7 +13,7 @@ This package includes the following files:
 . BUlogo_cmyk.eps : BU logo as EPS file,
 . BUlogo_cmyk.pdf : BU logo as PDF file.
 
-The main thesis file thesis.tex calls other files included in individual directories (chapters). You can easily add new chapters by creating new sub-directories and adding new .eps (Encapsulated PostScript) files to Figures sub-directory in each chapter. Note that a graphics path can be set in each chapter (\graphicspath{}) so that when invoking EPS files you do not need to include the full path – files are found automatically if placed in Figures.
+The main thesis file thesis.tex calls other files included in individual directories (chapters). You can easily add new chapters by creating new sub-directories and adding new .eps (Encapsulated PostScript) files to Figures sub-directory in each chapter. Note that a graphics path can be set in each chapter (\graphicspath{}) so that when invoking EPS files you do not need to include the full path ? files are found automatically if placed in Figures.
 
 In addition to bu_ece_thesis.sty LaTeX style file, a number of other style files are used, including the bibliography in apalike format, but these should download automatically and be transparent to the user.
 
