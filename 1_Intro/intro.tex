@@ -7,22 +7,26 @@
 % it has a trailing directory separator (i.e., '/')!
 \graphicspath{{1_Intro/Figures/}}
 
-Incoherent scatter radar (ISR), like all scientific instruments, is a testament to humankind's desire to understand the world around it. This even more so because they are generally very large and complicated systems that use substantial amounts of power, in the range of megawatts. These systems are able to probe Earths ionosphere and unlike other ground based measures this modality can give direct measurements of various plasma parameters including electron density ($N_e$), electron temperature ($T_e$), ion temperature ($T_i$) and ion velocity ($V_i$). ISRs has been in use since the 1950s \cite{gordon58} and these systems have evolved over time from only being able to measure parameters along a single line of site to recently having the ability to be used as full 3-D sensors. The goal of this dissertation is to present a framework to analyze and improve the quality of the data that comes from modern §ISR systems. This framework can help researchers improve their experiments and better understand the data products from ISR.
+Incoherent scatter radar (ISR), like all scientific instruments, is a testament to humankind's desire to understand the world around it. This even more so because they are generally very large and complicated systems that use substantial amounts of power, in the range of megawatts. These systems are able to probe Earths ionosphere and unlike other ground based measures this modality can give direct measurements of various plasma parameters including electron density ($N_e$), electron temperature ($T_e$), ion temperature ($T_i$) and ion velocity ($V_i$). ISRs has been in use since the 1950s \cite{gordon58} and these systems have evolved over time from only being able to measure parameters along a single line of site to recently having the ability to be used as full 3-D sensors \cite{Semeter2009738}, \cite{Nicolls:2007ie}. The goal of this dissertation is to present a framework to analyze and improve the quality of the data that comes from modern ISR systems. This framework can help researchers improve their experiments and better understand the data products from ISR.
 
 Until recently these systems were constructed using single, mechanically steered antennas. Because of this the rate that the look angle can change is limited by the mechanical speed of the \jcom{doesn't sound right}{antenna pointing mechanism.} The newest generation of ISR systems are now taking advantage of electronically scanning phased array (ESPA), which allow for a near instantaneous change in the radar look direction. This thesis will mainly focus on systems that are equipped with ESPA antennas, as they are the impeddous for this work. Still many if not all of these ideas contained within can still be used by researchers using systems using single mechanically steered antennas or by individuals using the ESPA equipped ISR systems that using it to observe phenomena along just the range dimension.
 
-
-
-
  
 \section{Purpose}
-Some of the basics of ISR will be introduced in the following section. This along with a short discussion of the ionosphere and some of the phenomena that researchers use ISR to observe. Following this will be a short introduction to some of the basic precepts behind inverse theory as used by engineers and scientists to analyze and improve the output of sensors.
+Some of the basics of ISR will be introduced in the following section. After which there will be a short discussion of the ionosphere and some of the phenomena that researchers use these systems to observe. Although the physics behind the ionosphere will not be discussed in detail, the section will help to elucidate some of properties of the system that will be studied. Following this will be a short introduction to some of the basic precepts behind inverse theory as used by engineers and scientists to analyze and improve the output of sensors.
 
 \subsection{Incoherent Scatter Radar}
 
-In order to produce plasma parameter measurements ISR systems radiate electromagnetic energy and monitor the reflected signal from free electrons in the ionosphere, or observe from other radiation sources in bistatic operation. This scatter has a specific spectral distribution from which is driven by the values of the temperatures, densities and bulk flow of the plasma in the ionosphere. As such the two main steps in processing is the estimation of a power spectrum or autocorrelation function (ACF) and then fitting that to a physics based model at each point in time and space that the radar samples. 
+In order to produce plasma parameter measurements ISR systems radiate electromagnetic energy and monitor the reflected signal from free electrons in the ionosphere, or observe from other radiation sources in bistatic operation. This scatter has a specific spectral distribution which is driven by the values of the temperatures, densities and bulk flow of the plasma in the ionosphere. As such the two main steps in processing is the estimation of a power spectrum or autocorrelation function (ACF) and then fitting that to a physics based model at each point in time and space that the radar samples. 
 
-As stated previously ESPA antennas can create three dimensional reconstructions of plasma parameters. Examples of these new systems include The Advance Modular Incoherent Scatter Radars (AMISR), that have been developed and placed in Poker Flat Alaska and in Resolute Bay Canada. These systems have already started to give unprecedented views in the ionosphere and upper atmosphere. Currently EISCAT-3D is being developed as well and is expect do give even greater views due to the multi-static set up.
+As stated previously ESPA antennas can create three dimensional reconstructions of plasma parameters. Examples of these new systems include The Advance Modular Incoherent Scatter Radars (AMISR), that have been developed and placed in Poker Flat Alaska and in Resolute Bay Canada \cite{Semeter2009738}. These systems are colloquially known in the research community as Poker Flat Incoherent Scatter Radar (PFISR), seen in Figure \ref{fig:amisrpic}, and Resolute Bay Incoherent Scatter Radar (RISR). These systems have already started to give unprecedented views in the ionosphere and upper atmosphere and allowed for new types of measurements that were not possible before \cite{semeter2010CI} \cite{butler:imagingfregiondrifts}, \cite{Nicolls:2007ie}. Currently EISCAT-3D is being developed as well and is expect do give even greater views due to the multi-static set up \cite{eiscat3ddesign}.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3in]{amisrimage}
+\caption{Image of the PFISR \cite{SRIpage}}
+\label{fig:amisrpic}
+\end{figure}
 
 
 \subsection{Ionosphere and Phenomena}
@@ -88,10 +92,26 @@ At times the ionosphere can be come locally unstable this can create a number of
 %In the past researchers have studied errors associated with different plasma distributions mixing together.  These errors can be quite complex due to the nonlinear nature of the inversion process\cite{Vallinkoski1990665}.  Similar behavior has been observed during times of auroral turbulence where shear flows seems to have caused non isotropic temperature measurements\cite{knudsen1993}. 
 
 
-\subsection{Inverse Problems}
+\subsection{Inverse Theory}
+Inverse theory gives engineers and scientists a robust frame work to determine the state of system parameters given a data set. Using the notation found in \cite{menke2012geophysical} a general inverse problem can be stated as follows,
 
+\begin{equation}
+\label{eqn:invprob}
+\mathbf{d}=\mathbf{g}(\mathbf{m})
+\end{equation}
+
+\noindent where $\mathbf{d}$ is the data $\mathbf{g}$ is the operator that changes the parameters $\mathbf{m}$ to the data space. 
+
+Although Equation \ref{eqn:invprob} gives a general framework this problem can be difficult to solve. Often, techniques used to solve inverse problems entail some assumption that can be made about the operator $\mathbf{g}$ such as linearity or that its well-posed. Still there are ways to get around this by doing things such as adding constraints or regularization to the inversion method.
+
+ISR has in past been presented in this format, although this has mainly been for the case of a single beam. ISR can be thought of a general inverse problem because of the non-linear operation that brings the plasma parameters to the ACF space. Two schools of thought have emerged which in the community on how to be constrain these inversions. The first, full profile analysis uses plasma parameter constraints, which can give physical constraints to the inversion thus improving the outcome. The second set of techniques apply constraints on the estimated ACFs, which is less expensive computationally but can create ACFs that cannot be created through IS theory.
 
 \subsection{Outline of dissertation}
+
+Chapter \ref{chapter:isrproc} will go into the background into ISR signal processing. This will be begin by developing the basic signal model and carry through to show how complex voltages become plasma parameter measurements.
+Chapter 3 will cover the 
+Chapter 4 contains a discussion of the frame behind the Space-Time ISR Simulator (STISRS).
+
 For this dissertation we will be proposing to improve the spatial and time sampling of the ISR systems.  New phased array radar systems have allowed for an unprecedented amount of flexibility in sampling the environment.  As such there has been no optimal way developed as of yet to sample this space.  Currently ISR systems integrate their spectral estimate in time only.  In order to get a statistical desirability of their measurements these systems may have to integrate for a long period of time.  It may be possible to integrate across different beams if stationarity can be found.  Other techniques could also be investigated such as well to try to improve the ISR measurements.
 
 \section{Contributions}
