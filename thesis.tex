@@ -23,6 +23,8 @@
 \usepackage{xspace}
 \usepackage{epstopdf} 
 \usepackage{subfig}
+\usepackage{bm}
+
 %==========================================================================%
 %%% graphicx and pdf creation
 \usepackage{graphicx}
@@ -73,15 +75,27 @@
 \cleardoublepage
 
 % -------------------------------------
-% CHAPTER 2: THE BODY OF THESIS
+% CHAPTER 2: ISR Processing
 % -------------------------------------
-\include{2_Body/body}
+\include{2_ISRProc/isrproc}
 \cleardoublepage
 
 % -------------------------------------
-% CHAPTER 3: CONCLUSION
+% CHAPTER 3: Space-Time Ambiguity
 % -------------------------------------
-\include{3_Conclusion/conclusion}
+\include{3_STAmb/stamb}
+\cleardoublepage
+
+% -------------------------------------
+% CHAPTER 4: STISRS
+% -------------------------------------
+\include{4_STISRS/stisrs}
+\cleardoublepage
+
+% -------------------------------------
+% CHAPTER 6: CONCLUSION
+% -------------------------------------
+\include{6_Conclusion/conclusion}
 \cleardoublepage
 
 %\appendix
