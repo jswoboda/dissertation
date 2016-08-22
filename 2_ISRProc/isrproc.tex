@@ -8,7 +8,8 @@
 \graphicspath{{2_ISRProc/Figures/}}
 
 %%%%%%%%%%%%%% Intro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+This chapter will give the background on ISR and radar in general. The purpose is to develop the basic signal model and show 
+\section{Radar Basics}
 Radar is common remote sensing modality which has found diverse uses ranging from being used by police to monitor the speed of traffic \cite{richards2010principles}, to mapping the surface of planets in our solar system \cite{campbell2002radar}. The term radar itself is an acronym for radio detection and ranging, which the basic premise of these systems. These systems radiate electro-magnetic waves which reflect off of a target. These reflected waves are then received and processed by the system \cite{skolnik2008radar}. The radar system measures the range $R$, or the distance between the target and sensor, by simply measuring the round trip time $\Delta T$ and using the following conversion,
 
 \begin{equation}
@@ -18,10 +19,7 @@ R=\frac{c\Delta T}{2}
 
 \noindent where $c$ is the speed of light \cite{richards2010principles}.
 
-
-
-
-The main way to look at Doppler in hard-target radar is to assume it is a multiplication of the radar signal $s(t)$ with a simple single complex exponential
+Another quantity that can be measured is the The main way to look at Doppler in hard-target radar is to assume it is a multiplication of the radar signal $s(t)$ with a simple single complex exponential
 
 \begin{equation}
 \label{simpledop}
@@ -52,7 +50,7 @@ s_d(t) = \int \left[\int S(\lambda)X(\lambda-\omega)d\lambda\right] e^{j\omega t
 
 \noindent This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of radar's signal along with the Doppler spectrum of the target.
 
-\section*{Applying the Model To Pulse Doppler Radar}
+\subsection{Applying the Model To Pulse Doppler Radar}
 
 In pulse-Doppler (PD) radar a succession of pulses are sent out modulated by the carrier frequency $f_c$.  Each pulse scatters off of the target and which imparts a Doppler frequency $\omega_d = 2\pi f_c \frac{2v}{c}$, where $v$ is the target velocity and $c$ is the speed of light.  This representation of the Doppler frequency is only valid if the target is non-relativistic.  In the case where we are looking at a single target the return of the $m^{th}$ pulse can be represented in the following way\cite{richards:fundamentalsigproc}
 
@@ -70,25 +68,21 @@ To get the final measurement of this spectrum often a Discrete Fourier transform
 \subsection{Applying the model to ISR}
 In some radar modalities the system is attempting to measure numerous targets.  The number of targets grows the scatters resemble more of a distribution than a single scatterer.  In the case of ISR the radar is trying to sample the velocity spectrum of the distribution of electrons in the upper atmosphere and ionosphere.  
 
-In ISR the goal of the system is often to sample what is called the ion-line spectrum.  From Dougherty and Farley's 1960 paper \cite{dougherty:farley1960} the normalized spectrum can be formulated as 
+In ISR the goal of the system is often to sample what is called the ion-line spectrum. The formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
+
 
 \begin{equation}
-\label{ionline}
-X(\theta) = \frac{e^{-\theta^2}}{\pi \theta^2 e^{-2\theta^2}+(2-I(\theta))^2},
+\label{eq:mainspeceq:body}
+\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
 \end{equation}
 
-\noindent where $\theta=(\omega/k)\sqrt{m_i/(2KT_i)}$, $K$ is Boltzman's Constant and $I(\theta)$ can be represented as the following:
-\begin{equation}
-\label{Ifunc}
-I(\theta) = 2\theta e^{-\theta^2}\int_0^\theta e^{t^2}dt.
-\end{equation}
-
+\noindent The full derivation of this can be seen in Appendix \ref{appendix1}.
 % make ISR spectra
 
 
-One can see in this formulation that the distribution is actually dependent on the thermal velocity of the ions $\sqrt{2KT_i/m_i}$.  If one multiplies this velocity by the wavenumber $k$ of the radar we actually get a Doppler frequency.  This term is basically a normalization of the frequency space of the distribution to what would be the Doppler of the average thermal speed.  The distribution $X(\theta)$ is basically the distribution of the scatterers at these different speeds.
+One can see in this formulation that the distribution is actually dependent on the thermal velocity of the ions $\sqrt{2KT_i/m_i}$.  If one multiplies this velocity by the wavenumber $k$ of the radar we actually get a Doppler frequency.  This term is basically a normalization of the frequency space of the distribution to what would be the Doppler of the average thermal speed. The distribution $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle $ is basically the distribution of the scatterers at these different speeds.
 
-To sample this spectrum one needs a process that can sample this frequency response.  Although the function in Equation \ref{ionline} has a number of assumptions built in one could still use it as a way to get a feel for what type of sampling frequencies are required.  If we look at Figure \ref{ionlinefig} we can see it seems to have no appreciable content beyond $3\omega_\theta$, thus one needs a sensor that can sample at a frequency of at least $6\omega_\theta$ if we are using the Nyquist theorem.  To give a rough example we can say that one wants to look at hydrogen ions at a  temperature 600 Kelvin with a sensor that has a center frequency of 450 MHz \footnotemark[1].  This will yield an $\omega_\theta/2\pi$ of about 2 kHz and in order to sample that spectrum one would need to sample at about 12 kHz just to get this spectrum.
+To sample this spectrum one needs a process that can sample this frequency response.  Although the function in Equation \ref{eq:mainspeceq:body} has a number of assumptions built in one could still use it as a way to get a feel for what type of sampling frequencies are required.  If we look at Figure \ref{fig:ispecch2} we can see it seems to have no appreciable content beyond $3\omega_\theta$, thus one needs a sensor that can sample at a frequency of at least $6\omega_\theta$ if we are using the Nyquist theorem.  To give a rough example we can say that one wants to look at hydrogen ions at a  temperature 600 Kelvin with a sensor that has a center frequency of 450 MHz \footnotemark[1].  This will yield an $\omega_\theta/2\pi$ of about 2 kHz and in order to sample that spectrum one would need to sample at about 12 kHz just to get this spectrum.
   
 \footnotetext[1]{This is a very simple example and probably not best for the ionosphere.  I probably should use Oxygen ions or some other species for this example.}
 
@@ -103,10 +97,17 @@ This is mainly because of what the different systems are trying to measure.  In 
 In ISR the target being observed is a distribution of scatterers with a fairly large Doppler bandwidth.  The large Doppler bandwidth along with the need to measure parameters at far ranges requires one to develop the Doppler spectrum using information that is available within a pulse.  The pulses themselves are basically used as samples in an averaging of the autocorrelation function to develop a statistically significant representation of the spectrum.
 \footnotetext[2]{ I need to work on the wording of this paragraph and add examples}
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=6in]{ionlinespec}
+\caption{ISR Spectrum.}
+\label{fig:ispecch2}
+\end{figure}
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}
 
+\subsection{ACF Estimation}
 After complex receiver voltage data has been created, it is processed to create estimates of the ACF at desired points of space. This type of processing has been detailed and analyzed by e.g. \cite{farley1969} and other authors \cite{nygren1996}. This processing follows a flow chart seen in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this manuscript.
 
 \begin{figure}[!t]
@@ -181,6 +182,8 @@ Finally, noise effects are included by subtracting an estimate of the noise corr
 After the final estimation of the spectrum is complete, nonlinear least squares fitting takes place to determine plasma parameters.  
 %\pcom{This entire section can be collapsed to one reference and saved for the thesis chapter.}%
 %{
+
+\subsection{Parameter Fitting}
 The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the Êminimization of a cost function of the form \cite{kayvol1},
 
 \begin{equation}
@@ -219,24 +222,24 @@ The last step is to calculate the errors in the parameter estimates. In order to
 
 
 %%
-%The diagonal values usually used, noted as $\sigma_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums.  The following formula from  \cite{nicollsisrschool2013} can be used:
+The diagonal values usually used, noted as $\sigma_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums.  The following formula from  \cite{nicollsisrschool2013} can be used:
 
-%\begin{equation}
-%\label{sigpow}
-%\sigma_i = \frac{S}{\sqrt{J}}\left(1+\frac{1}{SNR}\right).
-%\end{equation}
+\begin{equation}
+\label{sigpow}
+\sigma_i = \frac{S}{\sqrt{J}}\left(1+\frac{1}{SNR}\right).
+\end{equation}
 
-%\noindent where $S$ is the signal power and $SNR$ is the signal to noise ratio. The noise level can be estimated from the calibration period. 
+\noindent where $S$ is the signal power and $SNR$ is the signal to noise ratio. The noise level can be estimated from the calibration period. 
 
-%In the past, ISR researchers have used the Levenberg-Marquart algorithm to fit data \cite{nikoukar2008}. This specific iterative algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration\cite{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods Gradient Decent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
-%
-%\begin{equation}
-%\left[ \mathbf{J}^T\bm{\Sigma}^{-1}\mathbf{J}\right]\mathbf{h}_{lm} =\mathbf{J}^T\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p}))
-%\label{hlm}
-%\end{equation}
-%
-%\noindent where $\mathbf{J}$ is the Jacobian matrix $\partial \bm{\theta}/\partial \mathbf{p}$ \cite{levenberg1944,marquardt:1963}. 
-%
+In the past, ISR researchers have used the Levenberg-Marquart algorithm to fit data \cite{nikoukar2008}. This specific iterative algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration\cite{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods Gradient Decent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
+
+\begin{equation}
+\left[ \mathbf{J}^T\bm{\Sigma}^{-1}\mathbf{J}\right]\mathbf{h}_{lm} =\mathbf{J}^T\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p}))
+\label{hlm}
+\end{equation}
+
+\noindent where $\mathbf{J}$ is the Jacobian matrix $\partial \bm{\theta}/\partial \mathbf{p}$ \cite{levenberg1944,marquardt:1963}. 
+
 %Using the covariance matrix from the fitted parameters, an overall error estimate can be achieved. This matrix is calculated using a numerical approximation to the Jacobian matrix that the function uses to determine the solution. The Hessian, $\mathbf{H}$ is then calculated by using the Jacobian and then inverted to get the covariance matrix. Due to the way the numerical routines solve the problem, this matrix must be multiplied by the error between the estimated parameters and the data,
 %
 %\begin{equation}
