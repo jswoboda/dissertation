@@ -1,4 +1,4 @@
-\chapter{Incoherent Scatter Radar Processing}
+\chapter{Incoherent Scatter Radar Signal Model \& Processing}
 \label{chapter:isrproc}
 \thispagestyle{myheadings}
 
@@ -8,44 +8,86 @@
 \graphicspath{{2_ISRProc/Figures/}}
 
 %%%%%%%%%%%%%% Intro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This chapter will give the background on ISR and radar in general. The purpose is to develop the basic signal model and show 
-\section{Radar Basics}
-Radar is common remote sensing modality which has found diverse uses ranging from being used by police to monitor the speed of traffic \cite{richards2010principles}, to mapping the surface of planets in our solar system \cite{campbell2002radar}. The term radar itself is an acronym for radio detection and ranging, which the basic premise of these systems. These systems radiate electro-magnetic waves which reflect off of a target. These reflected waves are then received and processed by the system \cite{skolnik2008radar}. The radar system measures the range $R$, or the distance between the target and sensor, by simply measuring the round trip time $\Delta T$ and using the following conversion,
+
+This chapter will give the background on the signal model and processing aspects of ISR. The purpose is to develop the signal model of a pulsed radar systems and then show how that can be extended to the case of incoherent scatter radar. After that the processing that takes place for these systems will be described. 
+
+\section{Incoherent Scatter}
+
+
+In some radar modalities the system is attempting to measure numerous targets.  The number of targets grows the scatters resemble more of a distribution than a single scatterer.  In the case of ISR the radar is trying to sample the velocity spectrum of the distribution of electrons in the upper atmosphere and ionosphere.  
+
+In ISR the goal of the system is often to sample what is called the ion-line spectrum. The formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
+
+
+\begin{equation}
+\label{eq:mainspeceq:body}
+\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
+\end{equation}
+
+\noindent The full derivation of this can be seen in Appendix \ref{appendix1}.
+% make ISR spectra
+
+
+One can see in this formulation that the distribution is actually dependent on the thermal velocity of the ions $\sqrt{K_b(T_e+3T_i)/m_i}$ \cite{chen1984introduction}.  If one multiplies this velocity by the wavenumber $k$ of the radar we actually get a Doppler frequency.  This term is basically a normalization of the frequency space of the distribution to what would be the Doppler of the average thermal speed. The distribution $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle $ is basically the distribution of the scatterers at these different speeds.
+
+
+\section{Radar Signal Processing}
+ISR systems like other pulsed radar systems radiate a signal,$y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid,
+
+\begin{equation}
+\label{eqn:sigone}
+y(t)=s(t)e^{j2\pi f_0 t}
+\end{equation}
+\noindent where $f_0$ is the transmit frequency in Hz. This transmit frequency can also be equivalently as $ f_0=c/\lambda_0$, where $\lambda_0$ is the wavelength of the transmitted wave and $c$ is the speed of light. This return signal, reflected off of a target, which assuming for now has no motion,
+
+\begin{equation}
+\label{eqn:sigone}
+y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta t)}
+\end{equation}
+
+\noindent where $\Delta T$ round trip time and is $A_0$  is an amplitude of which is amplitude factor including propagation losses and target reflectivity \cite{richards:fundamentalsigproc}. The radar system measures the range $R$, or the distance between the target and sensor, by simply measuring the and using the following conversion,
 
 \begin{equation}
 \label{eqn:range_intro}
-R=\frac{c\Delta T}{2}
+R=\frac{c\Delta T}{2}.
 \end{equation}
 
-\noindent where $c$ is the speed of light \cite{richards2010principles}.
+\noindent Lastly, the signal is demodulated down to base band and it becomes the following
 
-Another quantity that can be measured is the The main way to look at Doppler in hard-target radar is to assume it is a multiplication of the radar signal $s(t)$ with a simple single complex exponential
+\begin{equation}
+\label{eqn:baseband}
+x(t)=A_0s(t-\Delta t)e^{-j2\pi\Delta t}
+\end{equation}
+
+Another quantity that can be measured is the line of sight or Doppler velocity. The Doppler for this specific case acts multiplication of the radar signal $s(t)$ with a simple single complex exponential
 
 \begin{equation}
 \label{simpledop}
-s_d(t) = s(t)e^{j\omega_d t},
+x_d(t) = x(t)e^{j2\pi f_d t},
 \end{equation}
  
-\noindent where $\omega_d$ is the Doppler frequency of the target or object.  If we say have multiple targets each with their own Doppler frequency and their own weighting, which would represent a relative scattering to each components,  we can represent that signal as the following
+\noindent where $\omega_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
+
+With ISR a distribution of electrons are actually being probed, so we have more than one target. A better model would be set of scatters each with their weighted return and Doppler frequency, which can be represented as the following
 
 \begin{equation}
 \label{multiDop}
-\displaystyle s_d(t) = \sum_{n}^{N} s(t)X(\omega_n)e^{j\omega_{n} t}.
+\displaystyle x_d(t) = \sum_{n}^{N} x(t)V_ne^{j2\pi f_{n} t}.
 \end{equation}
 
-\noindent Extending this to a continuum of signals each at each Doppler frequency this becomes
+\noindent This then can be extended to a continuum of signals each at each Doppler frequency which becomes
 
 \begin{equation}
 \label{conDop}
-s_d(t) = \int s(t) X(\omega)e^{j\omega t}.
+x_d(t) = \int x(t) V(f)e^{j2\pi ft}.
 \end{equation}
-\noindent Pulling the $s(t)$ term out of the integral we can see that we are taking the Fourier transform of this relative weighting between each of the scatters and then multiplying it with the signal.  Using simple Fourier properties we can see that this equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
+\noindent Pulling the $x(t)$ term out of the integral we can see that we are taking the Fourier transform of this relative weighting between each of the scatters and then multiplying it with the signal.  Using simple Fourier properties we can see that this equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
 
 The final form of the signal spectrum with Doppler added can be shown as the following
 
 \begin{equation}
 \label{finalDop}
-s_d(t) = \int \left[\int S(\lambda)X(\lambda-\omega)d\lambda\right] e^{j\omega t}d\omega.
+x_d(t) = \int \left[\int X(\lambda)V(\lambda-\omega)d\lambda\right] e^{j\omega t}d\omega.
 \end{equation}
 
 \noindent This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of radar's signal along with the Doppler spectrum of the target.
@@ -66,21 +108,6 @@ To get the final measurement of this spectrum often a Discrete Fourier transform
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Applying the model to ISR}
-In some radar modalities the system is attempting to measure numerous targets.  The number of targets grows the scatters resemble more of a distribution than a single scatterer.  In the case of ISR the radar is trying to sample the velocity spectrum of the distribution of electrons in the upper atmosphere and ionosphere.  
-
-In ISR the goal of the system is often to sample what is called the ion-line spectrum. The formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
-
-
-\begin{equation}
-\label{eq:mainspeceq:body}
-\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
-\end{equation}
-
-\noindent The full derivation of this can be seen in Appendix \ref{appendix1}.
-% make ISR spectra
-
-
-One can see in this formulation that the distribution is actually dependent on the thermal velocity of the ions $\sqrt{2KT_i/m_i}$.  If one multiplies this velocity by the wavenumber $k$ of the radar we actually get a Doppler frequency.  This term is basically a normalization of the frequency space of the distribution to what would be the Doppler of the average thermal speed. The distribution $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle $ is basically the distribution of the scatterers at these different speeds.
 
 To sample this spectrum one needs a process that can sample this frequency response.  Although the function in Equation \ref{eq:mainspeceq:body} has a number of assumptions built in one could still use it as a way to get a feel for what type of sampling frequencies are required.  If we look at Figure \ref{fig:ispecch2} we can see it seems to have no appreciable content beyond $3\omega_\theta$, thus one needs a sensor that can sample at a frequency of at least $6\omega_\theta$ if we are using the Nyquist theorem.  To give a rough example we can say that one wants to look at hydrogen ions at a  temperature 600 Kelvin with a sensor that has a center frequency of 450 MHz \footnotemark[1].  This will yield an $\omega_\theta/2\pi$ of about 2 kHz and in order to sample that spectrum one would need to sample at about 12 kHz just to get this spectrum.
   
