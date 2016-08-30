@@ -13,14 +13,21 @@ This chapter will give the background on the signal model and processing aspects
 
 \section{Incoherent Scatter}
 
-When electrons are freed from their bonds as in a plasma they can oscillate and act as a dipole. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave, this is known as Thomson scatter. This radiation, when taken as a collection of scatters from a large set of electrons, varies in time, $t$, with the fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector. In the far-field condition the Bragg vector is defined as the following,
+When electrons are freed from their bonds as in a plasma they can oscillate and act as a dipole. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave, this is known as Thomson scatter. This radiation, when taken as a collection of scatters from a large set of electrons, varies in time, $t$, with the fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector  \cite{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as the following,
 
 \begin{equation}
 \label{eqn:bragg}
 \mathbf{k}=\mathbf{k}_s-\mathbf{k}_i,
 \end{equation}
 
-\noindent where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \cite{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where is the spatial Fourier transform of the $n_e(\mathbf{r},t)$ where $\mathbf{r}$ is the position vector.
+\noindent where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \cite{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where is the spatial Fourier transform of $n_e(\mathbf{r},t)$ where $\mathbf{r}$ is the position vector. As these charges move the scattered wave are given a Doppler shift based off of their velocity, $\mathbf{v}$ along the Bragg vector. This Doppler shift in frequency can be represented as the following 
+
+\begin{equation}
+\label{eqn:dop1}
+\omega=\mathbf{k} \cdot \mathbf{v},
+\end{equation}
+
+\noindent where $\omega$ is the frequency shift from the velocity along the Bragg vector \cite{sheffield2010}. In the end $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
 
 These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Even though incoherent scatter is driven through a random process can give a number of different pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops and a power spectral density can be formed. In the end the incoherent scatter can give us a measurement of the power spectral density of the electron density, $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
 
@@ -42,7 +49,7 @@ There have been a number of derivations of this process since the development of
 \label{fig:ispecch2}
 \end{figure}
 
-The IS spectrum has a number of different sections separated in frequency but for this thesis we will focus on the "ion line." This naming is due to the IS spectrum is showing a damped version of ion acoustic waves,
+The IS spectrum has a number of different sections separated in frequency but for this thesis we will focus on the "ion line" shown in Figure \ref{fig:ispecch2}. This naming is due to the IS spectrum is showing a damped version of ion acoustic waves,
 
 \begin{equation} 
 \label{eqn:ial}
@@ -65,7 +72,7 @@ y(t)=s(t)e^{j2\pi f_0 t}
 y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta t)}
 \end{equation}
 
-\noindent where $\Delta T$ round trip time and is $A_0$  is an amplitude of which is amplitude factor including propagation losses and target reflectivity \cite{richards:fundamentalsigproc}. The radar system measures the range $R$, or the distance between the target and sensor, by simply measuring the and using the following conversion,
+\noindent where $\Delta T$ round trip time and is $A_0$  is an amplitude of which is amplitude factor including propagation losses and target reflectivity \cite{richards2014fundamentals}. The radar system measures the range $R$, or the distance between the target and sensor, by simply measuring the and using the following conversion,
 
 \begin{equation}
 \label{eqn:range_intro}
@@ -107,41 +114,25 @@ The final form of the signal spectrum with Doppler added can be shown as the fol
 
 \begin{equation}
 \label{finalDop}
-x_d(t) = \int \left[\int X(\lambda)V(\lambda-\omega)d\lambda\right] e^{j\omega t}d\omega.
+x_d(t) = \int \left[\int X(\lambda)V(\lambda-f)d\lambda\right] e^{j\omega t}df.
 \end{equation}
 
 \noindent This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of radar's signal along with the Doppler spectrum of the target.
 
 \subsection{Doppler Measurement}
 
-Using a pulsed radar systems one can measure Doppler in a two main ways. A more common
-In pulse-Doppler (PD) radar a succession of pulses are sent out modulated by the carrier frequency $f_c$.  Each pulse scatters off of the target and which imparts a Doppler frequency $\omega_d = 2\pi f_c \frac{2v}{c}$, where $v$ is the target velocity and $c$ is the speed of light.  This representation of the Doppler frequency is only valid if the target is non-relativistic.  In the case where we are looking at a single target the return of the $m^{th}$ pulse can be represented in the following way\cite{richards:fundamentalsigproc}
+Pulsed radar systems are able to measure the Doppler spectrum of target, and to show ISR systems perform this two methods will be focused on. The first, pulse-Doppler, sends out a set of pulses, which scatter off of the target, and when received are then binned into a two dimensional array representing range and interpulse period (IPP). Then a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. In order to avoid any sort of aliasing, or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. A power spectrum is formed then by taking squared magnitude of the full range-Doppler map. The other method entails forming a measurement of the autocorrelation function (ACF) with in the IPP. A DFT across the lags is taken to then get the Doppler spectrum The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}.
+
+Both of these measurements have trade offs. Using the pulse-Doppler method, a phase coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. Still, the Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise, if returns from a previous pulse fall into a the wrong range bin due to a target that is far away. The maximum unambiguous range, $R_a$, can be represented as 
 
 \begin{equation}
-\label{pdpulse}
-y(t) =  A(t)e^{j\phi}e^{j\omega_dmT},
+\label{eqn:maxuar}
+R_a = c \frac{T}{2}
 \end{equation}
 
-\noindent where $T$ is the pulse repetition interval (PRI).  In this case each pulse is sampling the Doppler spectrum at a rate of the pulse repetition frequency (PRF).  Using traditional PD processing the PRF determines the maximum unambiguous Doppler frequency.  For example if one wants a system with a carrier frequency of 10 GHz that will resolve a target going the speed of sound with aliasing in Doppler (approximately 340 m/s) that system must have a PRF greater than 45 kHz if one uses the Nyquist theorem.   
+\noindent where $T$ is the IPP time. The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broad band spectrum without having to decrease the unambiguous range \cite{richards2014fundamentals}.
 
-To get the final measurement of this spectrum often a Discrete Fourier transform is applied.  When the data arrives to the radar it is sampled in to specific range gates and pulse samples.  Pulse compression is applied across range to help to localize the signal in range.  This operation is basically applying a filter that is the time reversed conjugate of the base band pulse.  After pulse compression operation Discrete Fourier Transforms are taken across the pulse dimension in each range bin.   The final result is commonly referred to as a range-Doppler map.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Applying the model to ISR}
-
-To sample this spectrum one needs a process that can sample this frequency response.  Although the function in Equation \ref{eq:mainspeceq:body} has a number of assumptions built in one could still use it as a way to get a feel for what type of sampling frequencies are required.  If we look at Figure \ref{fig:ispecch2} we can see it seems to have no appreciable content beyond $3\omega_\theta$, thus one needs a sensor that can sample at a frequency of at least $6\omega_\theta$ if we are using the Nyquist theorem.  To give a rough example we can say that one wants to look at hydrogen ions at a  temperature 600 Kelvin with a sensor that has a center frequency of 450 MHz \footnotemark[1].  This will yield an $\omega_\theta/2\pi$ of about 2 kHz and in order to sample that spectrum one would need to sample at about 12 kHz just to get this spectrum.
-
-If one were to use a pulse-Doppler sort of approach to sampling the process used in the previous example one would need a PRF of about 12KHz.  This PRF would only allow the pulse scatter off of a targets that are no more farther then 125km out.  This would not work for ionosphere measurement when one want to measure out 700km. 
-
-In order to measure this spectrum ISR systems often use an intra-pulse autocorrelation method to measure the Ion-line spectrum.  To do this a pulse with a long time width is sent.  The length is often on the order of a number of range bins.  It is assumed that the plasma from different range's is uncorrelated but since the pulse is longer than a range bin energy scattered from other ranges are summed into other range bins.  Once the correlations are formed a Fourier transform is taken of the autocorrelation functions (ACF), thus yielding a power spectrum for each range.  This operation can also be described in terms of a Wigner-Ville distribution in that we are taking the Fourier transform of a time dependent correlation.\footnotemark[2] This spectrum is again the Doppler spectrum of the distribution of targets though and one is left with a range-Doppler map.
-
-In a sense pulse-Doppler and ISR are attempting to measure the same quality, a Doppler spectrum of some target but they just have different measurement methods.  In PD radar the Doppler spectrum is measured across the pulses while in ISR the Doppler spectrum is measured within the pulse itself.  
-
-This is mainly because of what the different systems are trying to measure.  In most PD systems the required sample rate of the Doppler does not cause high enough PRFs to cause range ambiguities.  Also in detection systems where point targets are being detected range (and Doppler) ambiguities can often be corrected.
-
-In ISR the target being observed is a distribution of scatterers with a fairly large Doppler bandwidth.  The large Doppler bandwidth along with the need to measure parameters at far ranges requires one to develop the Doppler spectrum using information that is available within a pulse.  The pulses themselves are basically used as samples in an averaging of the autocorrelation function to develop a statistically significant representation of the spectrum.
-\footnotetext[2]{ I need to work on the wording of this paragraph and add examples}
+ When designing a radar system moving target indication (MTI), targets can often be approximated as delta or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. The ionosphere, cannot be thought of as compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, we see that the signal is at least 20kHz in bandwidth which will will require the same frequency for the pulses. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method. There are still cases of ISR systems that use a pulses Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
 
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
