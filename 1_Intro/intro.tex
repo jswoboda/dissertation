@@ -13,12 +13,12 @@ Until recently these systems were constructed using single, mechanically steered
 
  
 \section{Purpose}
-Some of the basics of ISR will be introduced in the following section. After which there will be a short discussion of the ionosphere and some of the phenomena that researchers use these systems to observe. Although the physics behind the ionosphere will not be discussed in detail, the section will help to elucidate some of properties of the system that will be studied. Following this will be a short introduction to some of the basic precepts behind inverse theory as used by engineers and scientists to analyze and improve the output of sensors.
+Some of the basics of ISR will be introduced in the following section along with information on new developments that has expanded the capabilities of the the sensor modality. After which there will be a short discussion of the ionosphere and some of the phenomena that researchers use these systems to observe. Although the physics behind the ionosphere will not be discussed in detail, the section will help to elucidate some of properties of the system that will be studied. Following this will be a short introduction to some of the basic precepts behind inverse and image reconstruction as used by engineers and scientists to analyze and improve the output of sensors.
 
-\subsection{Incoherent Scatter Radar}
+\subsection{ISR as a 3-D Sensor}
 Radar is common remote sensing modality which has found diverse uses ranging from being used by police to monitor the speed of traffic \cite{richards2010principles}, to mapping the surface of planets in our solar system \cite{campbell2002radar}. In order to produce plasma parameter measurements ISR systems radiate electromagnetic energy and monitor the reflected signal from free electrons in the ionosphere, or observe from other radiation sources in bistatic operation. This scatter has a specific spectral distribution which is driven by the values of the temperatures, densities and bulk flow of the plasma in the ionosphere. As such the two main steps in processing is the estimation of a power spectrum or autocorrelation function (ACF) and then fitting that to a physics based model at each point in time and space that the radar samples. 
 
-As stated previously ESPA antennas can create three dimensional reconstructions of plasma parameters. Examples of these new systems include The Advance Modular Incoherent Scatter Radars (AMISR), that have been developed and placed in Poker Flat Alaska and in Resolute Bay Canada \cite{Semeter2009738}. These systems are colloquially known in the research community as Poker Flat Incoherent Scatter Radar (PFISR), seen in Figure \ref{fig:amisrpic}, and Resolute Bay Incoherent Scatter Radar (RISR). These systems have already started to give unprecedented views in the ionosphere and upper atmosphere and allowed for new types of measurements that were not possible before \cite{semeter2010CI,butler:imagingfregiondrifts,Nicolls:2007ie}. Currently EISCAT-3D is being developed as well and is expect do give even greater views due to the multi-static set up \cite{eiscat3ddesign}.
+As stated previously ESPA antennas can create three dimensional reconstructions of plasma parameters. Examples of these new systems include The Advance Modular Incoherent Scatter Radars (AMISR), that have been developed and placed in Poker Flat Alaska and in Resolute Bay Canada \cite{Semeter2009738}. These systems are colloquially known in the research community as Poker Flat Incoherent Scatter Radar (PFISR), seen in Figure \ref{fig:amisrpic}, and Resolute Bay Incoherent Scatter Radar (RISR). These systems have already started to give unprecedented views in the ionosphere and upper atmosphere and allowed for new types of measurements that were not possible before \cite{semeter2010CI,butler:imagingfregiondrifts,Nicolls:2007ie}. %Currently EISCAT-3D is being developed as well and is expect do give even greater views due to the multi-static set up \cite{eiscat3ddesign}.
 
 \begin{figure}[!t]
 \centering
@@ -27,6 +27,8 @@ As stated previously ESPA antennas can create three dimensional reconstructions 
 \label{fig:amisrpic}
 \end{figure}
 
+\subsubsection{Objectives related to 3-D ISR}
+There a large number of studies that have used ISR to reconstruct two and three dimensional fields of plasma parameters. Some studies use various types of interpolation to try to stitch together a picture from the one dimensional beams, which give a one dimensional view along range\cite{Semeter2009738,Butler:2013ul,Semeter:2005fo}. Others have taken a tact closer to inverse theory and image reconstruction to create reconstruction of velocity fields of bulk flows or electric fields \cite{butler:imagingfregiondrifts,RDS:RDS20195}. Still, these publications do not get to the core details of reconstructing the plasma parameters themselves. Interpolations can help visualize the data but they make a lot of assumptions about the underlying imaging process. The goal of this thesis is to present a first principles model of ISR as a three dimensional sensor and use it to create better reconstructions of the plasma parameters.
 
 \subsection{Ionosphere and Phenomena}
 The ionosphere is the area of partially ionized gas, or plasma, surrounding the earth and in a way is like an interface between the earth and outer space \cite{kellybook}. The dynamics of this system are governed by kinetic, fluid and Maxwells equations coupled together \cite{schunk2004ionospheres}. This complicated menagerie of equations allows for the creation of a cornucopia of different phenomena at any number of spatio-temporial scales \cite{Semeter:2008hs,Semeter2009738}.
@@ -64,26 +66,26 @@ The following is a listing of examples various types of high latitude ionosphere
 \end{figure}
 %These systems right now are all located in what can be considered the high latitude ionosphere.  This is a highly dynamic environment in both time and space.  The plasma can change very quickly due to the physics of the environment.  These types of events can be classified into a number of types that will be of interest to this type of sampling problem.
 
-\subsubsection{High Spatial Gradient Events}
-Polar cap patches are examples where of high spatial gradients in various plasma parameters \cite{Dahlgren:2012dq,dahlgren2012di}.  In the polar cap large blobs of plasma with elevated electron density travel from the dayside to the night side ionosphere.  These patches can play a large role in plasma transport within the polar ionosphere and interfere with radio transmission as well.  Examples of sensor data that show these patches can be seen in Figure \ref{fig:patches}.
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=4.0in]{patches}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-\caption{Example of polar cap patches seen in RISR and SuperDARN, from \cite{Dahlgren:2012dq}}
-\label{fig:patches}
-\end{figure}
-
-Large horizontal gradients also occur during geomagnetic storms which can produce large flows.  This can create large disparities in Ion temperature as heating is occurring \cite{Zettergren:2008ba,semeter:plasmatransport2012}.  During these storms ion temperatures can go from 500$^\circ$ K to over 1500$^\circ$ K in the order of kilometers.
-
-These high gradient events can cause some unpridictible errors where two plasma population interface.  These errors can be quite complex due to the nonlinear nature of the inversion process\cite{Vallinkoski1990665}.  Similar behavior has been observed during times of auroral turbulence where shear flows seems to have caused non isotropic temperature measurements\cite{knudsen1993}. 
-%\subsection*{Small Structure Events}
-%\cite{semeter2010CI}
-
-\subsubsection{Dynamic Phenomena}
+%\subsubsection{High Spatial Gradient Events}
+%Polar cap patches are examples where of high spatial gradients in various plasma parameters \cite{Dahlgren:2012dq,dahlgren2012di}.  In the polar cap large blobs of plasma with elevated electron density travel from the dayside to the night side ionosphere.  These patches can play a large role in plasma transport within the polar ionosphere and interfere with radio transmission as well.  Examples of sensor data that show these patches can be seen in Figure \ref{fig:patches}.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=4.0in]{patches}
+%% where an .eps filename suffix will be assumed under latex, 
+%% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+%% via \DeclareGraphicsExtensions.
+%\caption{Example of polar cap patches seen in RISR and SuperDARN, from \cite{Dahlgren:2012dq}}
+%\label{fig:patches}
+%\end{figure}
+%
+%Large horizontal gradients also occur during geomagnetic storms which can produce large flows.  This can create large disparities in Ion temperature as heating is occurring \cite{Zettergren:2008ba,semeter:plasmatransport2012}.  During these storms ion temperatures can go from 500$^\circ$ K to over 1500$^\circ$ K in the order of kilometers.
+%
+%These high gradient events can cause some unpredictable errors where two plasma population interface.  These errors can be quite complex due to the nonlinear nature of the inversion process\cite{Vallinkoski1990665}.  Similar behavior has been observed during times of auroral turbulence where shear flows seems to have caused non isotropic temperature measurements\cite{knudsen1993}. 
+%%\subsection*{Small Structure Events}
+%%\cite{semeter2010CI}
+%
+%\subsubsection{Dynamic Phenomena}
 
 The plasma parameters of the ionosphere can change on very short time scales. Researchers have explored a number of them but the focus of this section will be to two examples from the literature for the sake of brevity. These are representative of the types of challenges facing experimenters using ISR.
 
@@ -119,10 +121,13 @@ There are also a large number of dynamics and structure found in many auroral ev
 %Resolving these high speed events are of great interest but also a challenge.  In ISR systems each pulse is used as a sample of a spectral averaging procedure.  It is assumed that these spectrums are identical independent samples.  If spectrum changes during this time, errors in the measurement could take place.  These errors are often unpredictable due to the nonlinear fitting used to fit the spectrum with the plasma parameters.
  %\cite{Dahlgren:2013ip}
 %In the past researchers have studied errors associated with different plasma distributions mixing together.  These errors can be quite complex due to the nonlinear nature of the inversion process\cite{Vallinkoski1990665}.  Similar behavior has been observed during times of auroral turbulence where shear flows seems to have caused non isotropic temperature measurements\cite{knudsen1993}. 
+\subsubsection{Objectives related to the Phenomena of the Ionosphere}
+The main goal of using ISR is to get the most accurate reconstructions of plasma parameters possible. This research creates a framework with which researchers can use to improve their experiment planning. This frame work includes a simulator that can create synthetic ISR data which they can use to try different experiment set ups and reconstruction methods. Also used to test the simulation methods are high fidelity models of the ionosphere which can give a more realistic type of target model.
 
+\subsection{Image Reconstruction}
+Inverse theoretic image reconstruction gives engineers and scientists a robust frame work to determine the state of system parameters given a data set. This sort of frame work has been applied to numerous problems in science and engineering from X-Ray CT scanning \cite{kak1988principles} to synthetic aperture radar \cite{1456966}. In this thesis we will use this framework and techniques to improve the quality of the plasma parameter estimates from ISR.
 
-\subsection{Inverse Theory}
-Inverse theory gives engineers and scientists a robust frame work to determine the state of system parameters given a data set. Using the notation found in \cite{menke2012geophysical} a general inverse problem can be stated as follows,
+The main gaol of image reconstruction and inverse theory is to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical} a general inverse problem can be stated as follows,
 
 \begin{equation}
 \label{eqn:invprob}
@@ -134,6 +139,9 @@ Inverse theory gives engineers and scientists a robust frame work to determine t
 Although Equation \ref{eqn:invprob} gives a general framework this problem can be difficult to solve. Often, techniques used to solve inverse problems entail some assumption that can be made about the operator $\mathbf{g}$ such as linearity or that its well-posed \cite{0266-5611-4-4-010}. Still there are ways to get around this by doing things such as adding constraints or regularization to the inversion method \cite{Vogel:2002:CMI:581830}.
 
 ISR has in past been presented in this format, although this has mainly been for the case of a single beam \cite{Vierinen:2012ve}. ISR can be thought of a general inverse problem because of the non-linear operation that brings the plasma parameters to the ACF space. Two schools of thought have emerged which in the community on how to be constrain these inversions. The first, full profile analysis, uses plasma parameter constraints, which can give physical constraints to the inversion thus improving the outcome \cite{hysell2008,RDS:RDS3308}. The second set of techniques apply constraints on the estimated ACFs \cite{Virtanen:20082vx,nikoukar2008}, which is less expensive computationally but can create ACFs that cannot be created through IS theory.
+
+\subsubsection{Objectives related to the image reconstruction}
+This thesis will couch the estimation of 3-D ISR in the language of inverse theory. It will use techniques to improve the accuracy of the reconstruction of plasma parameters.
 
 \subsection{Outline of dissertation}
 

@@ -9,14 +9,22 @@
 
 %%%%%%%%%%%%%% Intro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This chapter will give the background on the signal model and processing aspects of ISR. The purpose is to develop the signal model of a pulsed radar systems and then show how that can be extended to the case of incoherent scatter radar. After that the processing that takes place for these systems will be described. 
+This chapter will give the background on the signal model and processing aspects of ISR. The first section will explore the physical  underpinning of the incoherent scatter signal from the ionosphere. The next section will detail the basics of radar processing and how the different types of measurements are made. Lastly, the specific processing that takes place in an ISR will be detailed.
 
 \section{Incoherent Scatter}
 
+When electrons are freed from their bonds as in a plasma they can oscillate and act as a dipole. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave, this is known as Thomson scatter. This radiation, when taken as a collection of scatters from a large set of electrons, varies in time, $t$, with the fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector. In the far-field condition the Bragg vector is defined as the following,
 
-In some radar modalities the system is attempting to measure numerous targets.  The number of targets grows the scatters resemble more of a distribution than a single scatterer.  In the case of ISR the radar is trying to sample the velocity spectrum of the distribution of electrons in the upper atmosphere and ionosphere.  
+\begin{equation}
+\label{eqn:bragg}
+\mathbf{k}=\mathbf{k}_s-\mathbf{k}_i,
+\end{equation}
 
-In ISR the goal of the system is often to sample what is called the ion-line spectrum. The formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
+\noindent where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \cite{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where is the spatial Fourier transform of the $n_e(\mathbf{r},t)$ where $\mathbf{r}$ is the position vector.
+
+These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Even though incoherent scatter is driven through a random process can give a number of different pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops and a power spectral density can be formed. In the end the incoherent scatter can give us a measurement of the power spectral density of the electron density, $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
+
+There have been a number of derivations of this process since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. For this thesis we will use the formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
 
 
 \begin{equation}
@@ -24,15 +32,27 @@ In ISR the goal of the system is often to sample what is called the ion-line spe
 \langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
 \end{equation}
 
-\noindent The full derivation of this can be seen in Appendix \ref{appendix1}.
+\noindent The full derivation of this can be seen in Appendix \ref{appendix1} but an example of this spectrum, with a $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, can be seen in Figure \ref{fig:ispecch2}. 
 % make ISR spectra
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3in]{Specion}
+\caption{ISR Spectrum showing the ion line.}
+\label{fig:ispecch2}
+\end{figure}
 
-One can see in this formulation that the distribution is actually dependent on the thermal velocity of the ions $\sqrt{K_b(T_e+3T_i)/m_i}$ \cite{chen1984introduction}.  If one multiplies this velocity by the wavenumber $k$ of the radar we actually get a Doppler frequency.  This term is basically a normalization of the frequency space of the distribution to what would be the Doppler of the average thermal speed. The distribution $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle $ is basically the distribution of the scatterers at these different speeds.
+The IS spectrum has a number of different sections separated in frequency but for this thesis we will focus on the "ion line." This naming is due to the IS spectrum is showing a damped version of ion acoustic waves,
 
+\begin{equation} 
+\label{eqn:ial}
+\omega=k_0\sqrt{K_b(T_e+3T_i)/m_i}
+\end{equation}
+
+ \noindent where $k_0$ is the wavenumber, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species, $T_e$ and $T_i$ are the temperatures of the electron and ions \cite{chen1984introduction}. Other plasma wave modes can be view but ion acoustic mode returns the most power and can give information on both electron and ions.
 
 \section{Radar Signal Processing}
-ISR systems like other pulsed radar systems radiate a signal,$y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid,
+ISR systems like other pulsed radar systems radiate a signal, $y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid,
 
 \begin{equation}
 \label{eqn:sigone}
@@ -79,7 +99,7 @@ With ISR a distribution of electrons are actually being probed, so we have more 
 
 \begin{equation}
 \label{conDop}
-x_d(t) = \int x(t) V(f)e^{j2\pi ft}.
+x_d(t) = \int x(t) V(f)e^{j2\pi ft} df.
 \end{equation}
 \noindent Pulling the $x(t)$ term out of the integral we can see that we are taking the Fourier transform of this relative weighting between each of the scatters and then multiplying it with the signal.  Using simple Fourier properties we can see that this equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
 
@@ -92,8 +112,9 @@ x_d(t) = \int \left[\int X(\lambda)V(\lambda-\omega)d\lambda\right] e^{j\omega t
 
 \noindent This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of radar's signal along with the Doppler spectrum of the target.
 
-\subsection{Applying the Model To Pulse Doppler Radar}
+\subsection{Doppler Measurement}
 
+Using a pulsed radar systems one can measure Doppler in a two main ways. A more common
 In pulse-Doppler (PD) radar a succession of pulses are sent out modulated by the carrier frequency $f_c$.  Each pulse scatters off of the target and which imparts a Doppler frequency $\omega_d = 2\pi f_c \frac{2v}{c}$, where $v$ is the target velocity and $c$ is the speed of light.  This representation of the Doppler frequency is only valid if the target is non-relativistic.  In the case where we are looking at a single target the return of the $m^{th}$ pulse can be represented in the following way\cite{richards:fundamentalsigproc}
 
 \begin{equation}
@@ -110,8 +131,6 @@ To get the final measurement of this spectrum often a Discrete Fourier transform
 \subsection{Applying the model to ISR}
 
 To sample this spectrum one needs a process that can sample this frequency response.  Although the function in Equation \ref{eq:mainspeceq:body} has a number of assumptions built in one could still use it as a way to get a feel for what type of sampling frequencies are required.  If we look at Figure \ref{fig:ispecch2} we can see it seems to have no appreciable content beyond $3\omega_\theta$, thus one needs a sensor that can sample at a frequency of at least $6\omega_\theta$ if we are using the Nyquist theorem.  To give a rough example we can say that one wants to look at hydrogen ions at a  temperature 600 Kelvin with a sensor that has a center frequency of 450 MHz \footnotemark[1].  This will yield an $\omega_\theta/2\pi$ of about 2 kHz and in order to sample that spectrum one would need to sample at about 12 kHz just to get this spectrum.
-  
-\footnotetext[1]{This is a very simple example and probably not best for the ionosphere.  I probably should use Oxygen ions or some other species for this example.}
 
 If one were to use a pulse-Doppler sort of approach to sampling the process used in the previous example one would need a PRF of about 12KHz.  This PRF would only allow the pulse scatter off of a targets that are no more farther then 125km out.  This would not work for ionosphere measurement when one want to measure out 700km. 
 
@@ -124,12 +143,6 @@ This is mainly because of what the different systems are trying to measure.  In 
 In ISR the target being observed is a distribution of scatterers with a fairly large Doppler bandwidth.  The large Doppler bandwidth along with the need to measure parameters at far ranges requires one to develop the Doppler spectrum using information that is available within a pulse.  The pulses themselves are basically used as samples in an averaging of the autocorrelation function to develop a statistically significant representation of the spectrum.
 \footnotetext[2]{ I need to work on the wording of this paragraph and add examples}
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=6in]{ionlinespec}
-\caption{ISR Spectrum.}
-\label{fig:ispecch2}
-\end{figure}
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}
