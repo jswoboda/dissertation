@@ -53,7 +53,7 @@ The IS spectrum has a number of different sections separated in frequency but fo
 
 \begin{equation} 
 \label{eqn:ial}
-\omega=k_0\sqrt{K_b(T_e+3T_i)/m_i}
+\omega=k_0\sqrt{\frac{K_b(T_e+3T_i)}{m_i}}
 \end{equation}
 
  \noindent where $k_0$ is the wavenumber, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species, $T_e$ and $T_i$ are the temperatures of the electron and ions \cite{chen1984introduction}. Other plasma wave modes can be view but ion acoustic mode returns the most power and can give information on both electron and ions.
@@ -137,9 +137,11 @@ R_a = c \frac{T}{2}
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}
-
+\label{section:isrproc}
+The processing steps to create plasma parameter measurements from complex voltage data will covered in this section. First the method to estimate the ACF from an uncoded long pulse will be described. The second part will discuss how the plasma parameters are fit to the ACFs and how the expected errors are derived. 
+ 
 \subsection{ACF Estimation}
-After complex receiver voltage data has been created, it is processed to create estimates of the ACF at desired points of space. This type of processing has been detailed and analyzed by e.g. \cite{farley1969} and other authors \cite{nygren1996}. This processing follows a flow chart seen in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this manuscript.
+After complex receiver voltage data has been created, it is processed to create estimates of the ACF at desired points of space. This type of processing has been detailed and analyzed by e.g. \cite{farley1969} and other authors \cite{nygren1996}. This processing follows a flow chart seen in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis. More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this manuscript.
 
 \begin{figure}[!t]
 \centering
