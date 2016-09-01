@@ -12,4 +12,19 @@ This chapter will describe methods developed to invert the ISR space-time ambigu
 
 \section{Method Description}
 
+As discussed in Section \ref{sec:imgrec}, the main trade-off between the two approaches is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from are not useful. With data-based regularization techniques the computational requirements are significantly lowered as on is performing a linear inversion. Still this can lead to estimated ACFs that can not be created by the incoherent scattering operator.
+
+In order to reconstruct the field of plasma parameter values we treat the space-time ambiguity as a linear operator. This allows for the use of inversion schemes from image processing. In this case objective function will be 
+
+\begin{equation}
+\label{eqn:lstsqrs:opt}
+\argmin\limits_{R} \| y_s(\tau_s,\mathbf{r}_s,t_s)- \int L(\tau_s,\mathbf{r}_s,t_s,\tau,\mathbf{r},t)R(\tau,\mathbf{r},t)dVdtd\tau \|^2.
+\end{equation}
+
+\noindent If Equation \ref{eqn:lstsqrs:opt} is discretized and the data and input lags are rasterized into a vector format it becomes 
+
+\begin{equation}
+\label{eqn:lstsqrs:disc}
+\argmin\limits_{\mathbf{r}} \| \mathbf{y_s} -\mathbf{ L}\mathbf{r} \|^2.
+\end{equation}
 \section{Simulation Examples}
