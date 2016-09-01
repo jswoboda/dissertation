@@ -127,12 +127,12 @@ Both of these measurements have trade offs. Using the pulse-Doppler method, a ph
 
 \begin{equation}
 \label{eqn:maxuar}
-R_a = c \frac{T}{2}
+R_a =  \frac{cT}{2}
 \end{equation}
 
 \noindent where $T$ is the IPP time. The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broad band spectrum without having to decrease the unambiguous range \cite{richards2014fundamentals}.
 
- When designing a radar system moving target indication (MTI), targets can often be approximated as delta or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. The ionosphere, cannot be thought of as compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, we see that the signal is at least 20kHz in bandwidth which will will require the same frequency for the pulses. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method. There are still cases of ISR systems that use a pulses Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
+ When designing a moving target indicator (MTI) radar system, targets can often be approximated as delta or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. The ionosphere, cannot be thought of as compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, we see that the signal is at least 20kHz in bandwidth which will will require the same frequency for the pulses. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method. %There are still cases of ISR systems that use a pulses Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
 
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,7 +183,7 @@ Applying a summation rule is generally the next step in creating an estimate of 
 \noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \cite{nygren1996}. 
 
 % pcom checked for variables, already defined
-However, the final result of this summation rule will still lead to a biased ACF. For the uncoded waveform case, this summation rule leads to the ollowing expected value for the estimator \cite{nygren1996},
+However, the final result of this summation rule will still lead to a biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \cite{nygren1996},
 
 \begin{equation}
 \label{eq:sumruleest}
@@ -240,7 +240,14 @@ The last step is to calculate the errors in the parameter estimates. In order to
 %\bm{\Sigma}_{\mathbf{\hat{p}}}=\frac{(\mathbf{J}^T\mathbf{J})^{-1} (\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))^*\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))}{L-N_{\mathbf{p}}},
 %\end{equation}
 
-\noindent where $ \mathbf{C}$ is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The variances of the parameters are then taken as the diagonals of the matrix.
+\noindent where $ \mathbf{C}$ is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, 
+
+\begin{equation}
+\label{eqn:covcalc}
+C_{\tau_1,\tau_2} = \frac{1}{2J} \left( \ R(0)  R^*(\tau_1-\tau_2) +  R(\tau_1) R^*(\tau_2) \right),
+\end{equation}
+
+\noindent while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The variances of the parameters are then taken as the diagonals of the matrix.
 
 
 %The correlation matrix $\bm{\Sigma}$ is often realized as a diagonal matrix for many ISR systems the variance of the lags or each point of the spectrum being the values. The variance of the ACF estimator can be estimated using the following,
