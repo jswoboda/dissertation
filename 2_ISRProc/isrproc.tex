@@ -72,11 +72,11 @@ y(t)=s(t)e^{j2\pi f_0 t}
 y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta t)}
 \end{equation}
 
-\noindent where $\Delta T$ round trip time and is $A_0$  is an amplitude of which is amplitude factor including propagation losses and target reflectivity \cite{richards2014fundamentals}. The radar system measures the range $R$, or the distance between the target and sensor, by simply measuring the and using the following conversion,
+\noindent where $\Delta T$ round trip time and is $A_0$  is an amplitude of which is amplitude factor including propagation losses and target reflectivity \cite{richards2014fundamentals}. The radar system measures the range $r$, or the distance between the target and sensor, by simply measuring the and using the following conversion,
 
 \begin{equation}
 \label{eqn:range_intro}
-R=\frac{c\Delta T}{2}.
+r=\frac{c\Delta T}{2}.
 \end{equation}
 
 \noindent Lastly, the signal is demodulated down to base band and it becomes the following
@@ -95,12 +95,15 @@ x_d(t) = x(t)e^{j2\pi f_d t},
  
 \noindent where $\omega_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
 
+
+
 With ISR a distribution of electrons are actually being probed, so we have more than one target. A better model would be set of scatters each with their weighted return and Doppler frequency, which can be represented as the following
 
 \begin{equation}
 \label{multiDop}
 \displaystyle x_d(t) = \sum_{n}^{N} x(t)V_ne^{j2\pi f_{n} t}.
 \end{equation}
+
 
 \noindent This then can be extended to a continuum of signals each at each Doppler frequency which becomes
 
@@ -119,20 +122,41 @@ x_d(t) = \int \left[\int X(\lambda)V(\lambda-f)d\lambda\right] e^{j\omega t}df.
 
 \noindent This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of radar's signal along with the Doppler spectrum of the target.
 
+
+This model can be extended to a much more general form from being just at a single range to being spread across range
+\begin{equation}
+\label{eqn:scateqn}
+x(t)= \int \int V(\mu,f)s(t-\mu)e^{j2\pi f t} d \mu df,
+\end{equation}
+
+\noindent where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
+
+This creates two classes of targets, by what will be called is called their range bandwidth product. For the case of an an \textit{underspread} target,
+
+\begin{equation}
+\label{eqn:trp}
+B\frac{2r}{c}<1,
+\end{equation}
+
+\noindent where $B$ is the Doppler bandwidth \cite{Pfander:2015ea}. The case of the \textit{overspread} target occurs when this inequality does not hold.
 \subsection{Doppler Measurement}
 
 Pulsed radar systems are able to measure the Doppler spectrum of target, and to show ISR systems perform this two methods will be focused on. The first, pulse-Doppler, sends out a set of pulses, which scatter off of the target, and when received are then binned into a two dimensional array representing range and interpulse period (IPP). Then a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. In order to avoid any sort of aliasing, or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. A power spectrum is formed then by taking squared magnitude of the full range-Doppler map. The other method entails forming a measurement of the autocorrelation function (ACF) with in the IPP. A DFT across the lags is taken to then get the Doppler spectrum The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}.
 
-Both of these measurements have trade offs. Using the pulse-Doppler method, a phase coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. Still, the Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise, if returns from a previous pulse fall into a the wrong range bin due to a target that is far away. The maximum unambiguous range, $R_a$, can be represented as 
+Both of these measurements have trade offs. Using the pulse-Doppler method, a phase coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. Still, the Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the . The maximum unambiguous range, $r_a$, can be represented as 
 
 \begin{equation}
 \label{eqn:maxuar}
-R_a =  \frac{cT}{2}
+r_a =  \frac{cT}{2}
 \end{equation}
 
 \noindent where $T$ is the IPP time. The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broad band spectrum without having to decrease the unambiguous range \cite{richards2014fundamentals}.
 
- When designing a moving target indicator (MTI) radar system, targets can often be approximated as delta or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. The ionosphere, cannot be thought of as compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, we see that the signal is at least 20kHz in bandwidth which will will require the same frequency for the pulses. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method. %There are still cases of ISR systems that use a pulses Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
+When designing a moving target indicator (MTI) radar system the target's scattering function, approximated as delta, or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. These types are generally underspread as their range extent and Doppler bandwidth will follow the inequality in Equation \ref{eqn:trp}. |The ionosphere, cannot be thought of as compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, we see that the signal is at least 20kHz in bandwidth which will will require the same frequency for the pulses. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method on this overspread target. 
+
+
+
+ %There are still cases of ISR systems that use a pulses Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
 
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
