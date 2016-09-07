@@ -13,7 +13,7 @@ This chapter will give the background on the signal model and processing aspects
 
 \section{Incoherent Scatter}
 
-When electrons are freed from their bonds as in a plasma they can oscillate and act as a dipole. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave, this is known as Thomson scatter. This radiation, when taken as a collection of scatters from a large set of electrons, varies in time, $t$, with the fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector  \cite{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as the following,
+When electrons are freed from their bonds as in a plasma they can oscillate and act as a dipole. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave, this is known as Thomson scatter \cite{Hutchinson_2002}. This radiation, when taken as a collection of scatters from a large set of electrons, varies in time, $t$, with the fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector \cite{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as the following,
 
 \begin{equation}
 \label{eqn:bragg}
@@ -27,9 +27,9 @@ When electrons are freed from their bonds as in a plasma they can oscillate and 
 \omega=\mathbf{k} \cdot \mathbf{v},
 \end{equation}
 
-\noindent where $\omega$ is the frequency shift from the velocity along the Bragg vector \cite{sheffield2010}. In the end $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
+\noindent where $\omega$ is the frequency shift from the velocity along the Bragg vector \cite{sheffield2010}. In the end $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
 
-These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Even though incoherent scatter is driven through a random process can give a number of different pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops and a power spectral density can be formed. In the end the incoherent scatter can give us a measurement of the power spectral density of the electron density, $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
+These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Even though incoherent scatter is driven through a random process it can give a number of different pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops and giving a shaped Doppler spectrum. In the end the incoherent scatter can give us a measurement of the power spectral density of the electron density, $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
 
 There have been a number of derivations of this process since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. For this thesis we will use the formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
 
@@ -152,7 +152,7 @@ r_a =  \frac{cT}{2}
 
 \noindent where $T$ is the IPP time. The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broad band spectrum without having to decrease the unambiguous range \cite{richards2014fundamentals}.
 
-When designing a moving target indicator (MTI) radar system the target's scattering function, approximated as delta, or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. These types are generally underspread as their range extent and Doppler bandwidth will follow the inequality in Equation \ref{eqn:trp}. |The ionosphere, cannot be thought of as compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, we see that the signal is at least 20kHz in bandwidth which will will require the same frequency for the pulses. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method on this overspread target. 
+When designing a moving target indicator (MTI) radar system the target's scattering function, approximated as delta, or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. These types are generally underspread as their range extent and Doppler bandwidth will follow the inequality in Equation \ref{eqn:trp}. The ionosphere though is not compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, it can be seen that the signal is at least 20kHz in bandwidth which will will require the same PRF in order to sample it unambigiously. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method on this overspread target. 
 
 
 
@@ -165,7 +165,8 @@ When designing a moving target indicator (MTI) radar system the target's scatter
 The processing steps to create plasma parameter measurements from complex voltage data will covered in this section. First the method to estimate the ACF from an uncoded long pulse will be described. The second part will discuss how the plasma parameters are fit to the ACFs and how the expected errors are derived. 
  
 \subsection{ACF Estimation}
-After complex receiver voltage data has been created, it is processed to create estimates of the ACF at desired points of space. This type of processing has been detailed and analyzed by e.g. \cite{farley1969} and other authors \cite{nygren1996}. This processing follows a flow chart seen in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis. More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this manuscript.
+\label{sec:acf}
+After complex receiver voltage data has been created, it is processed to create estimates of the ACF at desired points of space \cite[see, e.g.,][]{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that this signal pipeline will create a single altitude measurement for analysis. 
 
 \begin{figure}[!t]
 \centering
@@ -175,7 +176,7 @@ After complex receiver voltage data has been created, it is processed to create 
 \end{figure}
 
 
-The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$.  To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ can be seen in Equation \ref{eq:lagpro}:
+The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$.  To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
 
 \begin{equation}
 \label{eq:lagpro}
@@ -197,7 +198,7 @@ The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other typ
 %
 %\noindent With out the $\frac{1}{L-l}$ term the estimator will be windowed with a triangular function thus impacting the estimate of the ISR spectrum as this will act as a convolution in the frequency domain. This bias is taken into account in \cite{farley1969} but it is simply wrapped up into the ambiguity function. 
 
-Applying a summation rule is generally the next step in creating an estimate of the autocorrelation function for single altitude analysis. This is done for a number of reasons, but primarily to improve estimate statistics.  Furthermore, if the right rule is chosen, then the range ambiguity can be made approximately constant across the lags \cite{nygren1996}. The trapezoidal summation rule used in our simulation is a common choice and can be represented as follows
+Applying a summation rule is generally the next step in creating an estimate of the autocorrelation function for single altitude analysis. This is done for a number of reasons, but primarily to improve estimate statistics.  Furthermore, if the right rule is chosen, then the range ambiguity can be made approximately constant across the lags, which can make inversions easier \cite{nygren1996}. Summation rules based on other criterial can be used but our simulations use the trapezoidal summation, which is a common choice and leads to the common resolution across all lags. It can be represented as follows.
 
 \begin{equation}
 \label{eq:sumrule}
@@ -205,7 +206,6 @@ Applying a summation rule is generally the next step in creating an estimate of 
 \end{equation}
 
 \noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \cite{nygren1996}. 
-
 % pcom checked for variables, already defined
 However, the final result of this summation rule will still lead to a biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \cite{nygren1996},
 
@@ -224,7 +224,7 @@ However, the final result of this summation rule will still lead to a biased ACF
 %\hat{R}_w(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} w(m_w-\lfloor l/2\rfloor,j)w^*(m_w+\lceil l/2 \rceil,j),
 %\end{equation}
 
-Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that scattered ionospheric signal is assumed to be negligible. For our simulated estimate, we simply use a noise process with the same correlation structure and power as the noise that was added. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
+Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  The noise correlation function is represented as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that scattered ionospheric signal is assumed to be negligible. For our simulated estimate, we simply use a noise process with the same correlation structure and power as the noise that was added. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
 
 %\begin{figure}[!t]
 %\centering
@@ -241,15 +241,14 @@ After the final estimation of the spectrum is complete, nonlinear least squares 
 %{
 
 \subsection{Parameter Fitting}
-The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the Êminimization of a cost function of the form \cite{kayvol1},
+The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the minimization of a cost function of the form \cite{kayvol1},
 
 \begin{equation}
 	\mathbf{\hat{p}}= \underset{\mathbf{p}}{\text{argmin}} (\mathbf{y}-\bm{\theta}(\mathbf{p}))^*\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p})).
 \label{nlls}
 \end{equation}
 
-In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range or its spectrum $\widehat{S}_f(m,\omega)$. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from models, such as once seen in \cite{kudeki:milla:1}, smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$, if the summation rule is properly applied. In the past the Levenberg-Marquart algorithm to fit data \cite{nikoukar2008}.
-
+In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a models e.g., \cite{kudeki:milla:1} and smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, e.g.,\cite{nikoukar2008}, the Levenberg-Marquart algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
 %Using the covariance matrix from the fitted parameters, an overall error estimate can be achieved. This matrix is calculated using a numerical approximation to the Jacobian matrix that the function uses to determine the solution. Due to the way the numerical routines solve the problem, this matrix must be multiplied by the error between the estimated parameters and the data,
 
 The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation of the jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. The formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
