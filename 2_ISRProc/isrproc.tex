@@ -162,11 +162,7 @@ When designing a moving target indicator (MTI) radar system the target's scatter
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}
 \label{section:isrproc}
-The processing steps to create plasma parameter measurements from complex voltage data will covered in this section. First the method to estimate the ACF from an uncoded long pulse will be described. The second part will discuss how the plasma parameters are fit to the ACFs and how the expected errors are derived. 
- 
-\subsection{ACF Estimation}
-\label{sec:acf}
-After complex receiver voltage data has been created, it is processed to create estimates of the ACF at desired points of space see, e.g., \cite{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that this signal pipeline will create a single altitude measurement for analysis. 
+After complex receiver voltage data have been recieved, the data are processed to create estimates of the ACF at desired points of space \cite{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this work.
 
 \begin{figure}[!t]
 \centering
@@ -176,19 +172,20 @@ After complex receiver voltage data has been created, it is processed to create 
 \end{figure}
 
 
-The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$.  To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
+The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter-pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$.  To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
 
 \begin{equation}
 \label{eq:lagpro}
 \widehat{R}(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} x(m-\lfloor l/2\rfloor,j)x^*(m+\lceil l/2 \rceil,j).
 \end{equation}
 
-The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other types of lag product calculations are available but generally a centered product is used. In the centered lag product case range gate index $m$ and sample index $n$ can be related by $m=n-\lfloor L/2\rfloor$ and the maximum lag and sample relation is $M=N-\lceil L/2 \rceil$.  This lag product formation is the first step in taking a discrete Wigner Distribution \cite{TFAcohen}. This first step adds a bias to the ACF estimate which acts as a weighting on larger lags, represented as $\mathcal{W}(l)$ where weighting can be calculated from details of the range-lag ambiguity function along the range axis. The expected value for the estimator, assuming the use of a simple uncoded pulse waveform, becomes
+The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other types of lag product calculations are available but a centered product is most common. For this case, the range gate index $m$ and sample index $n$ can be related by $m=n-\lfloor L/2\rfloor$ and the maximum lag and sample relation is $M=N-\lceil L/2 \rceil$.  This lag product formation is the first step in computing a discrete Wigner Distribution \cite{TFAcohen}. This  step adds a bias to the ACF estimate which acts as a weighting on larger lags, represented as $\mathcal{W}(l)$ where weighting can be calculated from details of the range-lag ambiguity function. The expected value for the estimator, assuming the use of a simple uncoded pulse waveform, becomes
 
 \begin{equation}
 \label{eq:lagprobias}
 \left\langle\widehat{R}(m,l) \right\rangle = \mathcal{W}(l)R(m,l) =\frac{L-l}{L}R(m,l).
 \end{equation}
+
 %This specific type of lag product formation is detailed in \cite{farley1969} and had been referred to as unbiased. This terminology does differ from what is used in statistic signal processing literature such as \cite{randomsigshanmugan} where the unbiased autocorrelation function estimate is carried out as so,
 %
 %\begin{equation}
@@ -198,7 +195,7 @@ The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other typ
 %
 %\noindent With out the $\frac{1}{L-l}$ term the estimator will be windowed with a triangular function thus impacting the estimate of the ISR spectrum as this will act as a convolution in the frequency domain. This bias is taken into account in \cite{farley1969} but it is simply wrapped up into the ambiguity function. 
 
-Applying a summation rule is generally the next step in creating an estimate of the autocorrelation function for single altitude analysis. This is done for a number of reasons, but primarily to improve estimate statistics.  Furthermore, if the right rule is chosen, then the range ambiguity can be made approximately constant across the lags, which can make inversions easier \cite{nygren1996}. Summation rules based on other criterial can be used but our simulations use the trapezoidal summation, which is a common choice and leads to the common resolution across all lags. It can be represented as follows.
+Applying a summation rule is generally the next step in creating an estimate of the autocorrelation function for single altitude analysis. This is done for a number of reasons, but primarily to improve estimate statistics.  Furthermore, if the right rule is chosen, then the range ambiguity can be made approximately constant across the lags, which can make inversions easier \cite{nygren1996}. Summation rules based on other criteria can be used but our simulations use the trapezoidal summation, which is a common choice and leads to uniform range resolution across all lags. It can be represented as follows:
 
 \begin{equation}
 \label{eq:sumrule}
@@ -207,7 +204,7 @@ Applying a summation rule is generally the next step in creating an estimate of 
 
 \noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \cite{nygren1996}. 
 % pcom checked for variables, already defined
-However, the final result of this summation rule will still lead to a biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \cite{nygren1996},
+However, the final result of this summation rule will still lead to a statistically biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \cite{nygren1996},
 
 \begin{equation}
 \label{eq:sumruleest}
@@ -224,7 +221,7 @@ However, the final result of this summation rule will still lead to a biased ACF
 %\hat{R}_w(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} w(m_w-\lfloor l/2\rfloor,j)w^*(m_w+\lceil l/2 \rceil,j),
 %\end{equation}
 
-Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  The noise correlation function is represented as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that scattered ionospheric signal is assumed to be negligible. For our simulated estimate, we simply use a noise process with the same correlation structure and power as the noise that was added. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
+Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that scattered ionospheric signal is assumed to be negligible. For our simulated estimate, we simply use a noise process with the same correlation structure and power as the noise that was added. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
 
 %\begin{figure}[!t]
 %\centering
@@ -244,14 +241,13 @@ After the final estimation of the spectrum is complete, nonlinear least squares 
 The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the minimization of a cost function of the form \cite{kayvol1},
 
 \begin{equation}
-	\mathbf{\hat{p}}= \underset{\mathbf{p}}{\text{argmin}} (\mathbf{y}-\bm{\theta}(\mathbf{p}))^*\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p})).
+	\mathbf{\hat{p}}= \underset{\mathbf{p}}{\text{argmin}} (\mathbf{y}-\bm{\theta}(\mathbf{p}))^*\mathbf{C}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p})).
 \label{nlls}
 \end{equation}
 
-In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a models e.g., \cite{kudeki:milla:1} and smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, e.g.,\cite{nikoukar2008}, the Levenberg-Marquart algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
-%Using the covariance matrix from the fitted parameters, an overall error estimate can be achieved. This matrix is calculated using a numerical approximation to the Jacobian matrix that the function uses to determine the solution. Due to the way the numerical routines solve the problem, this matrix must be multiplied by the error between the estimated parameters and the data,
+In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a models \cite{kudeki:milla:1} and smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
 
-The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation of the jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. The formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
+The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation is computed of the Jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. Given this Jacobian, the formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
 
 
 \begin{equation}
@@ -263,14 +259,7 @@ The last step is to calculate the errors in the parameter estimates. In order to
 %\bm{\Sigma}_{\mathbf{\hat{p}}}=\frac{(\mathbf{J}^T\mathbf{J})^{-1} (\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))^*\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))}{L-N_{\mathbf{p}}},
 %\end{equation}
 
-\noindent where $ \mathbf{C}$ is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, 
-
-\begin{equation}
-\label{eqn:covcalc}
-C_{\tau_1,\tau_2} = \frac{1}{2J} \left( \ R(0)  R^*(\tau_1-\tau_2) +  R(\tau_1) R^*(\tau_2) \right),
-\end{equation}
-
-\noindent while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The variances of the parameters are then taken as the diagonals of the matrix.
+\noindent where $ \mathbf{C}$ is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The variances of the parameters are then taken as the diagonals of the matrix. 
 
 
 %The correlation matrix $\bm{\Sigma}$ is often realized as a diagonal matrix for many ISR systems the variance of the lags or each point of the spectrum being the values. The variance of the ACF estimator can be estimated using the following,
@@ -285,7 +274,7 @@ C_{\tau_1,\tau_2} = \frac{1}{2J} \left( \ R(0)  R^*(\tau_1-\tau_2) +  R(\tau_1) 
 
 
 %%
-The diagonal values usually used, noted as $\sigma_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums.  The following formula from  \cite{nicollsisrschool2013} can be used:
+The diagonal values usually used, noted as $\mathbf{c}_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums.  The following formula from  \cite{nicollsisrschool2013} can be used:
 
 \begin{equation}
 \label{sigpow}
