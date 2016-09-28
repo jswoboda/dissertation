@@ -12,7 +12,7 @@
 The following chapter will detail the methodology behind STISRS along with some processed examples. The first section will show how the synthetic data is created at complex voltage level. After which results of these simulations will be shown after the data has been processed as shown in Section \ref{section:isrproc}. The results will then be interpolated back to the original Cartesian space of the plasma parameters. 
 
 \section{Simulation Methodology}
-
+\label{sec:simmeth}
 The SimISR software package allows one to analyze different  experiment scenarios by simulating the ISR measurement process. %The space-time ambiguity is modeled using a coordinate transform and the pulse as a window along range while the statistical error is taken into account by creating complex shaped Gaussian noise.  
 % JOHN:   The above  sentence seems unclear.  Is the adjusted version below accurate?  
 % Josh: That is correct, although I have to make sure I mention the use of the pulse as a window function that creates the range ambiguity. I believe I do this later on but I have to check.
@@ -127,15 +127,11 @@ x_f(n) = x(n) +\sqrt{\frac{k_bT_{sys}B}{2}} w(n), \quad w(k)\sim CN(0,\mathbf{I}
 A full diagram of the model can be seen in Figure \ref{fig:isrdiag}.
 
 \section{Simulation Examples}
+\label{sec:simex}
+
 The framework for STISRS allows exploration of a number of aspects of ISR processing. Within the scope of this article, we will focus on three application examples.
 
 The first example demonstrates how the simulator can be used for Monte Carlo estimates of ISR spectra. In this case, we hold all of the plasma parameters constant and determine how the distribution of the measured parameters evolve. The next example uses a simple altitude distribution of ionospheric plasma parameters to show the impact of the forward model of the ISR on a basic measurement of electron density. This is intended to illustrate that basic ambiguities inherent in ISR measurements can give the appearance of a change in morphology of the plasma phenomena when none truly exists. Finally, the output of a fully consistent multi-fluid ionosphere model is used as input to the ISR simulator to show a use case relevant to experiment planning. This case illustrates an inherent tradeoff in experiment construction between reducing statistical fluctuations in the measurement and increasing distortion in the final reconstruction.
-
-\subsection{Monte Carlo Example}
-
-The framework for SimISR allows exploration of a number of aspects of ISR processing. Within the scope of this article, we will focus on three application examples.
-
-The first example demonstrates how the simulator can be used for Monte Carlo estimates of ISR spectra. In this case, we hold all of the plasma parameters constant and determine how the distribution of the measured parameters evolve. The next example uses a simple altitude distribution of ionospheric plasma parameters to show the impact of the forward model of the ISR on a basic measurement of electron density. This is intended to illustrate that basic ambiguities inherent in ISR measurements can give the appearance of a change in morphology of the plasma phenomena when none truly exists. Finally, the output of a fully consistent multi-fluid ionosphere model is used as input to the ISR simulator and is applied in two use cases relevant to experiment planning, one varying over two spatial dimensions and another varying in all three spatial dimensions. The results of these use cases illustrate an inherent tradeoff in experiment construction between reducing statistical fluctuations in the measurement and increasing distortion in the final reconstruction. 
 
 \subsection{Monte Carlo Example}
 

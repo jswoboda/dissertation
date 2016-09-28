@@ -12,7 +12,7 @@ This chapter explains the theoretical backbone for sampling issues associated wi
 
 
 \section{Space-Time Sampling}
-
+\label{sec:sptimesamp}
 These new ESA based systems differentiate themselves from dish antennas in a fundamental way. Instead of dwelling in a single beam or scanning along a prescribed direction, an ESA can move to a different beam position within its field of view on a rapid, pulse by pulse basis. An illustration of the differences between ESA and conventional radar systems with respect to statistical integration of radar pulses, focusing on time history of beam positions, starts with the desired grid of geographic parameter coverage in Figure \ref{fig:bp1}. Figure \ref{fig:dbsts} shows a possible path for a dish based antenna to cover this measurement space through moves to different beam positions through time, represented on the z-axis as pulse repetition intervals (PRIs). The dish sweeps through the field of view in a continuous scan.  In contrast, an ESA system can instead move from position to position in discrete steps as seen in Figure \ref{fig:phbsts}. It is noted as well that the phased array antenna is able to collect data from different beams during overlapping time periods, creating a lattice like pattern. This type of pulse-to-pulse beam position change is very difficult to accomplish with dish antenna systems having significant pointing inertia. 
 
 \begin{figure}
@@ -41,6 +41,7 @@ The rapid steering ability of ESA systems relative to space-time sampling yields
 
 
 \section{Space-Time Ambiguity}
+\label{sec:sptimeamb}
 
 The space-time ambiguity can be thought of as a kernel to a combined volume and time integration operator. In the derivations that follow, it is shown that this ambiguity can be represented as a kernel operator in a Fredholm integral equation:
 
@@ -190,6 +191,7 @@ G(t_s,t) = \displaystyle \sum_{j=0}^{J-1}\alpha_j \delta(t-t_s-jT_{REV}),
 \noindent The final kernel, $L(\tau_s,\mathbf{r}_s,t_s,\tau,\mathbf{r},t) = G(t_s,t)K(\tau_s,\mathbf{r}_s,\tau,\mathbf{r})$, encompasses the full space-time ambiguity.
 
 \section{Ambiguity after Frame Transformation}
+\label{sec:frametrans}
 
 This section will focus on the impact of the motion of plasma as it is going through the field of view of the radar. It will be assumed that the radar is integrating over a length of time $T$ beginning at $t_s$. The kernel $L$ will be represented as a separable function $K$ and $G$ as in Equation \ref{eqn:sptamb}. In this case, $G$ will be a summation of Dirac delta functions with weights of $1/J$. This will change Equation \ref{eqn:sptamb} to the following:
 

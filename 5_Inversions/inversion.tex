@@ -11,7 +11,6 @@
 This chapter will describe methods developed to invert the ISR space-time ambiguity function and improve on current reconstruction schemes. The first section will describe these inversion methods which are different types of constrained least squares. The next section will show examples using runs from STISRS to determine the utility of these inversion on reconstructing the true plasma parameters.
 
 \section{Method Description}
-
 As discussed in Section \ref{sec:imgrec}, the main trade-off between the two approaches is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from are not useful. With data-based regularization techniques the computational requirements are significantly lowered as on is performing a linear inversion. Still this can lead to estimated ACFs that can not be created by the incoherent scattering operator.
 
 In order to reconstruct the field of plasma parameter values we treat the space-time ambiguity as a linear operator. This allows for the use of inversion schemes from image processing. In this case objective function will be 
@@ -28,29 +27,30 @@ In order to reconstruct the field of plasma parameter values we treat the space-
 \argmin\limits_{\mathbf{r}} \| \mathbf{y_s} -\mathbf{ L}\mathbf{r} \|^2.
 \end{equation}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.8\textwidth]{ladj}
+\caption{\label{fig:flow1}ISR image formation process.}
+\end{figure}
 
 
 
 
-\section{Introduction}
 
-Incoherent scatter radar (ISR) measures plasma parameters by fitting plasma parameters to an estimate of the auto correlation function (ACF) from the inherent fluctuations in electron density in the ionosphere. In order to perform this estimate the radar has to create an average of ACF over time and space. This averaging acts as a linear operator over time and space for the estimated ACFs and creates an ambiguity for the measurements. The direct impact of the operator on the measurement of plasma parameters can be difficult to assess as the relationship between plasma parameters and the ACF is non-linear. 
-
-The development of the Advanced Modular Incoherent Scatter Radar (AMISR) systems, with its electronically-scannable antenna, have allowed for three dimensional reconstruction of plasma parameters. In order to analyze the performance of these systems the idea of the ambiguity function had to be extended to include the antenna beam pattern and the time dimension referred to as the space-time ambiguity function in  \cite{RDS:RDS20236}. 
-
-With the linearity assumption many ideas in linear inverse theory can be applied. There is a large amount of literature in this area, mainly in image processing and reconstruction \cite{Karl:2005jy}, and could be used to invert the operator and improve the resolution of the measurement. 
-
-This paper will cover the a method for inverting this space-time ambiguity function. In order to test this method we use synthetic data from the Simulation for ISR (SimISR), driven by a ionosphere plasma state parameters from a multi-fluid ionosphere model \cite{semeter:plasmatransport2012}. The following sections of this paper are as follows. Section \ref{sec:isramb} describes the ISR image formation process in the language of inverse theory. Following this, Section \ref{sec:isrlit} details the use of inverse theory in single dish ISR systems to reconstruct altitude profiles. Section \ref{sec:isralg} describes our specific algorithm that has been developed and following in Section \ref{sec:results}, we show results of these reconstructions.
+%\section{Introduction}
+%
+%Incoherent scatter radar (ISR) measures plasma parameters by fitting plasma parameters to an estimate of the auto correlation function (ACF) from the inherent fluctuations in electron density in the ionosphere. In order to perform this estimate the radar has to create an average of ACF over time and space. This averaging acts as a linear operator over time and space for the estimated ACFs and creates an ambiguity for the measurements. The direct impact of the operator on the measurement of plasma parameters can be difficult to assess as the relationship between plasma parameters and the ACF is non-linear. 
+%
+%The development of the Advanced Modular Incoherent Scatter Radar (AMISR) systems, with its electronically-scannable antenna, have allowed for three dimensional reconstruction of plasma parameters. In order to analyze the performance of these systems the idea of the ambiguity function had to be extended to include the antenna beam pattern and the time dimension referred to as the space-time ambiguity function in  \cite{RDS:RDS20236}. 
+%
+%With the linearity assumption many ideas in linear inverse theory can be applied. There is a large amount of literature in this area, mainly in image processing and reconstruction \cite{Karl:2005jy}, and could be used to invert the operator and improve the resolution of the measurement. 
+%
+%This paper will cover the a method for inverting this space-time ambiguity function. In order to test this method we use synthetic data from the Simulation for ISR (SimISR), driven by a ionosphere plasma state parameters from a multi-fluid ionosphere model \cite{semeter:plasmatransport2012}. The following sections of this paper are as follows. Section \ref{sec:isramb} describes the ISR image formation process in the language of inverse theory. Following this, Section \ref{sec:isrlit} details the use of inverse theory in single dish ISR systems to reconstruct altitude profiles. Section \ref{sec:isralg} describes our specific algorithm that has been developed and following in Section \ref{sec:results}, we show results of these reconstructions.
 
 %\section{ISR Space-Time Ambiguity}
 %\label{sec:isramb}
 %The ISR processing can be represented in the diagram seen in Figure \ref{fig:flow1}. The image formation process starts with a set of plasma parameters distributed in time and space. Each set of plasma parameters is then transformed to a set of ACFs using the operator represented by $g()$. The space time ambiguity function $L$ acts as a blurring operator one might see in a camera or numerous other types of sensors. The estimates are then fit and estimates of the plasma parameters, $\widehat{\boldsymbol{\theta}}$, are created. Often times these parameters are interpolated or projected back to the original Cartesian coordinate system, this is in a way applying the adjoint operator $L^*$ to the fitted plasma parameters to create a 
 %
-%\begin{figure}[!ht]
-%\centering
-%\includegraphics[width=.8\textwidth]{ladj}
-%\caption{\label{fig:flow1}ISR image formation process.}
-%\end{figure}
 %
 %The space-time ambiguity, $L(\tau_s,\mathbf{r}_s,t_s,\tau,\mathbf{r},t)$, can be treated as the kernel of a Fredholm integral equation of the first kind operating on the ACF, $R(\tau,\mathbf{r},t)$, which can change over space, $\mathbf{r}$, and time $t$, i.e.,
 %
