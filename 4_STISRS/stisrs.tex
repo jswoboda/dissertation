@@ -39,7 +39,7 @@ Once the spectra have been created, the simulator transforms the resulting value
 % H_m(\omega) = \sqrt{S_m(\omega | \: \bm{\theta})}.
 % \end{equation}
 
-Once the theoretical spectrum for a given scattering volume has been calculated, an appropriate spectral shaping filter is created. The method to create the filter given a desired spectrum or ACF can be done in a number of ways \cite{Kasdin:1995wi}. The implementation in SimISR creates an infinite impulse response filter. 
+Once the theoretical spectrum for a given scattering volume has been calculated, an appropriate spectral shaping filter is created. The method to create the filter given a desired spectrum or ACF can be done in a number of ways \cite{Kasdin:1995wi}. The implementation in SimISR creates an infinite impulse response filter in order to ensure a causal, minimum phase filter. 
 %% PJE: Why does SimISR pick an IIR filter, which is not guaranteed to have a linear phase response across the passband (i.e. constant delay)?  Might be worth a comment here.
 %% JPS: This creates a causal, minimum phase filter. It may not be linear phase but its not necessarily need in this application as we are not worried about dispersion of the input signal. The filters just need to be stable and the causality allows one to use the minimum phase assumption to justify stability.
 The coefficients are determined using the ACF by solving the following set of equations,
@@ -93,13 +93,6 @@ y_m (k)= s(k)\left[h_m(k)*w(k)\right],
 %
 %\noindent where $\omega_i$ is the frequency variable, $w(\omega_i) \sim CN(0,\mathbf{I})$ and $K$ is the number of points used for the DFT \cite{michellnoisesim1981}.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=7.0in]{diagram}
-\caption{ISR simulation diagram.}
-\label{fig:isrdiag}
-\end{figure}
-
 After the data for each range gate $y_m(k)$ is created, the received signal's power spectrum can be calculated from ISR plasma scattering theory as 
 
 \begin{equation}
@@ -110,7 +103,7 @@ P_r = \frac{\left(c\Delta T\right) G \lambda^2}{2(4\pi)^2}\frac{P_t }{R^2}\frac{
  \noindent where $P_r$ is the power received in Watts (W), $k$ is the wavenumber of the radar in meters (m), $c$ is the speed of light in m/s, $\Delta T$ is the along-range gate extent in seconds, $G$ is the gain of the antenna, $P_t$ is the power of the transmitter in W, $\sigma_e$ is the electron radar cross section in $m^2$,  $\lambda_D$ is the Debye length in m, $N_e$ is the electron density in m$^{-3}$, and $T_r$ is the electron to ion temperature ratio.
   
 The received signal power calculated at each range gate using Equation~\ref{eq3} is used as a scaling constant for each $y_m(k)$ series.  A delayed and summed operator yields a model of the received radar scatter signal:
-
+ 
 \begin{equation}
 \label{eq4}
 x(n) = \displaystyle\sum\limits_{m =0}^{M-1} \alpha(m)y_m(n-m),
@@ -126,7 +119,13 @@ x_f(n) = x(n) +\sqrt{\frac{k_bT_{sys}B}{2}} w(n), \quad w(k)\sim CN(0,\mathbf{I}
 \noindent where $k_b$ is Boltzmann's constant, $T_{sys}$ is the system temperature and $B$ is the system bandwidth.
 A full diagram of the model can be seen in Figure \ref{fig:isrdiag}.
 
-\section{Simulation Examples}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=7.0in]{diagram}
+\caption{ISR simulation diagram.}
+\label{fig:isrdiag}
+
+\end{figure}\section{Simulation Examples}
 \label{sec:simex}
 
 The framework for SimISR allows exploration of a number of aspects of ISR processing. Within the scope of this article, we will focus on four application examples.
@@ -283,7 +282,7 @@ Another SimISR use case employs input plasma parameters derived from the multi-f
 \begin{figure}[!t]
 \centering
 \includegraphics[width=6in]{0960_15_int}
-\caption{Perturbations to Figure \ref{fig:plparamst0} due to an imposed current system of .875 $\mu$A/m$^2$ at $t=960$ s, representing an polar cap auroral arc which is sweeping across the field-of-view of the radar at about 200 m/s \cite[c.f.][]{Perry:2015jf}.}
+\caption{Perturbations to Figure \ref{fig:plparamst0} due to an imposed current system of .875 $\mu$A/m$^2$ at $t=960$ s, representing an polar cap auroral arc which is sweeping across the field-of-view of the radar at about 200 m/s \cite{Perry:2015jf}.}
 \label{fig:plparamst60}
 \end{figure}
 

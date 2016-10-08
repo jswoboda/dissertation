@@ -13,8 +13,17 @@ This thesis showed the outlined some of the basic theory behind ISR. It then fol
 \section{Space-Time Ambiguity Function}
 The space-time ambuigty function 
 Section \ref{sec:sptimesamp} Section \ref{sec:sptimeamb} Section \ref{sec:frametrans} 
+This publication has laid the foundation for the optimal analysis of volumetric data acquired from electronically steerable ISR systems. The framework developed here takes into account the full antenna beam pattern, pulse pattern and time integration. Through simulations, we have shown how plasma motion can impact reconstruction of parameters which, compounded with the non-linear nature of the parameter fitting step, can create errors which are potentially unexpected and hard to predict. Lastly, we briefly outlined a number of possible mitigation approaches improving measurements derived from ESA ISRs.
+
 \section{SimISR}
 Section \ref{sec:simex} Section \ref{sec:simmeth} Section \ref{sec:simex}
+
+We have constructed SimISR, a simulation tool encapsulating the full ISR measurement process, incorporating ESA radar capabilities and the full radar space-time ambiguity along with inherent ISR error sources. Possible uses for SimISR in the research community have also been discussed and examples have been shown. These examples show how one can use the simulator to create large statistical data sets and also to more optimally design ionospheric radar experiments in the ISR space within the inherently large number of free parameters afforded by the radar control parameters. 
+
+In the future, SimISR development will continue by adding new radar waveform modes, as currently only Barker code and uncoded single pulse modulations are available at this time. The simulator can also be used to create synthetic data for traditional single antenna based system design applications. Other possible expansions of the simulator include capability to calculate returns from each receiver element in a ESA based ISR system, such as the planned architecture of EISCAT-3D, along with multi-static radar capabilities. These future additions will increase the simulator's value to designers who wish to more optimally exploit the capabilities of new systems. 
+
+A more immediate application of the SimISR tool can aid researchers in experiment planning. There are a number of phenomena that change on very small spatio-temporal scales, e.g. at high latitudes, and capturing observations of them would greatly benefit from optimization of the experiment set up. Researchers can use SimISR to iterate through different set ups for their experiments, as opposed to a heuristic selection of a single observational approach where prior use is the sole design factor. The ability of SimISR to directly create complex receiver voltage data provides a significant and novel capability, as some geophysical phenomena, such as those that occur at time scales on the order of an interpulse period, can only be fully explored at this data level. This could lead to researchers coming up with new ways to analyze data, such as novel integration schemes to resolve phenomena at small spatio-temporal scales.
+
 \section{Inversion of ISR Data}
 Section \ref{sec:isrlit} Section \ref{sec:isralg} Section \ref{sec:results}
 \section{Future Research Directions}

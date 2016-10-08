@@ -162,7 +162,7 @@ When designing a moving target indicator (MTI) radar system the target's scatter
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}
 \label{section:isrproc}
-After complex receiver voltage data have been recieved, the data are processed to create estimates of the ACF at desired points of space \cite{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this work.
+After complex receiver voltage data have been received, the data are processed to create estimates of the ACF at desired points of space \cite{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this work.
 
 \begin{figure}[!t]
 \centering
@@ -202,7 +202,7 @@ Applying a summation rule is generally the next step in creating an estimate of 
 \widehat{R}_s(m,l) = \displaystyle\sum\limits_{i=-((v-1)/2+\lceil l/2 \rceil)}^{((v-1)/2+\lfloor l/2\rfloor)} \widehat{R}(m+i,l),
 \end{equation}
 
-\noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \cite{nygren1996}. 
+\noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to positive odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \cite{nygren1996}. 
 % pcom checked for variables, already defined
 However, the final result of this summation rule will still lead to a statistically biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \cite{nygren1996},
 
@@ -210,6 +210,7 @@ However, the final result of this summation rule will still lead to a statistica
 \label{eq:sumruleest}
 \left\langle\widehat{R}_s(m,l) \right\rangle  =\frac{v+l}{v\mathcal{W}(0)}\mathcal{W}(l)R(m,l) =\left(-\frac{1}{vL}l^2+\frac{L-v}{Lv}l+1\right)   R(m,l).
 \end{equation}
+
 %An example summation rule for a central product is shown in Figure \ref{fig:sumrule}. In the figure the image on the left is a basic representation of an ambiguity function of a long pulse.  Its mirrored on the right with red bars which would show the integration area under it so the ambiguity function for each lag will be of equal size in range. There are a number of different summing rule each with their own trade offs \cite{nygren1996}.
 
 %In the processing this is basically a summing of lags from different ranges. The amount of summing is similar to what is shown in Figure \ref{fig:sumrule}.   
@@ -236,19 +237,16 @@ Finally, noise effects are included by subtracting an estimate of the noise corr
 After the final estimation of the spectrum is complete, nonlinear least squares fitting takes place to determine plasma parameters.  
 %\pcom{This entire section can be collapsed to one reference and saved for the thesis chapter.}%
 %{
-
-\subsection{Parameter Fitting}
 The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the minimization of a cost function of the form \cite{kayvol1},
 
 \begin{equation}
-	\mathbf{\hat{p}}= \underset{\mathbf{p}}{\text{argmin}} (\mathbf{y}-\bm{\theta}(\mathbf{p}))^*\mathbf{C}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p})).
+	\mathbf{\hat{p}}= \underset{\mathbf{p}}{\text{argmin}} (\mathbf{y}-\bm{\theta}(\mathbf{p}))^*\mathbf{C}_{\mathbf{y}}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p})).
 \label{nlls}
 \end{equation}
 
-In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a models \cite{kudeki:milla:1} and smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
+In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The matrix $\mathbf{C}_{\mathbf{y}}$  is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a models \cite{kudeki:milla:1} and smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
 
 The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation is computed of the Jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. Given this Jacobian, the formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
-
 
 \begin{equation}
 \label{eqn:jacinv}
@@ -259,8 +257,7 @@ The last step is to calculate the errors in the parameter estimates. In order to
 %\bm{\Sigma}_{\mathbf{\hat{p}}}=\frac{(\mathbf{J}^T\mathbf{J})^{-1} (\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))^*\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))}{L-N_{\mathbf{p}}},
 %\end{equation}
 
-\noindent where $ \mathbf{C}$ is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The variances of the parameters are then taken as the diagonals of the matrix. 
-
+\noindent  The variances of the parameters are then taken as the diagonals of the matrix. 
 
 %The correlation matrix $\bm{\Sigma}$ is often realized as a diagonal matrix for many ISR systems the variance of the lags or each point of the spectrum being the values. The variance of the ACF estimator can be estimated using the following,
 %
@@ -274,7 +271,7 @@ The last step is to calculate the errors in the parameter estimates. In order to
 
 
 %%
-The diagonal values usually used, noted as $\mathbf{c}_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums.  The following formula from  \cite{nicollsisrschool2013} can be used:
+The diagonal values usually used, noted as $\mathbf{c}_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums. The following formula from  \cite{nicollsisrschool2013} can be used:
 
 \begin{equation}
 \label{sigpow}
