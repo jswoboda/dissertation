@@ -22,13 +22,18 @@ We have constructed SimISR, a simulation tool encapsulating the full ISR measure
 
 In the future, SimISR development will continue by adding new radar waveform modes, as currently only Barker code and uncoded single pulse modulations are available at this time. The simulator can also be used to create synthetic data for traditional single antenna based system design applications. Other possible expansions of the simulator include capability to calculate returns from each receiver element in a ESA based ISR system, such as the planned architecture of EISCAT-3D, along with multi-static radar capabilities. These future additions will increase the simulator's value to designers who wish to more optimally exploit the capabilities of new systems. 
 
-A more immediate application of the SimISR tool can aid researchers in experiment planning. There are a number of phenomena that change on very small spatio-temporal scales, e.g. at high latitudes, and capturing observations of them would greatly benefit from optimization of the experiment set up. Researchers can use SimISR to iterate through different set ups for their experiments, as opposed to a heuristic selection of a single observational approach where prior use is the sole design factor. The ability of SimISR to directly create complex receiver voltage data provides a significant and novel capability, as some geophysical phenomena, such as those that occur at time scales on the order of an interpulse period, can only be fully explored at this data level. This could lead to researchers coming up with new ways to analyze data, such as novel integration schemes to resolve phenomena at small spatio-temporal scales.
+A more immediate application of the SimISR tool can aid researchers in experiment planning. There are a number of phenomena that change on very small spatio-temporal scales, e.g. at high latitudes, and capturing observations of them would greatly benefit from optimization of the experiment set up. Researchers can use SimISR to iterate through different set ups for their experiments, as opposed to a heuristic selection of a single observational approach where prior use is the sole design factor. The ability of SimISR to directly create complex receiver voltage data provides a significant and novel capability, as some geophysical phenomena, such as those that occur at time scales on the order of an IPP, can only be fully explored at this data level. This could lead to researchers coming up with new ways to analyze data, such as novel integration schemes to resolve phenomena at small spatio-temporal scales.
 
 \section{Inversion of ISR Data}
 Section \ref{sec:isrlit} Section \ref{sec:isralg} Section \ref{sec:results}
 \section{Future Research Directions}
 
 \subsection{Experiment Planning Using SimISR}
+
+Researchers have used ISR as a method to measure electron energy spectra \cite{Semeter:2005foa}. In lower altitudes the electron density measurements can be used the estimate production rates, which can be inverted to show the energy spectra of photons impacting the ionosphere and give remote information about magnetospheric activity. Using SimISR researchers could perform simulations to determine the limits of these techniques and plan experiments where they can be used to great affect.
+
+There are many different types of phenomena in the ionosphere which can be spread across numerous spatial and time scales. There are many examples of this in the aurora Ionosphere but SimISR can create complex voltages. These include pulsating aurora which can change on times scales of a second ha 
+
 
 \subsection{Training Sets for Parameter Fits}
 
