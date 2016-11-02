@@ -20,21 +20,29 @@ The space-time ambiguity is derived in Section \ref{sec:sptimeamb}. This is an e
 This ambiguity can be extended and augmented to take into a count the inherent motion of the plasma. Section \ref{sec:frametrans} shows how a Gallien transform can be used to to understand possible motion induced artifacts can be explained. Also shown is an example beam pattern and how motion can impact the ambiguity in the frame of reference of plasma motion.
 
 \section{SimISR}
-Section \ref{sec:simmeth} Section \ref{sec:simex}  Section \ref{sec:simex}
+Section \ref{sec:simmeth} Section \ref{sec:simex}  
 
-The simulation tool  SimISR, was discussed In Chapter \ref{chapter:stisrs}. It encapsulates  the full ISR measurement process, incorporating ESA radar capabilities and the full radar space-time ambiguity along with inherent ISR error sources. Possible uses for SimISR in the research community have also been discussed and examples have been shown. These examples show how one can use the simulator to create large statistical data sets and also to more optimally design ionospheric radar experiments in the ISR space within the inherently large number of free parameters afforded by the radar control parameters. 
+The ISR measurement process from an ESA equipped system can be difficult to understand from a purely analytic formulation. Because of this a simulation tool, called SimISR, was developed and discussed In Chapter \ref{chapter:stisrs}. This tool encapsulates the full ISR measurement process, incorporating ESA radar capabilities and the full radar space-time ambiguity along with inherent ISR error sources. 
 
-In the future, SimISR development will continue by adding new radar waveform modes, as currently only Barker code and uncoded single pulse modulations are available at this time. The simulator can also be used to create synthetic data for traditional single antenna based system design applications. Other possible expansions of the simulator include capability to calculate returns from each receiver element in a ESA based ISR system, such as the planned architecture of EISCAT-3D, along with multi-static radar capabilities. These future additions will increase the simulator's value to designers who wish to more optimally exploit the capabilities of new systems. 
+The methodology for the creation of complex voltage level data can be broken down in to a number of digital signal processing functions. This creates shaped complex Gaussian data using AR filters derived from the ISR spectra, windowed by the pulse shape and summed together within each beam.  
 
-A more immediate application of the SimISR tool can aid researchers in experiment planning. There are a number of phenomena that change on very small spatio-temporal scales, e.g. at high latitudes, and capturing observations of them would greatly benefit from optimization of the experiment set up. Researchers can use SimISR to iterate through different set ups for their experiments, as opposed to a heuristic selection of a single observational approach where prior use is the sole design factor. The ability of SimISR to directly create complex receiver voltage data provides a significant and novel capability, as some geophysical phenomena, such as those that occur at time scales on the order of an IPP, can only be fully explored at this data level. This could lead to researchers coming up with new ways to analyze data, such as novel integration schemes to resolve phenomena at small spatio-temporal scales.
-
-
+Possible uses for SimISR in the research community have also been discussed and examples have been shown. These examples show how one can use the simulator to create large statistical data sets and also to more optimally design ionospheric radar experiments in the ISR space within the inherently large number of free parameters afforded by the radar control parameters. Researchers can use SimISR to iterate through different set ups for their experiments, as opposed to a heuristic selection of a single observational approach where prior use is the sole design factor. 
  
 \section{Inversion of ISR Data}
 Section \ref{sec:isrlit} Section \ref{sec:isralg} Section \ref{sec:results}
+
+With 
 \section{Future Research Directions}
 
+\subsection{Further Development of SimISR}
+
+In the future, SimISR development will continue by adding new radar waveform modes, as currently only Barker code and uncoded single pulse modulations are available at this time. The simulator can also be used to create synthetic data for traditional single antenna based system design applications. Other possible expansions of the simulator include capability to calculate returns from each receiver element in a ESA based ISR system, such as the planned architecture of EISCAT-3D, along with multi-static radar capabilities. These future additions will increase the simulator's value to designers who wish to more optimally exploit the capabilities of new systems. 
+
 \subsection{Experiment Planning Using SimISR}
+
+A more immediate application of the SimISR tool can aid researchers in experiment planning. There are a number of phenomena that change on very small spatio-temporal scales, e.g. at high latitudes, and capturing observations of them would greatly benefit from optimization of the experiment set up. 
+
+The ability of SimISR to directly create complex receiver voltage data provides a significant and novel capability, as some geophysical phenomena, such as those that occur at time scales on the order of an IPP, can only be fully explored at this data level. This could lead to researchers coming up with new ways to analyze data, such as novel integration schemes to resolve phenomena at small spatio-temporal scales.
 
 Researchers have used ISR as a method to measure electron energy spectra \cite{Semeter:2005foa}. In lower altitudes the electron density measurements can be used the estimate production rates, which can be inverted to show the energy spectra of photons impacting the ionosphere and give remote information about magnetospheric activity. Using SimISR researchers could perform simulations to determine the limits of these techniques and plan experiments where they can be used to great affect.
 
