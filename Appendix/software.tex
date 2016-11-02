@@ -1,15 +1,20 @@
-\chapter{Software}
+\chapter{Software Packages}
 \label{chapter:appsoft}
 \thispagestyle{myheadings}
 
 \graphicspath{{Appendix/Figures/}}
 
 
-This appendix covers software architecture of the incoherent scatter radar (ISR) simulator that is in the code base. The simulator was developed to make synthetic data that one could use to create different processing algorithms and methods while having a known input or "truth" data. This simulator will take plasma fields of plasma parameters, create IQ from these parameters and then process that data to the point where it can estimate the input plasma parameters.
+This appendix covers software architecture of two software packages that have been created during the course of the research for this thesis. The first package called Simulation for Incoherent Scatter Radar (SimISR), can create synthetic ISR data at the level of complex voltages sampled at the antenna. The other major package is called GeoData and is an advanced programing interface (API) that allows researchers to quickly import new sensor and information sources. Included are a number of functions to register, interpolate, plot and analyze this data.
+
+
+\section{SimISR}
+
+ SimISR was developed to make synthetic data that one could use to create different processing algorithms and methods while having a known input or "truth" data. This simulator will take plasma fields of plasma parameters, create complex voltages from these parameters and then process that data to the point where it can estimate the input plasma parameters.
 
 The need to create a full 3-dimensional software package was necessitated by the desire to explore the utility of the new phased array radar systems and their ability to measure 3-D fields of plasma parameters. This desire to understand the measurement capabilities of electronically scanned ISR lead to the following publication \cite{RDS:RDS20236} where this software package was used to create reconstructions of 3-D fields of plasma parameters.
 
-The software itself has been developed in such a way that the code mirrors the processing. Overall there are three main classes: 
+The software itself has been developed in such a way that the code mirrors the processing. An object oriented paradigm is used and thus this different processes in the processing chain are broken up in to different classesOverall there are three main classes: 
 
 \begin{itemize} 
 \item IonoContainer - A container class that holds information on the ionosphere or auto correlation functions (ACFs)/spectrums, both intrinsic and estimated.
@@ -27,8 +32,20 @@ The overall flow can be seen in figure \ref{fig:swflow}, where  $\Theta$ is the 
 % where an .eps filename suffix will be assumed under latex, 
 % and a .pdf suffix will be assumed for pdflatex; or what has been declared
 % via \DeclareGraphicsExtensions.
-\caption{Software flow diagram}
+\caption{Software flow diagram for SimISR}
 \label{fig:swflow}
 \end{figure}
 
-This report is broken up in to the following chapters. The next chapter will cover the method to calculate the ISR spectrum. There are a number of publications on this including \cite{dougherty:farley1960,hagfors1971,sheffield2010} that cover this area but we focus on the treatment found in \cite{kudeki:milla:1}. Next the method to form the ISR data will be shown, this will include the signal processing steps taken to create the data. The processing of the data from estimating the lags to fitting the plasma parameters will then be covered. We will focus on methods for long pulse but we will show where this differentiates when using other waveforms such as alternating codes and Barker codes. Lastly we will show examples of the output of the ISR simulator at a number of different spots in the processing chain.
+
+%This report is broken up in to the following chapters. The next chapter will cover the method to calculate the ISR spectrum. There are a number of publications on this including \cite{dougherty:farley1960,hagfors1971,sheffield2010} that cover this area but we focus on the treatment found in \cite{kudeki:milla:1}. Next the method to form the ISR data will be shown, this will include the signal processing steps taken to create the data. The processing of the data from estimating the lags to fitting the plasma parameters will then be covered. We will focus on methods for long pulse but we will show where this differentiates when using other waveforms such as alternating codes and Barker codes. Lastly we will show examples of the output of the ISR simulator at a number of different spots in the processing chain.
+
+\section{GeoData}
+
+The GeoData project allows researchers to quickly bring in new sets of 
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=6.0in]{geodatadiagram}
+\caption{The makeup of a GeoData object.}
+\label{fig:swflow}
+\end{figure}
