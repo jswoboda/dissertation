@@ -13,14 +13,14 @@ This thesis showed the outlined some of the basic theory behind ISR. It then fol
 \section{Space-Time Ambiguity Function}
 The space-time ambiguity function, discussed detail in Chapter \ref{chapter:stamb}, gives theoretical framework for the optimal analysis of volumetric data acquired from electronically steerable ISR systems. The framework developed here takes into account the full antenna beam pattern, pulse pattern and time integration.
 
-The need for this new framework was shown Section \ref{sec:sptimesamp}, which highlights the sampling paradigm change brought on by ESA systems used in ISR. Due to the ability of ESA systems to have near instantaneous look angle transitions and lattice like sampling network develops and decouples space and time sampling for these systems.
+The need for this new framework was shown Section \ref{sec:sptimesamp}, which highlights the sampling paradigm change brought on by ESA systems used in ISR. Due to the ability of ESA systems to have near instantaneous look angle transitions lattice like sampling network develops and decouples space and time sampling for these systems.
 
-The space-time ambiguity is derived in Section \ref{sec:sptimeamb}. This is an extension of the range ambiguity in traditional single beam ISR processing, adding beam pattern and integration time into account. This can be modeled as a Freidholm integral equation of the first kind of the ACFs thus bringing this in line with many similar problems from image formation and processing.
+The space-time ambiguity is derived in Section \ref{sec:sptimeamb}. This is an extension of the range ambiguity in traditional single beam ISR processing, adding beam pattern and integration time into account. The application of this ambiguity can be modeled as a Fredholm integral equation of the first kind applied to the ACFs, thus bringing this in line with many similar problems from image formation and processing.
 
-This ambiguity can be extended and augmented to take into a count the inherent motion of the plasma. Section \ref{sec:frametrans} shows how a Gallien transform can be used to to understand possible motion induced artifacts can be explained. Also shown is an example beam pattern and how motion can impact the ambiguity in the frame of reference of plasma motion.
+This ambiguity can be extended and augmented to take into a count the inherent motion of the plasma. Section \ref{sec:frametrans} shows how a Galilean Transform can be used to to understand possible motion induced artifacts can be explained. Also shown is an example beam pattern and how motion can impact the ambiguity in the frame of reference of plasma motion.
 
 \section{SimISR}
-Section \ref{sec:simmeth} Section \ref{sec:simex}  
+
 
 The ISR measurement process from an ESA equipped system can be difficult to understand from a purely analytic formulation. Because of this a simulation tool, called SimISR, was developed and discussed In Chapter \ref{chapter:stisrs}. This tool encapsulates the full ISR measurement process, incorporating ESA radar capabilities and the full radar space-time ambiguity along with inherent ISR error sources. 
 
@@ -29,10 +29,20 @@ The methodology for the creation of complex voltage level data can be broken dow
 Possible uses for SimISR in the research community have also been discussed and examples have been shown. These examples show how one can use the simulator to create large statistical data sets and also to more optimally design ionospheric radar experiments in the ISR space within the inherently large number of free parameters afforded by the radar control parameters. Researchers can use SimISR to iterate through different set ups for their experiments, as opposed to a heuristic selection of a single observational approach where prior use is the sole design factor. 
  
 \section{Inversion of ISR Data}
-Section \ref{sec:isrlit} Section \ref{sec:isralg} Section \ref{sec:results}
 
-With 
+
+Finally, using the theoretical and simulation infrastructure developed in the earlier chapters an inversion framework was developed in Chapter \ref{chapter:inversion}. This framework relies on reconstructing the ACFs by finding a regularized solution that has least squares error between it and the data. This has been seen in the past in the image reconstruction literature \cite{Karl:2005jy}.
+
+The process of estimating the ionosphere plasma state parameters by ISR can be represented as a set of linear and non-linear operators. These operations include the non-linear transformation of plasma parameters to and from ACFs and the Space-Time Ambiguity function covered in earlier chapters. In order to use techniques seen in image reconstruction the ACF is descritized along space-time and lag and placed in a single vector. From there the space-time ambiguity function can be represented as a matrix that translates the lags from a Cartesian coordinate space to a radar centered spherical coordinate space. 
+
+The matrix for the forward model can be further augmented to take into account the motion of the plasma. Allowing for the reconstruction the state parameters in the frame of reference of the plasma. This problem holds many similarities for the removal of motion blur in images.
+
+With the problem formulated different constraints are used on the inversion. These constraints include $l^2$-norm constraints on the solution, the derivative of the solution and finally an $l^1$-norm constraint of the derivative. Using a simpler phantom the $l^2$-norm constraint on the derivative has promising results comparatively to the others. This is also holds true for the case using an example set of ionosphere state parameters from \cite{Perry:2015jf} as an input for SimISR. The limit of this study is obvious in that there are a number of different types of distributions that are possible for ionosphere state parameters and that we have looked at a small variety. Also, parametric estimation techniques should be explored to improve the reconstructions. 
+
 \section{Future Research Directions}
+
+There are a number of different areas of research that can be explored from the content of this thesis. Among these are use of simulation tools developed and improvement in the inversion techniques.
+
 
 \subsection{Further Development of SimISR}
 
@@ -51,6 +61,17 @@ There are many different types of phenomena in the ionosphere which can be sprea
 
 \subsection{Training Sets for Parameter Fits}
 
+The non-linear inversion step between ACFs and plasma state parameters has a number of built in assumptions, one of the most common is that plasma is Maxwellian distributed. Various physical processes can cause this assumption to be broken which can lead to incorrect parameter fits \cite{St1979ion,Suvanto1988incoherent,Akbari:2015fv}. Events that cause this can be hard to find so machine learning techniques could be useful in finding these events ISR databases \cite{Duda:2000:PC:954544}. Many of these algorithms require training data sets, which to could be a labor intensive and tedious task. SimISR could be used to make these sets and they could feed into different pattern matching algorithms and help catalog incorrectly fitted data.
+
 \subsection{Inversion Techniques}
 
-\subsection{Data Fusion}
+There are a number of different improvements that can be done for the inversion methods highlighted in this thesis. Currently the techniques have only been applied to two dimensional distributions of plasma state parameters. Extention to three dimensional distributions may require more software development to be allowed to run on graphics processor units which can perform large numbers of parallel processes. The inversion technqiues could also be applied to real ISR data using techniques outlined in \cite{butler:imagingfregiondrifts} to first estimate the parameter drifts and then invert within the frame of reference of the motion.
+
+Parametric techniques for inverting directly to plasma state parameters need to be investigated. There are a number of different schemes including those that use dynamic programing that could be useful \cite{Yau:1992kd,Yau:1993kf,Oktem:2014ju}. This could be used to extend \textit{Full Profile Analysis}, seen in \cite{RDS:RDS3308,hysell2008}, to a \textit{Full Volume Analysis}.
+
+\subsection{Sensor Data Fusion}
+
+Other types of sensors can be useful to understand the ionosphere be it optical sensors such as all sky imagers to GPS TEC measurements. A software package, called \textit{GeoData} was developed for related research. It is available in both the MATLAB \cite{john_swoboda_2016_154536} 
+and Python \cite{Swobodaetal2016} programing languages. This software package abstracts each data set into a standard object format to increase the reusability of code across different research tasks. This package was built to allow for data from multiple sensors to be quickly analyzed a plotted. 
+
+Sensor fusion techniques can go a step further and be directly involved in the reconstruction of plasma parameters such as shown in \cite{Semeter:2016gm}. This can go a step further and studies using the Space-Time Ambiguity formulation and incorporate the information added by the GPS TEC measurements. This could help improve reconstruction of all of the ISR systems plasma state parameters if implemented properly.
