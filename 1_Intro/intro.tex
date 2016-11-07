@@ -27,7 +27,7 @@ As stated previously ESA antennas can create three dimensional reconstructions o
 \end{figure}
 
 \subsubsection{Objectives related to 3-D ISR}
-There a large number of studies that have used ISR to reconstruct two and three dimensional fields of plasma parameters. Some studies use various types of interpolation to try to stitch together a picture from the one dimensional beams, which give a one dimensional view along range\cite{Semeter2009738,Butler:2013ul,Semeter:2005fo}. Others have taken a tact closer to inverse theory and image reconstruction to create reconstruction of velocity fields of bulk flows or electric fields \cite{butler:imagingfregiondrifts,RDS:RDS20195}. Still, these publications do not get to the core details of reconstructing plasma parameters like the ion and electron temperatures. Interpolations can help visualize the data but these techniques make a lot of assumptions about the underlying imaging process. The goal of this thesis is to present a first principles model of ISR as a three dimensional sensor and use it to create better reconstructions of the plasma parameters.
+There a large number of studies that have used ISR to reconstruct two and three dimensional fields of plasma parameters. Some studies use various types of interpolation to try to stitch together a picture from the one dimensional beams, which give a one dimensional view along range \cite{Semeter2009738,Butler:2013ul,Semeter:2005fo}. Others have taken a tact closer to inverse theory and image reconstruction to create reconstruction of velocity fields of bulk flows or electric fields \cite{butler:imagingfregiondrifts,RDS:RDS20195}. Still, these publications do not get to the core details of reconstructing plasma parameters like the ion and electron temperatures. Interpolations can help visualize the data but these techniques make a lot of assumptions about the underlying imaging process. The goal of this thesis is to present a first principles model of ISR as a three dimensional sensor and use it to create better reconstructions of the plasma parameters.
 
 \subsection{Ionosphere and Phenomena}
 The ionosphere is the area of partially ionized gas, or plasma, surrounding the earth, and in a way is like an interface between the earth and outer space \cite{kellybook}. The dynamics of this system are governed by kinetic, fluid and Maxwells equations coupled together \cite{schunk2004ionospheres}. This complicated menagerie of equations allows for the creation of a cornucopia of different phenomena at any number of spatio-temporal scales \cite{Semeter:2008hs,Semeter2009738}.
@@ -52,7 +52,7 @@ The ionosphere is the area of partially ionized gas, or plasma, surrounding the 
 
 The study of the Earth's ionosphere is broken up into a number of different regions due to the physical processes that dominate \cite{kellybook}. The demarcations between the D, E and F Regions are based on the altitude, over which various properties of the plasma, including parameters and chemical composition, can greatly vary as shown in Figure \ref{fig:singlefilt} \cite{kellybook}. The regions of the Earth are also parceled out based on the orientation of the magnetic field to the ground and include the high latitude, mid latitude and low latitude regions \cite{schunk2004ionospheres}.
 
-For this thesis most of the focus will be on phenomena from the high latitude F-region. This of special interest due to the number of different phenomena that occur, much of which is due to the perpendicular angle of the Earth's magnetic field to the ground \cite{schunk2004ionospheres}. These phenomena include but are not limited to aurora borealis, polar cap plasma patches and particle precipitation events\cite{Perry:2015jf,Dahlgren:2013ip,dahlgren2012di,Dahlgren:2012dq,semeter:plasmatransport2012}. From a societal standpoint this sort of activity can greatly impact radio propagation and can create interruptions in data services such as the Global Positioning Systems (GPS)\cite{Jiao:2013ei,hunsucker2007high}.
+For this thesis most of the focus will be on phenomena from the high latitude F-region. This of special interest due to the number of different phenomena that occur, much of which is due to the perpendicular angle of the Earth's magnetic field to the ground \cite{schunk2004ionospheres}. These phenomena include but are not limited to aurora borealis, polar cap plasma patches and particle precipitation events \cite{Perry:2015jf,Dahlgren:2013ip,dahlgren2012di,Dahlgren:2012dq,semeter:plasmatransport2012}. From a societal standpoint this sort of activity can greatly impact radio propagation and can create interruptions in data services such as the Global Positioning Systems (GPS) \cite{Jiao:2013ei,hunsucker2007high}.
 
 
 \begin{figure}[!t]
@@ -105,7 +105,7 @@ In the radar reconstruction shown in Figure \ref{fig:Sampling} these events caus
   \label{fig:Sampling}
 \end{figure}
 
-The second phenomena that will be focused on is a sun-aligned auroral arc, specifically from \cite{Perry:2015jf}. These arcs are created by Field Aligned Currents (FAC) from the magnetosphere.The evidence of these structures show themselves in plasma parameters through electron and ion temperature enhancements coincident with electron density depletions next to density enhancements. These structures also are in motion, which can create ambiguities in the measurement process as the plasma moves through the field of view. An example of this type of plasma parameter distribution associated with these types of auroral arcs can be seen in Figure \ref{fig:mzsim}.
+The second phenomena that will be focused on is a sun-aligned auroral arc, specifically from \cite{Perry:2015jf}. These arcs are created by Field Aligned Currents (FAC) from the magnetosphere. The evidence of these structures show themselves in plasma parameters through electron and ion temperature enhancements coincident with electron density depletions next to density enhancements. These structures also are in motion, which can create ambiguities in the measurement process as the plasma moves through the field of view. An example of this type of plasma parameter distribution associated with these types of auroral arcs can be seen in Figure \ref{fig:mzsim}.
 
 \begin{figure}[!t]
 \centering
@@ -131,9 +131,9 @@ The main goal of using ISR is to get the most accurate reconstructions of plasma
 
 \subsection{Image Reconstruction}
 \label{sec:imgrec}
-Inverse theoretic image reconstruction gives engineers and scientists a robust frame work to determine the state of system parameters given a data set. This sort of frame work has been applied to numerous problems in science and engineering from X-Ray computed tomographic scanning \cite{kak1988principles} to synthetic aperture radar \cite{1456966}. In this thesis we will use this framework and techniques to improve the quality of the plasma parameter estimates from ISR.
+Inverse theoretic image reconstruction gives engineers and scientists a robust framework to determine the state of system parameters given a data set \cite{menke2012geophysical,Vogel:2002:CMI:581830,Karl:2005jy}. This sort of framework has been applied to numerous problems in science and engineering from X-Ray computed tomographic scanning \cite{kak1988principles} to synthetic aperture radar \cite{1456966}. In this thesis we will use this framework and techniques to improve the quality of the plasma parameter estimates from ISR.
 
-The main gaol of image reconstruction and inverse theory is to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical} a general inverse problem can be stated as follows,
+Image reconstruction and inverse theory create a framework to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical} a general inverse problem can be stated as follows,
 
 \begin{equation}
 \label{eqn:invprob}
@@ -142,7 +142,7 @@ The main gaol of image reconstruction and inverse theory is to reconstruct a set
 
 \noindent where $\mathbf{d}$ is the data $\mathbf{g}$ is the operator that changes the parameters $\mathbf{m}$ to the data space. 
 
-Although Equation \ref{eqn:invprob} gives a general framework this problem can be difficult to solve. Often, techniques used to solve inverse problems entail some assumption that can be made about the operator $\mathbf{g}$ such as linearity or that its well-posed \cite{0266-5611-4-4-010}. Still there are ways to get around this by doing things such as adding constraints or regularization to the inversion method \cite{Vogel:2002:CMI:581830}.
+Equation \ref{eqn:invprob} gives the most general form of these problems, unfortunately this can very difficult to solve without further assumptions. Often, techniques used to solve inverse problems specify a constraint on the operator $\mathbf{g}$, such that it has to be well-posed \cite{0266-5611-4-4-010}. Still, there are ways to expand the utility of these techniques by adding constraints to the inversion method or regularizing the solution \cite{Vogel:2002:CMI:581830,Karl:2005jy}.
 
 ISR has in past been presented in this format, although this has mainly been for the case of a single beam \cite{Vierinen:2012ve}. ISR can be thought of a general inverse problem because of the non-linear operation that brings the plasma parameters to the ACF space. Two schools of thought have emerged which in the community on how to be constrain these inversions. The first, full profile analysis, uses plasma parameter constraints, which can give physical constraints to the inversion thus improving the outcome \cite{hysell2008,RDS:RDS3308}. The second set of techniques apply constraints on the estimated ACFs \cite{Virtanen:20082vx,nikoukar2008}, which is less expensive computationally but can create ACFs that cannot be created through IS theory.
 
@@ -167,5 +167,5 @@ Specific contributions of this research are summarized below.
 \item Creating a framework full simulation of an ISR system that can which yield synthetic complex voltages.
 \item A software package, named SimISR has be derived from previously mentioned simulation framework has been made available to other researchers.
 \item A detailed analysis of the simulation framework using SimISR.
-\item A new method for inverting the forward model for 3-D ISR plasma parameter reconstructions.
+\item A new method for inverting the forward model for ISR plasma parameter reconstructions.
 \end{enumerate}
