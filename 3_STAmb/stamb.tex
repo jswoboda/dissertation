@@ -235,7 +235,7 @@ The operator $A$ can be determined through knowledge of the radar system's beam 
 
 The knowledge of the ambiguity the possible size of features can be inferred. This can be done by comparing real data with possible inputs and applying the ambiguity to them.
 
-An example of real data that shows features that have been impacted by this ambiguity is seen in Figure \ref{fig:realdataplane} 
+An example of real data that shows how features could have been impacted by this ambiguity is seen in Figure \ref{fig:realdataplane}. The auroral arc, seen as an electron density enhancement, is moving along horizontal position of the plane over a two minute integration period. The radar data is sampled in a spherical coordinate space, thus it is neccesary to use some sort of interpolation. The data in Figure \ref{fig:realdataplane} was created using a natural neighbors interpolation.  
 \begin{figure}[!t]
 	\centering
 	\includegraphics[width=4in]{acdata}
@@ -243,11 +243,12 @@ An example of real data that shows features that have been impacted by this ambi
 	\label{fig:realdataplane}
 \end{figure}
 
+The specific experiment beam pattern yielded a sampling pattern seen as the black dots in \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion shows
 
 \begin{figure}[!t]
 	\centering
 	\includegraphics[width=4in]{ambplane}
-	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}
+	\caption{The three dimensional sampling pattern as black dots and spatial ambiguity plotted on to along the plane of motion along the auroral arc.}
 	\label{fig:rambplane}
 \end{figure}
 
