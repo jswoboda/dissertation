@@ -230,3 +230,39 @@ The problem can now be simplified further back to a Fredholm integral equation b
 \end{figure}
 
 The operator $A$ can be determined through knowledge of the radar system's beam pattern along with the experiment's pulse pattern, integration time and inherent velocity of the plasma. This velocity $\mathbf{v}$ could be separately estimated by taking measurements of the Doppler shift by using a methodology like that seen in \cite{butler:imagingfregiondrifts}. With this strategy, the operator is now acting purely as a spatial blurring function instead of a full space-time function. It is noted that reducing dimensionality of the problem can make it easier to solve the inverse problem in practice.
+
+\section{Impact on Real ISR Data}
+
+The knowledge of the ambiguity the possible size of features can be inferred. This can be done by comparing real data with possible inputs and applying the ambiguity to them.
+
+An example of real data that shows features that have been impacted by this ambiguity is seen in Figure \ref{fig:realdataplane} 
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=4in]{acdata}
+	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc.}
+	\label{fig:realdataplane}
+\end{figure}
+
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=4in]{ambplane}
+	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}
+	\label{fig:rambplane}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=4in]{simdataplaneorig}
+	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}
+	\label{fig:simdataplaneorig}
+\end{figure}
+
+\begin{figure}[!t]
+	\centering
+	\includegraphics[width=4in]{simdataplane}
+	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}
+	\label{fig:simdataplane}
+\end{figure}
+
+\section{Discussion}
