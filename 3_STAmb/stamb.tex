@@ -57,14 +57,14 @@ By using this formulation, many parallels between ISR and classic camera blurrin
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[height=3in]{ccddiagramall}
+	\includegraphics[width=5in]{ccddiagramall}
 	\caption{CCD resolution cell diagram, showing cases where an object will be properly resolved and be blurred.}
 	\label{fig:ccd}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[height=3in]{radardiagramall}
+	\includegraphics[width=5in]{radardiagramall}
 	\caption{ISR resolution cell diagram, showing cases where an object will be properly resolved and be blurred.}
 	\label{fig:radarblur}
 \end{figure}
@@ -231,35 +231,47 @@ The problem can now be simplified further back to a Fredholm integral equation b
 
 The operator $A$ can be determined through knowledge of the radar system's beam pattern along with the experiment's pulse pattern, integration time and inherent velocity of the plasma. This velocity $\mathbf{v}$ could be separately estimated by taking measurements of the Doppler shift by using a methodology like that seen in \cite{butler:imagingfregiondrifts}. With this strategy, the operator is now acting purely as a spatial blurring function instead of a full space-time function. It is noted that reducing dimensionality of the problem can make it easier to solve the inverse problem in practice.
 
-\section{Impact on Real ISR Data}
+\section{Example of Impact on Real ISR Data}
 
-The knowledge of the ambiguity the possible size of features can be inferred. This can be done by comparing real data with possible inputs and applying the ambiguity to them.
+With knowledge of the ambiguity the possible size of features can be inferred. An example using real data can further elucidate this idea. One way that the true size of features is comparing real data with possible inputs and applying the ambiguity to them. This exercise can be assisted by with data from other sensors such as all sky camera data. 
 
-An example of real data that shows how features could have been impacted by this ambiguity is seen in Figure \ref{fig:realdataplane}. The auroral arc, seen as an electron density enhancement, is moving along horizontal position of the plane over a two minute integration period. The radar data is sampled in a spherical coordinate space, thus it is neccesary to use some sort of interpolation. The data in Figure \ref{fig:realdataplane} was created using a natural neighbors interpolation.  
-\begin{figure}[!t]
+An example of real data that shows how features could have been impacted by this ambiguity is seen through the series of images in Figure \ref{fig:realdataplane3points}. The auroral arc, seen as an electron density enhancement in the radar data and a brightness enhancement in the optical data, is moving along horizontal position of the plane over a two minute integration period for each image. The radar data is sampled in a spherical coordinate space, thus it is necessary to use some sort of interpolation. The radar data in Figure \ref{fig:realdataplane} was created using a natural neighbors interpolation.  
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6in]{radarwithoptical}
+	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc with green line emission optical data plotted underneath. Each image is a plotted over a two minute integration time for the radar. Also in the image is the sample points of the radar (black dots) and the path of the auroral emission. }
+	\label{fig:realdataplane3points}
+\end{figure}
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{acdata}
 	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc.}
 	\label{fig:realdataplane}
 \end{figure}
 
-The specific experiment beam pattern yielded a sampling pattern seen as the black dots in \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion shows
+The specific experiment beam pattern yielded a sampling pattern seen as the black dots in \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion can give a basic idea of the "resolution" of the image of the objects if there is not motion. Also it can show if an object may be hidden if stationary during the integration time.
 
-\begin{figure}[!t]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{ambplane}
 	\caption{The three dimensional sampling pattern as black dots and spatial ambiguity plotted on to along the plane of motion along the auroral arc.}
 	\label{fig:rambplane}
 \end{figure}
 
-\begin{figure}[!t]
+In order to find the actual size of the feature in Figure \ref{fig:realdataplane} we have to take into account the ambiguity in Figure \ref{fig:rambplane} along with any motion that may be present in the feature. The feature shown in Figure \ref{fig:simdataplaneorig} is a possible distribution that could create a similar measurement seen in Figure  \ref{fig:realdataplane}. The measurement by applying the space time ambiguity in Figure \ref{fig:rambplane} 
+
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{simdataplaneorig}
-	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}
+	\caption{A possible distribution of electron density with a Gaussian shapped enhancement that has a max of 5x10$^{11}$ m$^{-3}$  a standard deviations of 12.7 km along the verticle direction and 8.5 along the Figure \ref{fig:realdataplane}.}
 	\label{fig:simdataplaneorig}
 \end{figure}
 
-\begin{figure}[!t]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{simdataplane}
 	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}

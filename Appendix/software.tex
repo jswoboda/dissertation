@@ -7,10 +7,11 @@
 
 This appendix covers software architecture of two software packages that have been created during the course of the research for this thesis. The first package called Simulation for Incoherent Scatter Radar (SimISR), can create synthetic ISR data at the level of complex voltages sampled at the antenna. The other major package is called GeoData and is an advanced programing interface (API) that allows researchers to quickly import new sensor and information sources. Included are a number of functions to register, interpolate, plot and analyze this data.
 
-
+\section{ISRSpectrum}
+The ISR spectrum code base was developed to create the backscatter spectra from the ionosphere given a set of plasma state parameters. The code is based off of the the theoretical in \cite{kudeki:milla:1}, which has been discussed in Appendix \ref{appendix1} along with added formulations for multiple ion species.
 \section{SimISR}
 
- SimISR was developed to make synthetic data that one could use to create different processing algorithms and methods while having a known input or "truth" data. This simulator will take plasma fields of plasma parameters, create complex voltages from these parameters and then process that data to the point where it can estimate the input plasma parameters.
+SimISR was developed to make synthetic data that one could use to create different processing algorithms and methods while having a known input or "truth" data. This simulator will take plasma fields of plasma parameters, create complex voltages from these parameters and then process that data to the point where it can estimate the input plasma parameters.
 
 The need to create a full 3-dimensional software package was necessitated by the desire to explore the utility of the new phased array radar systems and their ability to measure 3-D fields of plasma parameters. This desire to understand the measurement capabilities of electronically scanned ISR lead to the following publication \cite{RDS:RDS20236} where this software package was used to create reconstructions of 3-D fields of plasma parameters.
 

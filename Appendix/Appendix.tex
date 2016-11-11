@@ -1,14 +1,13 @@
-\chapter{ISR Spectrum}
+\chapter{Ionosphere Incoherent Scatter Spectrum}
 \label{appendix1}
 \thispagestyle{myheadings}
 \graphicspath{{Appendix/Figures/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Overview}
 
-This is a description of the ISR spectrum process describes the mathematical basis for the software code base ISRSpectrum. It is based off of the development in  \cite{kudeki:milla:1} and \cite{Kudeki:2006kx} to form a spectrum.
+This is the mathematical basis for calculating incoherent scatter spectrum for a given set of ionosphere state parameters. The appendix uses the methods developed \cite{kudeki:milla:1} and \cite{Kudeki:2006kx}.
 
-\section*{Determining Spectra}
+\section*{Overall Formulation}
 The first step comes from \cite{kudeki:milla:1} where a lumped circuit model is used to describe the spectrum. In it the independent thermal fluctuations of each species of ions and electrons are treated as current sources and the macroscopic conductances are treated as discrete components. The electric field $E$ impinged from the radar acts as a voltage. This lumped circuit model, seen in Figure \ref{fig:circuit}, is derived is taking the scalar component of Ampere's law in the direction of $\mathbf{k}$.  
 
 \begin{equation}
