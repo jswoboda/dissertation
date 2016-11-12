@@ -8,7 +8,7 @@
 \graphicspath{{3_STAmb/Figures/}}
 
 %%%%%%%%%%%%%% Intro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This chapter explains the theoretical backbone for sampling issues associated with ISR. The first section will detail the differences in space-time sampling between single antenna and electronically steerable array (ESA) systems. The next section will then detail the derivation of the space-time ambiguity. Lastly the impact of moving plasma on the apparent ambiguity will be shown.
+This chapter explains the theoretical backbone for sampling issues associated with ISR. The first section will detail the differences in space-time sampling between single antenna and electronically steerable array (ESA) systems. The next section will then detail the derivation of the space-time ambiguity. Lastly the impact of moving plasma on the apparent ambiguity will be shown, both from a theoretical stand point and a demonstration using collected ISR data.
 
 
 \section{Space-Time Sampling}
@@ -233,11 +233,9 @@ The operator $A$ can be determined through knowledge of the radar system's beam 
 
 \section{Example of Impact on Real ISR Data}
 
-With knowledge of the ambiguity the possible size of features can be inferred. An example using real data can further elucidate this idea. One way that the true size of features is comparing real data with possible inputs and applying the ambiguity to them. This exercise can be assisted by with data from other sensors such as all sky camera data. 
+With knowledge of the ambiguity the possible size of features can be inferred. An example using real data can further elucidate this idea. One way that the true size of features is comparing real data with possible inputs and applying the ambiguity to them. Often, researchers using ISR combine data from different sensors \cite{Dahlgren:2012dq}, such as all sky camera data \cite{Shiokawa1999,GRL:GRL21871,Shiokawa2009}. This allows for researchers to get a better understanding of the underlying physical phenomena.
 
-An example of real data that shows how features could have been impacted by this ambiguity is seen through the series of images in Figure \ref{fig:realdataplane3points}. The auroral arc, seen as an electron density enhancement in the radar data and a brightness enhancement in the optical data, is moving along horizontal position of the plane over a two minute integration period for each image. The radar data is sampled in a spherical coordinate space, thus it is necessary to use some sort of interpolation. The radar data in Figure \ref{fig:realdataplane} was created using a natural neighbors interpolation.  
-
-
+An example of real data that shows how features could have been impacted by this ambiguity is seen through the series of images in Figure \ref{fig:realdataplane3points}. The auroral arc, seen as an electron density enhancement in the radar data and a brightness enhancement in the optical data, is moving along horizontal position of the plane over a two minute integration period for each image. The radar data is sampled in a spherical coordinate space, thus it is necessary to use some sort of interpolation to view it on the plane of motion, in this case natural neighbors. 
 
 \begin{figure}[h!]
 	\centering
@@ -245,6 +243,8 @@ An example of real data that shows how features could have been impacted by this
 	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc with green line emission optical data plotted underneath. Each image is a plotted over a two minute integration time for the radar. Also in the image is the sample points of the radar (black dots) and the path of the auroral emission. }
 	\label{fig:realdataplane3points}
 \end{figure}
+
+The final set of radar data seen in Figure \ref{fig:realdataplane3points} is replotted in Figure \ref{fig:realdataplane} without other data sets and sampling grids. This will help with the comparisons to the following figures, which are plotted along the same plane of motion.
 
 \begin{figure}[h!]
 	\centering
@@ -262,20 +262,24 @@ The specific experiment beam pattern yielded a sampling pattern seen as the blac
 	\label{fig:rambplane}
 \end{figure}
 
-In order to find the actual size of the feature in Figure \ref{fig:realdataplane} we have to take into account the ambiguity in Figure \ref{fig:rambplane} along with any motion that may be present in the feature. The feature shown in Figure \ref{fig:simdataplaneorig} is a possible distribution that could create a similar measurement seen in Figure  \ref{fig:realdataplane}. The measurement by applying the space time ambiguity in Figure \ref{fig:rambplane} 
+In order to find the actual size of the feature in Figure \ref{fig:realdataplane} we have to take into account the ambiguity in Figure \ref{fig:rambplane} along with any motion that may be present in the feature. The feature shown in Figure \ref{fig:simdataplaneorig} is a possible distribution that could create a similar measurement seen in Figure  \ref{fig:realdataplane}. Using the optical data we have inferred that that this feature is from a cylinder with a Gaussian shaped cross-sectional plasma density. 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{simdataplaneorig}
-	\caption{A possible distribution of electron density with a Gaussian shapped enhancement that has a max of 5x10$^{11}$ m$^{-3}$  a standard deviations of 12.7 km along the verticle direction and 8.5 along the Figure \ref{fig:realdataplane}.}
+	\caption{A possible distribution of electron density with a Gaussian shaped enhancement that has a max of 5x10$^{11}$ m$^{-3}$  a standard deviations of 12.7 km along the vertical direction and 8.5 km along the horizontal direction. The center of this plotted at the point $\mathbf{r}=[ 225\text{km}, 225 \text{km},335\text{km}]^T$. It is assumed that the density is constant along the direction orthogonal to the plane of motion.}
 	\label{fig:simdataplaneorig}
 \end{figure}
+
+Applying the space time ambiguity in Figure \ref{fig:rambplane} along with an assumed motion of 500 m/s, which again suggested by the data in Figure \ref{fig:realdataplane3points}, the distribution in Figure \ref{fig:simdataplane} is created. This seems to suggest that the features seen in Figure \ref{fig:realdataplane} could be from physical phenomena that is much smaller than what is shown in the interpolated image. 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{simdataplane}
-	\caption{Same spatial ambiguity as in Figure \ref{fig:amb4} but now with 500 m/s velocity in $y$ direction in plasma frame of reference. The surface represents the half power point of the ambiguity function.}
+	\caption{The same feature from Figure \ref{fig:simdataplaneorig} after applying the effect the spatial ambiguity seen in \ref{fig:rambplane} and 500 m/s motion over the two minute integration period.}
 	\label{fig:simdataplane}
 \end{figure}
 
 \section{Discussion}
+
+The use of the Space-Time Ambiguity function as a kernel of Fridholm integral equation is the theoretical framework of this thesis. The process for the estimation of the ACFs fits very well within this mathematical structure. This structure though, is not rigid and can be adapted to the situation that a researcher may face when performing ISR experiments by taking advantage of the fact that the ambiguity kernel is a set of separable functions. The ambiguity can be used similar as a blurring kernel if there is plasma motion which can allow one to set of different possible features, thus creating an ill-posed inverse problem. Lastly, this can easily be demonstrated in experiments where real data is used.
