@@ -124,14 +124,30 @@ A full diagram of the model can be seen in Figure \ref{fig:isrdiag}.
 \includegraphics[width=5.5in]{diagram}
 \caption{ISR simulation diagram.}
 \label{fig:isrdiag}
-
-\end{figure}\section{Simulation Examples}
+\end{figure}
+\section{Simulation Examples}
 \label{sec:simex}
 
 The framework for SimISR allows exploration of a number of aspects of ISR processing. Within the scope of this article, we will focus on four application examples.
 
 The first example demonstrates how the simulator can be used for Monte Carlo estimates of ISR spectra. In this case, we hold all of the plasma parameters constant and determine how the distribution of the measured parameters evolve. The next example uses a simple altitude distribution of ionospheric plasma parameters to show the impact of the forward model of the ISR on a basic measurement of electron density. This is intended to illustrate that basic ambiguities inherent in ISR measurements can give the appearance of a change in morphology of the plasma phenomena when none truly exists. Finally, the output of a fully consistent multi-fluid ionosphere model is used as input to the ISR simulator and is applied in two use cases relevant to experiment planning, one varying over two spatial dimensions and another varying in all three spatial dimensions. The results of these use cases illustrate an inherent tradeoff in experiment construction between reducing statistical fluctuations in the measurement and increasing distortion in the final reconstruction. 
 
+\subsection{Real Data Comparison}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4.5in]{Paramcomp}
+\caption{Comparison of real data from PFISR with SimISR data and a possible input parameter distribution.}
+\label{fig:simisrparamcomp}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4.5in]{speccomp}
+\caption{Comparison of ACFs and spectra from PFISR with SimISR.}
+\label{fig:simisrspectcom}
+\end{figure}
 \subsection{Monte Carlo Example}
 
 It is often necessary to obtain a large number of sensor measurements for a statistical study or for creating of a training data set for a pattern recognition algorithm. This can be a very burdensome search and classification task for the researcher if the input set must be drawn from actual sensor measurements. However, a number of useful cases exist where SimISR can be profitably employed to create a synthetic data set instead, saving considerable work over case assembly from a real ISR data based training set.  We explore one such example in this section.

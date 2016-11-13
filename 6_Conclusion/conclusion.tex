@@ -1,6 +1,7 @@
 \chapter{Conclusions and Future Work}
 \label{chapter:Conclusions}
 \thispagestyle{myheadings}
+\graphicspath{{6_Conclusion/Figures/}}
 
 % set this to the location of the figures for this chapter. it may
 % also want to be ../Figures/2_Body/ or something. make sure that
@@ -56,6 +57,8 @@ The ability of SimISR to directly create complex receiver voltage data provides 
 
 Researchers have used ISR as a method to measure electron energy spectra \cite{Semeter:2005foa}. In lower altitudes the electron density measurements can be used the estimate production rates, which can be inverted to show the energy spectra of photons impacting the ionosphere and give remote information about magnetospheric activity. Using SimISR researchers could perform simulations to determine the limits of these techniques and plan experiments where they can be used to great affect.
 
+Multi-sensor campaigns can gain much from capability that SimISR has to help plan experiments. Many researchers perform rocket campaigns and use ISR systems to help confirm their measurements \cite{JGRA:JGRA50924}. The same can be said for satellite measurements as well such as the ANDESITE program \cite{parham2016multi}. Another exciting development in the geoscience community is future use of the High Frequency Active Auroral Research Program (HAARP) facilities. There are also plans to co-locate an AMISR system to assist with experiments. Again, SimISR can assist with experiment planning so researchers can get the best data possible. 
+
 There are many different types of phenomena in the ionosphere which can be spread across numerous spatial and time scales. There are many examples of this in the aurora Ionosphere but SimISR can create complex voltages. One phenomena that could be better studied using this type of simulation is called pulsating aurora. This flickering of auroral light, along time scales of 5-40 seconds, corresponds to changing ionosphere state parameters caused by precipitating electrons \cite{JGRA:JGRA21510}. The phenomena can take an arc like shape and extend over hundreds of kilometers \cite{JGRA:JGRA20202}. The short modulation period along with the large range extent make this a challenging target to image with an ESA ISR. Researchers can use SimISR to run a number of case studies to determine possible beam and pulse patterns to sample the parameter modulation. Also the researchers can use software developed for SimISR to process the data in different ways such as summing the returns from different beams and range samples together to get a high time cadence to sample the temporal modulation properly. 
 
 
@@ -65,13 +68,24 @@ The non-linear inversion step between ACFs and plasma state parameters has a num
 
 \subsection{Inversion Techniques}
 
-There are a number of different improvements that can be done for the inversion methods highlighted in this thesis. Currently the techniques have only been applied to two dimensional distributions of plasma state parameters. Extention to three dimensional distributions may require more software development to be allowed to run on graphics processor units which can perform large numbers of parallel processes. The inversion technqiues could also be applied to real ISR data using techniques outlined in \cite{butler:imagingfregiondrifts} to first estimate the parameter drifts and then invert within the frame of reference of the motion.
+There are a number of different improvements that can be done for the inversion methods highlighted in this thesis. Currently the techniques have only been applied to two dimensional distributions of plasma state parameters. Extention to three dimensional distributions may require more software development to be allowed to run on graphics processor units which can perform large numbers of parallel processes. The inversion techniques could also be applied to real ISR data using techniques outlined in \cite{butler:imagingfregiondrifts} to first estimate the parameter drifts and then invert within the frame of reference of the motion.
 
-Parametric techniques for inverting directly to plasma state parameters need to be investigated. There are a number of different schemes including those that use dynamic programing that could be useful \cite{Yau:1992kd,Yau:1993kf,Oktem:2014ju}. This could be used to extend \textit{Full Profile Analysis}, seen in \cite{RDS:RDS3308,hysell2008}, to a \textit{Full Volume Analysis}.
+Estimation of the ACFs could also be improved by investigating the literature studying time-varying channels and overspread targets \cite{Kailath:1962jx,Kailath:1963gh,Pfander:2006hh,Pfander:2015ea}. A deeper investigation of this can yield a better understanding of the processing and its limitations using time-frequency analysis \cite{TFAcohen,Peyrin:1986bh,Jiang:kj}. From a practical point of view there have already been a number of algorithms that have already been proposed to estimate ACFs from overspread targets \cite{Pfander:2015ea,Jiang:kj}. One example seen in \cite{Kay:2003jl} can yield an estimation algorithms similar to those seen in synthetic aperture radar and modalities that use similar models to invert a scattering field \cite{1456966,Ralston:2007hs,richards2014fundamentals}
+
+Parametric techniques for inverting directly to plasma state parameters need to be investigated. There are a number of different schemes including those that use dynamic programing that could be useful \cite{Yau:1992kd,Yau:1993kf,Oktem:2014ju}. New algorithms for parameter fitting also need to be investigated and incorporated as well \cite{Shpynev:2010co}. This could be used to extend \textit{Full Profile Analysis}, seen in \cite{RDS:RDS3308,hysell2008}, to, what can be called \textit{Full Volume Analysis} to measure plasma parameters.
 
 \subsection{Sensor Data Fusion}
 
-Other types of sensors can be useful to understand the ionosphere be it optical sensors such as all sky imagers to GPS TEC measurements. A software package, called \textit{GeoData} was developed for related research. It is available in both the MATLAB \cite{john_swoboda_2016_154536} 
+Other types of sensors can be useful to understand the ionosphere be it optical sensors such as all sky imagers to GPS TEC measurements. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6.0in]{ampandallsky214}
+\caption{Combination of AMPERE magnetic deflection data and All Sky green line emissions. }
+\label{fig:swflow}
+\end{figure}
+
+A software package, called \textit{GeoData} was developed for related research. It is available in both the MATLAB \cite{john_swoboda_2016_154536} 
 and Python \cite{john_swoboda_2016_154533} programing languages. This software package abstracts each data set into a standard object format to increase the reusability of code across different research tasks. This package was built to allow for data from multiple sensors to be quickly analyzed a plotted. 
 
-Sensor fusion techniques can go a step further and be directly involved in the reconstruction of plasma parameters such as shown in \cite{Semeter:2016gm}. This can go a step further and studies using the Space-Time Ambiguity formulation and incorporate the information added by the GPS TEC measurements. This could help improve reconstruction of all of the ISR systems plasma state parameters if implemented properly.
+Sensor fusion techniques can go a step further and be directly involved in the reconstruction of plasma parameters such as shown in \cite{Semeter:2016gm}. For example, information added by the GPS TEC measurements can be incorporated in algorithms that use the Space-Time Ambiguity formulation. This could help improve reconstruction of all of the ISR systems plasma state parameters if implemented properly.

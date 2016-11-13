@@ -27,12 +27,9 @@ The software itself has been developed in such a way that the code mirrors the p
 
 The overall flow can be seen in figure \ref{fig:swflow}, where  $\Theta$ is the plasma parameters $ g(\Theta)$ is a function that turns the plasma parameters to ISR spectrums, $ \mathbf{r}$ is the spectrums/ACFs for each point of time and space, $ \mathbf{Lr}$ is the radar's operator on the spectrums/ACFs, $ \rho$ is the measured ACFs from the radar and lastly $ \hat{\Theta}$ is the estimates of plasma parameters from $ \rho$ after least squares fitting.
 
-\begin{figure}[!h]
+\begin{figure}[h!]
 \centering
 \includegraphics[width=6.0in]{softwareflowandmath}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
 \caption{Software flow diagram for SimISR}
 \label{fig:swflow}
 \end{figure}
