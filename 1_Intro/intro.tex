@@ -18,12 +18,12 @@ Some of the basics of ISR will be introduced in the following section along with
 \subsection{ISR as a 3-D Sensor}
 Radar is common remote sensing modality which has found diverse uses ranging from being used by police to monitor the speed of traffic \cite{richards2010principles}, to mapping the surface of planets in our solar system \cite{campbell2002radar}. In order to produce plasma parameter measurements ISR systems radiate electromagnetic energy and monitor the reflected signal from free electrons in the ionosphere, or observe from other radiation sources in bistatic operation \cite{RDS:RDS2903}. This scatter has a specific spectral distribution which is driven by the values of the temperatures, densities and bulk flow of the plasma in the ionosphere\cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. As such the two main steps in processing is the estimation of a power spectrum or autocorrelation function (ACF) \cite{farley1969}, and then fitting that to a physics based model that takes as inputs the different plasma parameters \cite{RDS:RDS1387}. This is done at each point in time and space where the radar can create an ACF estimate \cite{nikoukar2008}. 
 
-As stated previously ESA antennas can create three dimensional reconstructions of plasma parameters. Examples of these new systems include The Advance Modular Incoherent Scatter Radars (AMISR), which are currently deployed to Poker Flat Alaska and Resolute Bay Canada \cite{Semeter2009738}. These systems are colloquially known in the research community as Poker Flat Incoherent Scatter Radar (PFISR), seen in Figure \ref{fig:amisrpic}, and Resolute Bay Incoherent Scatter Radar (RISR). These systems have already started to give unprecedented views in the ionosphere and upper atmosphere and allowed for new types of measurements that were not possible before \cite{semeter2010CI,butler:imagingfregiondrifts,Nicolls:2007ie}. %Currently EISCAT-3D is being developed as well and is expect do give even greater views due to the multi-static set up \cite{eiscat3ddesign}.
+As stated previously ESA antennas can create three dimensional reconstructions of plasma parameters. Examples of these new systems include The Advance Modular Incoherent Scatter Radars (AMISR), which are currently deployed to Poker Flat Alaska and Resolute Bay Canada \cite{Semeter2009738,Valentic:2013jg}. These systems are colloquially known in the research community as Poker Flat Incoherent Scatter Radar (PFISR), seen in Figure \ref{fig:amisrpic}, and Resolute Bay Incoherent Scatter Radar (RISR). These systems have already started to give unprecedented views in the ionosphere and upper atmosphere and allowed for new types of measurements that were not possible before \cite{semeter2010CI,butler:imagingfregiondrifts,Nicolls:2007ie}. %Currently EISCAT-3D is being developed as well and is expect do give even greater views due to the multi-static set up \cite{eiscat3ddesign}.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=3in]{amisrimage}
-\caption{Image of the PFISR \cite{SRIpage}}
+\includegraphics[width=3in]{amisrimage2}
+\caption{Image of the PFISR \cite{Valentic:2013jg}}
 \label{fig:amisrpic}
 \end{figure}
 
@@ -154,7 +154,7 @@ This thesis will couch the estimation of 3-D ISR in the language of inverse theo
 
 Chapter \ref{chapter:isrproc} will go into the background into ISR signal processing. This will be begin by developing the basic signal model and show the processing steps between the sampling complex voltages to plasma parameter measurements.
 
-Chapter 3 will show the derivation of space-time ambiguity function. This will allow for the posing reconstruction of the field of three dimensional plasma parameters in the language of inverse theory. 
+Chapter 3 will show the derivation of space-time ambiguity function. This will allow for the posing the reconstruction of the field of three dimensional plasma parameters in the language of inverse theory. 
 
 Chapter 4 contains a discussion of the frame behind the Simulator for ISR (SimISR). This simulator can create complex voltages and process the data. This can help plan experiments the future. This will also include the examples of simulated data to show the capabilities of this framework.
 
@@ -167,6 +167,7 @@ Specific contributions of this research are summarized below.
 \item Development of a theoretical framework for the forward model of 3-D ISR plasma parameter reconstructions.
 \item Creating a framework full simulation of an ISR system that can which yield synthetic complex voltages.
 \item A software package, named SimISR has be derived from previously mentioned simulation framework has been made available to other researchers.
-\item A detailed analysis of the simulation framework using SimISR.
-\item A new method for inverting the forward model for ISR plasma parameter reconstructions.
+\item A detailed analysis of the simulation framework using SimISR along with example applications for this new tool.
+\item A new method for inverting the space-time ambiguity in the frame of reference of the moving plasma.
+\item Using SimISR to create realistic data and applying the new inversion method to assess it potential for use in ISR experiments.
 \end{enumerate}

@@ -57,14 +57,14 @@ By using this formulation, many parallels between ISR and classic camera blurrin
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width=5in]{ccddiagramall}
+	\includegraphics[width=4in]{ccddiagramall}
 	\caption{CCD resolution cell diagram, showing cases where an object will be properly resolved and be blurred.}
 	\label{fig:ccd}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width=5in]{radardiagramall}
+	\includegraphics[width=4in]{radardiagramall}
 	\caption{ISR resolution cell diagram, showing cases where an object will be properly resolved and be blurred.}
 	\label{fig:radarblur}
 \end{figure}
@@ -127,7 +127,10 @@ R(\tau,\mathbf{r})= \langle |n_e(\mathbf{k},r,\tau)|^2\rangle \equiv  \int \exp\
  \noindent Now Equation \ref{ex:acf2} becomes
  
  \begin{equation}
- \langle x(n_s)x^*(n_s+\tau_s)\rangle = \int \langle |n_e(\tau,\mathbf{k},\mathbf{r})|^2\rangle\left[\int s(n-\frac{2r}{c})s^*(n+\tau -\frac{2r}{c})h(n_s-n)h^*(n_s+\tau_s-n-\tau) dn \right]d\tau dr.
+ \label{eqn:inbetween}
+ \begin{split}
+ \langle x(n_s)x^*(n_s+\tau_s)\rangle =& \int \langle |n_e(\tau,\mathbf{k},\mathbf{r})|^2\rangle \times\\ &\left[\int s(n-\frac{2r}{c})s^*(n+\tau -\frac{2r}{c})h(n_s-n)h^*(n_s+\tau_s-n-\tau) dn \right]d\tau dr.
+ \end{split}
  \end{equation}
 
  If $n_s$ is replaced with $2r_s/c$ we can introduce the range ambiguity function $W(\tau_s,r_s,\tau,r)$ by doing the following substitution,
@@ -282,4 +285,4 @@ Applying the space time ambiguity in Figure \ref{fig:rambplane} along with an as
 
 \section{Discussion}
 
-The use of the Space-Time Ambiguity function as a kernel of Fridholm integral equation is the theoretical framework of this thesis. The process for the estimation of the ACFs fits very well within this mathematical structure. This structure though, is not rigid and can be adapted to the situation that a researcher may face when performing ISR experiments by taking advantage of the fact that the ambiguity kernel is a set of separable functions. The ambiguity can be used similar as a blurring kernel if there is plasma motion which can allow one to set of different possible features, thus creating an ill-posed inverse problem. Lastly, this can easily be demonstrated in experiments where real data is used.
+The use of the Space-Time Ambiguity function as a kernel of Fridholm integral equation is the theoretical framework of this thesis. The process for the estimation of the ACFs fits very well within this mathematical structure. This structure though, is not rigid and can be adapted to the situation that a researcher may face when performing ISR experiments by taking advantage of the fact that the ambiguity kernel is a set of separable functions. The ambiguity can be used similar as a blurring kernel if there is plasma motion which can allow one to set of different possible features, thus creating an ill-posed inverse problem. Lastly, the impact of the ambiguity function can be demonstrated in experiments where real data is used.
