@@ -236,7 +236,7 @@ The operator $A$ can be determined through knowledge of the radar system's beam 
 
 \section{Example of Impact on Real ISR Data}
 
-With knowledge of the ambiguity the possible size of features can be inferred. An example using real data can further elucidate this idea. One way that the true size of features is comparing real data with possible inputs and applying the ambiguity to them. Often, researchers using ISR combine data from different sensors \cite{Dahlgren:2012dq}, such as all sky camera data \cite{Shiokawa1999,GRL:GRL21871,Shiokawa2009}. This allows for researchers to get a better understanding of the underlying physical phenomena.
+With knowledge of the ambiguity the possible size of features can be inferred. An example using real data can further elucidate this idea. One way that the true size of features is comparing real data with possible inputs and applying the ambiguity to them. Often, researchers using ISR combine data from different sensors \cite{Dahlgren:2012dq}, such as all sky camera data \cite{Shiokawa1999,GRL:GRL21871,Shiokawa2009}. This combination of information allows for researchers to get a better understanding of the underlying physical phenomena.
 
 An example of real data that shows how features could have been impacted by this ambiguity is seen through the series of images in Figure \ref{fig:realdataplane3points}. The auroral arc, seen as an electron density enhancement in the radar data and a brightness enhancement in the optical data, is moving along horizontal position of the plane over a two minute integration period for each image. The radar data is sampled in a spherical coordinate space, thus it is necessary to use some sort of interpolation to view it on the plane of motion, in this case natural neighbors. 
 
@@ -251,16 +251,16 @@ The final set of radar data seen in Figure \ref{fig:realdataplane3points} is rep
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4in]{acdata}
+	\includegraphics[width=3.5in]{acdata}
 	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc.}
 	\label{fig:realdataplane}
 \end{figure}
 
-The specific experiment beam pattern yielded a sampling pattern seen as the black dots in \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion can give a basic idea of the "resolution" of the image of the objects if there is not motion. Also it can show if an object may be hidden if stationary during the integration time.
+The specific experiment beam pattern yielded a sampling pattern seen as the black dots in \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion can give a basic idea of the "resolution" of the image of the objects if there is not motion. Also, it can show if an object may be hidden if stationary during the integration time.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4in]{ambplane}
+	\includegraphics[width=3.5in]{ambplane}
 	\caption{The three dimensional sampling pattern as black dots and spatial ambiguity plotted on to along the plane of motion along the auroral arc.}
 	\label{fig:rambplane}
 \end{figure}
@@ -269,7 +269,7 @@ In order to find the actual size of the feature in Figure \ref{fig:realdataplane
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4in]{simdataplaneorig}
+	\includegraphics[width=3.5in]{simdataplaneorig}
 	\caption{A possible distribution of electron density with a Gaussian shaped enhancement that has a max of 5x10$^{11}$ m$^{-3}$  a standard deviations of 12.7 km along the vertical direction and 8.5 km along the horizontal direction. The center of this plotted at the point $\mathbf{r}=[ 225\text{km}, 225 \text{km},335\text{km}]^T$. It is assumed that the density is constant along the direction orthogonal to the plane of motion.}
 	\label{fig:simdataplaneorig}
 \end{figure}
@@ -278,7 +278,7 @@ Applying the space time ambiguity in Figure \ref{fig:rambplane} along with an as
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4in]{simdataplane}
+	\includegraphics[width=3.5in]{simdataplane}
 	\caption{The same feature from Figure \ref{fig:simdataplaneorig} after applying the effect the spatial ambiguity seen in \ref{fig:rambplane} and 500 m/s motion over the two minute integration period.}
 	\label{fig:simdataplane}
 \end{figure}
@@ -286,3 +286,5 @@ Applying the space time ambiguity in Figure \ref{fig:rambplane} along with an as
 \section{Discussion}
 
 The use of the Space-Time Ambiguity function as a kernel of Fridholm integral equation is the theoretical framework of this thesis. The process for the estimation of the ACFs fits very well within this mathematical structure. This structure though, is not rigid and can be adapted to the situation that a researcher may face when performing ISR experiments by taking advantage of the fact that the ambiguity kernel is a set of separable functions. The ambiguity can be used similar as a blurring kernel if there is plasma motion which can allow one to set of different possible features, thus creating an ill-posed inverse problem. Lastly, the impact of the ambiguity function can be demonstrated in experiments where real data is used.
+
+Ambiguity function can greatly augment the features seen in the ISR data. The changes one sees are also highly dependent on the interpolation scheme beam pattern and motion of the plasma during the integration time. It is utmost importance that researchers take this impact into account when analyzing ISR data and experiments. The following chapters will show a tool to help predict the impact of the ambiguity and a set of algorithms to reduce its impact.
