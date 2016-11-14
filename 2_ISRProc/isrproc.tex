@@ -163,16 +163,16 @@ This would yield only 7.5~km of unambiguous range so it is necessary to use the 
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}\label{section:isrproc}
-After complex receiver voltage data have been received, the data are processed to create estimates of the ACF at desired points of space \cite{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this chapter.
-
+After complex receiver voltage data have been received, the data are processed to create estimates of the ACF at desired points of space~\cite{farley1969,nygren1996}. 
+This processing follows the flow chart presented in Figure~\ref{fig:chain}.  
+Note that we assume here a signal pipeline which creates a single altitude measurement for analysis. 
+More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this chapter.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=5.5in]{datastackchain}
 \caption{ISR signal processing chain, with signal processing operations as squares and data products as diamonds.}
 \label{fig:chain}
 \end{figure}
-
-
 The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter-pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$.  To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
 
 \begin{equation}
