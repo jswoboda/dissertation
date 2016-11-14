@@ -17,7 +17,9 @@ E_1(\theta,\phi) =\displaystyle \sum_{m=1}^{M/2}\sum_{n=1}^{N} \exp\left[-j2\lef
 
 \begin{equation}
 \label{eqn:arrpat2}
-E_2(\theta,\phi) =\displaystyle \sum_{m=1}^{M/2}\sum_{n=1}^{N} \exp\left[-j\left(2m-1\right)kd_x\sin\theta\cos\phi -j\left(n-1/2\right) k d_y\sin\theta\sin\phi\right].
+\begin{split}
+E_2(\theta,\phi) =\displaystyle \sum_{m=1}^{M/2}\sum_{n=1}^{N} \exp[&-j\left(2m-1\right)kd_x\sin\theta\cos\phi \\ &-j\left(n-1/2\right) k d_y\sin\theta\sin\phi].
+\end{split}
 \end{equation}
 
 In order to simplify notation we will make the following substitutions, $\psi_x = -k d_x\sin\theta\cos\phi$, $\psi_y = -k d_y\sin\theta\sin\phi$. Using Equations \ref{eqn:arrpat1} and \ref{eqn:arrpat2} we can see the following relationship,
@@ -42,5 +44,7 @@ Since the array is steerable this can be taken into account in the equations by 
 
 \begin{equation}
 \label{eqn:amisrpatfinal}
-F(\theta_s,\phi_s,\theta,\phi) = \frac{1}{2}(1+\cos(\theta)^2)\left| \frac{1}{MN} \left(1+ \exp\left[j(\psi_y/2 + \psi_x)\right]\right)\frac{\sin((M/2) \psi_x)}{\sin(\psi_x)} \frac{\sin((N/2) \psi_x)}{\sin(\psi_x/2)}\right|^2.
+\begin{split}
+F(\theta_s,\phi_s,\theta,\phi) =& \frac{1}{2}(1+\cos(\theta)^2) \times \\& \left| \frac{1}{MN} \left(1+ \exp\left[j(\psi_y/2 + \psi_x)\right]\right)\frac{\sin((M/2) \psi_x)}{\sin(\psi_x)} \frac{\sin((N/2) \psi_x)}{\sin(\psi_x/2)}\right|^2.
+\end{split}
 \end{equation}

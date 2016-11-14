@@ -199,11 +199,13 @@ Also, to avoid having to more calculations then necessary the $j\omega\epsilon_0
 
 \begin{equation}
 \label{eq:sumspeceqactual}
-\displaystyle \langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle =  \frac{\left|1 + \sum_s^K  \frac{1-j\omega_s J_s(\omega_s)}{k^2\lambda_e^2} \left(\frac{q_sT_eN_s}{q_eT_sN_e}\right) \right|^2 2N_e\text{Re}\{J_e(\omega_e)\}}{\left|1 + \frac{1-j\omega_e J_e(\omega_e)}{k^2\lambda_e^2}  +\sum_s^K  \frac{1-j\omega_s J_s(\omega_s)}{k^2\lambda_e^2} \left(\frac{q_sT_eN_s}{q_eT_sN_e}\right) \right|^2}       +                 \frac{\left| \frac{1-j\omega_s J_e(\omega_e)}{k^2\lambda_e^2} \right|^2\sum_s^K  2N_s\text{Re}\{J_s(\omega_s)\}}{\left|1 + \frac{1-j\omega_e J_e(\omega_e)}{k^2\lambda_e^2}  +\sum_s^K  \frac{1-j\omega_s J_s(\omega_s)}{k^2\lambda_e^2} \left(\frac{q_sT_eN_s}{q_eT_sN_e}\right) \right|^2}.
+\begin{split}
+\displaystyle \langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle =&  \frac{\left|1 + \sum_s^K  \frac{1-j\omega_s J_s(\omega_s)}{k^2\lambda_e^2} \left(\frac{q_sT_eN_s}{q_eT_sN_e}\right) \right|^2 2N_e\text{Re}\{J_e(\omega_e)\}}{\left|1 + \frac{1-j\omega_e J_e(\omega_e)}{k^2\lambda_e^2}  +\sum_s^K  \frac{1-j\omega_s J_s(\omega_s)}{k^2\lambda_e^2} \left(\frac{q_sT_eN_s}{q_eT_sN_e}\right) \right|^2}       + \\        & \frac{\left| \frac{1-j\omega_s J_e(\omega_e)}{k^2\lambda_e^2} \right|^2\sum_s^K  2N_s\text{Re}\{J_s(\omega_s)\}}{\left|1 + \frac{1-j\omega_e J_e(\omega_e)}{k^2\lambda_e^2}  +\sum_s^K  \frac{1-j\omega_s J_s(\omega_s)}{k^2\lambda_e^2} \left(\frac{q_sT_eN_s}{q_eT_sN_e}\right) \right|^2}.
+\end{split}
 \end{equation}
 
 \section*{Examples}
-We can see in Figure \ref{fig:diffspectrums} examples of ISR spectrums from different ISR systems. The spectrums were generated using the the parameters values $N_e=1e11$, $T_e=3000^o$K and $T_i=3000^o$K and the system parameter values seen in Table \ref{tab:ISRsys}. The ion acoustic frequency$f_{ia}$ for each system with the following plasma parameters its wavelength $\lambda$ was calculated using the following formula,
+We can see in Figure \ref{fig:diffspectrums} examples of ISR spectrums from different ISR systems. The spectrums were generated using the the parameters values $N_e=1\times10^{11}$, $T_e=3000^o$K and $T_i=3000^o$K and the system parameter values seen in Table \ref{tab:ISRsys}. The ion acoustic frequency$f_{ia}$ for each system with the following plasma parameters its wavelength $\lambda$ was calculated using the following formula,
 
 \begin{equation}
 \label{eq:iaf}

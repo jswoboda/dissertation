@@ -134,7 +134,10 @@ The first example compares the output of SimISR with a set of relatively quiet d
 
 \subsection{Real Data Comparison}
 
-In 
+The first example shows PFISR data compared to SimISR. This comparison is made up of an altitude profile taken from PFISR during a quiescent period during the day. An input set of parameters was created using analytic funtions that resemble the data from the radar. A Chapman function for the electron density; arctan functions for the ion and electron temperatures; and constant of zero for the ion velocities.
+
+The chosen parameters for the inputs can be seen in Figure \ref{fig:simisrparamcomp} as the green lines. The collected PFISR data can be seen in blue and the SimISR output in red. The plots show that the PFISR and SimISR data show similar variability within the parameters.
+
 
 \begin{figure}[h!]
 \centering
@@ -143,12 +146,24 @@ In
 \label{fig:simisrparamcomp}
 \end{figure}
 
+A version of Figure \ref{fig:simisrparamcomp} can be seen with error bars in Figure \ref{fig:simisrparamcompeb}. The error bars in the SimISR parameters seem to be much small than those from PFISR. This could be due to a number of reasons including slightly different fitting algorithms.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=4.5in]{Paramcompeb}
+\caption{Comparison of real data from PFISR with SimISR data and a possible input parameter distribution along with error bars.}
+\label{fig:simisrparamcompeb}
+\end{figure}
+
+Lastly a comparison of example ACFs and spectra are shown in Figure \ref{fig:simisrspectcom}. This shows relatively good correspondence between PFISR and SimISR. 
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=4.5in]{speccomp}
 \caption{Comparison of ACFs and spectra from PFISR with SimISR.}
 \label{fig:simisrspectcom}
 \end{figure}
+
 \subsection{Monte Carlo Example}
 
 It is often necessary to obtain a large number of sensor measurements for a statistical study or for creating of a training data set for a pattern recognition algorithm. This can be a very burdensome search and classification task for the researcher if the input set must be drawn from actual sensor measurements. However, a number of useful cases exist where SimISR can be profitably employed to create a synthetic data set instead, saving considerable work over case assembly from a real ISR data based training set.  We explore one such example in this section.
@@ -201,7 +216,7 @@ An important aspect of experiment design is determining the observability of pla
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=4in]{backgroundandsamp}
+\includegraphics[width=3.5in]{backgroundandsamp}
 \caption{Contour of background $N_e$ for simulations and the spatial sampling pattern}
 % JOHN:  you don't need both of these panels, just the one on the right along with the colorbar.   Also, you should reduce the number of labels on colorbar, increase the font, and absorb exponent into units (which are not given).  Also there is no indication of what scalar is being plotted.   Typically you would write parameter/units above the colorbar:   $N_e (10^{10}$m$^{-3})$.   This comment goes for other plots too.
 % Josh: I've updated the figures as you suggested.
@@ -364,8 +379,16 @@ plotted using the GeoData API \cite{john_swoboda_2016_154536}.
 \label{fig:3dsampling}
 \end{figure}
 
+The input plasma parameters and the results of SimISR simulation are summarized in Figure \ref{fig:3dparams}.  For the selected configuration, the reconstructed density and ion temperature fields capture the predicted spatial variations reasonably well, providing confidence that this experimental configuration would result yield a positive detection of the spatial variations predicted by the applied FAC.  Reconstruction of the electron temperature enhancement (which is derived from a higher-order moment of the ISR spectrum) is less conclusive. This highlights the important point that variance is parameter dependent. In this case, SimISR informs us that, for this FAC and this experimental configuration, a negative result for $T_e$ comparison is not sufficient grounds to discount the model prediction.  A further refinement of the experiment might yield a positive result.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=6in]{60_60}
+\caption{Input and output of full 3-D reconstruction of plasma parameters.}
+\label{fig:3dparams}
+\end{figure}
+
 The sampling pattern picked for this simulation was chosen to get as dense a set of non-overlapping beams as possible.  This has been the general objective for several previous volumetric imaging experiments.
 %% PJE: is this the main point? Or not?
 %% JPS: This mode was designed off of a previous experiment although it is a very dense pattern.
 The overall phenomena varies over a much larger area, so there is an obvious trade off between sampling density and the support region. These sorts of simulations can help experiment planners to understand these trade offs and possibly yield to innovative sampling stratagems for specific phenomena. 
-
