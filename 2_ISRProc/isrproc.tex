@@ -127,29 +127,42 @@ The case of the \textit{overspread} target occurs when this inequality does not 
 
 \subsection{Doppler Measurement}
 
-Pulsed radar systems are able to measure the Doppler spectrum of target, and to show ISR systems perform this two methods will be focused on. The first, pulse-Doppler, sends out a set of pulses, which scatter off of the target, and when received are then binned into a two dimensional array representing range and interpulse period (IPP). Then a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. In order to avoid any sort of aliasing, or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. A power spectrum is formed then by taking squared magnitude of the full range-Doppler map. This method is often referred to in the radar community as \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
+In this section, two methods of ISR pulse-Doppler measurement are examined. The pulse-Doppler method consists of the following steps:
+\begin{enumerate}
+\item radar sends a set of pulses that scatter off the targets 
+\item target returns are binned into a two-dimensional array representing range and interpulse period (IPP)
+\item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. 
+\item A power spectrum is formed by taking squared magnitude of the full range-Doppler map.  
+\end{enumerate}
+This pulse-Doppler processing method is commonly denoted \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}.
+To avoid aliasing or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. 
 
-The second method, entails forming a measurement of the autocorrelation function (ACF) with in the IPP. A DFT across the lags is taken to then get the Doppler spectrum The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}. Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. It is also noted that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \cite{gordon58,dougherty:farley1960}.
+An alternative Doppler processing method replaces steps \#2 and \#3 with a measurement of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
+The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}.
+Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
+Note that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \cite{gordon58,dougherty:farley1960}.
 
-Both of these measurements have trade offs. Using the pulse-Doppler method, a phase coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. Still, the Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $r_a$, can be represented as 
-
+Both of these measurement methods have trade offs. Using the pulse-Doppler method, a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $r_a$, can be represented as 
 \begin{equation}
 \label{eqn:maxuar}
 r_a =  \frac{cT}{2}
 \end{equation}
+where $T$ is the IPP time. 
+The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broadband spectrum without having to decrease the unambiguous range~\cite{richards2014fundamentals}.
 
-\noindent where $T$ is the IPP time. The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broad band spectrum without having to decrease the unambiguous range \cite{richards2014fundamentals}.
-
-When designing a moving target indicator (MTI) radar system the target's scattering function, approximated as delta, or some sort of compactly supported functions in range and Doppler \cite{richards2014fundamentals}. These types are generally underspread as their range extent and Doppler bandwidth will follow the inequality in Equation \ref{eqn:trp}. The ionosphere though is not compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. Using the spectrum in Figure \ref{fig:ispecch2}, it can be seen that the signal is at least 20kHz in bandwidth which will will require the same PRF in order to sample it unambigiously. This would yield only 7.5 km of unambiguous range so it is necessary to use the Wigner-Ville distribution method on this overspread target. 
-
+When designing a moving target indicator (MTI) radar system the target scattering function can be approximated as a Dirac delta or a compactly supported function in range and Doppler \cite{richards2014fundamentals}. 
+These types are generally underspread as their range extent and Doppler bandwidth follows the inequality in~\eqref{eqn:trp}. 
+The ionosphere is not compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. 
+Using the spectrum in Figure~\ref{fig:ispecch2}, it can be seen that the signal is at least 20kHz in bandwidth.
+This broad bandwidth requires the same PRF for unambigious sampling. 
+This would yield only 7.5~km of unambiguous range so it is necessary to use the Wigner-Ville distribution method on this overspread target. 
 
 
  %There are still cases of ISR systems that use a pulses Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
 
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{ISR Processing}
-\label{section:isrproc}
+\section{ISR Processing}\label{section:isrproc}
 After complex receiver voltage data have been received, the data are processed to create estimates of the ACF at desired points of space \cite{farley1969,nygren1996}. This processing follows the flow chart presented in Figure \ref{fig:chain}.  Note that we assume here a signal pipeline which creates a single altitude measurement for analysis.  More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this chapter.
 
 \begin{figure}[!t]
