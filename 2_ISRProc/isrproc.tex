@@ -13,63 +13,50 @@ This chapter will give the background on the signal model and processing aspects
 
 \section{Incoherent Scatter}
 \label{sec:incohscat}
-When electrons are freed from their bonds as in a plasma they can oscillate and act as a dipole. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave, this is known as Thomson scatter \cite{Hutchinson_2002}. This radiation, when taken as a collection of scatters from a large set of electrons, varies in time, $t$, with the fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector \cite{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as the following,
-
+When electrons are freed from their bonds as in a plasma they can oscillate in a manner modeled as a dipole antenna. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave. This scattering process is known as Thomson scatter \cite{Hutchinson_2002}. This radiation, when taken as a collection of scatterers from a large set of electrons, varies in time $t$, with fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector \cite{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as
 \begin{equation}
 \label{eqn:bragg}
 \mathbf{k}=\mathbf{k}_s-\mathbf{k}_i,
 \end{equation}
-
-\noindent where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \cite{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where is the spatial Fourier transform of $n_e(\mathbf{r},t)$ where $\mathbf{r}$ is the position vector. As these charges move the scattered wave are given a Doppler shift based off of their velocity, $\mathbf{v}$ along the Bragg vector. This Doppler shift in frequency can be represented as the following 
-
+where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \cite{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where the spatial Fourier transform $n_e(\mathbf{r},t)$ has position vector $\mathbf{r}$. As these charges move the scattered waves are given a Doppler shift based off of their velocity, $\mathbf{v}$ along the Bragg vector. This Doppler shift in frequency can be represented as
 \begin{equation}
 \label{eqn:dop1}
 \omega=\mathbf{k} \cdot \mathbf{v},
 \end{equation}
+where $\omega$ is the frequency shift from the velocity along the Bragg vector \cite{sheffield2010}. $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
 
-\noindent where $\omega$ is the frequency shift from the velocity along the Bragg vector \cite{sheffield2010}. In the end $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
-
-These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Another term for this is \textit{non-collective,} scattering which specifically entails the following relation,
-
+These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Another term for this is \textit{non-collective} scattering with relation,
 \begin{equation}
 \label{eqn:incohorig}
 k*\lambda_{e} << 1,
 \end{equation}
+where $\lambda_{e}$ is the electron Debye length, and $k=|\mathbf{k}|$. This will cause the spectrum to show the collective effects of the velocity distribution of the particles \cite{sheffield2010}.
+Although the scattering is driven through a random process it reveals several pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops, creating a shaped Doppler spectrum that a radar can detect. This Doppler spectrum is a power spectral density estimate of the electron density fluctuations across time $t$ and $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
 
-\noindent where $\lambda_{e}$ is the electron Debye length, and $k=|\mathbf{k}|$. This will cause the spectrum to show the collective effects of the velocity distribution of the particles \cite{sheffield2010}.
-
-Although the scattering is driven through a random process it can give a number of different pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops and creating a shaped Doppler spectrum that a radar can estimate. Stated another way this is an estimate of the power spectral density of the electron density fluctuations across time, $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
-
-There have been a number of derivations of this process since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. For this thesis we will use the formulation from  \cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
-
-
+There have been a number of derivations of this process since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. This thesis uses the formulation from~\cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
 \begin{equation}
 \label{eq:mainspeceq:body}
 \langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
 \end{equation}
-
-\noindent The full derivation of this can be seen in Appendix \ref{appendix1} but an example of this spectrum, with a $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, can be seen in Figure \ref{fig:ispecch2}. 
+The full derivation of~\eqref{eq:mainspeceq:body} is given in Appendix~\ref{appendix1}.
+An example of this spectrum, with a $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, is shown in Figure \ref{fig:ispecch2}. 
 % make ISR spectra
-
 \begin{figure}[!t]
 \centering
 \includegraphics[width=4in]{Specion}
 \caption{IS spectrum ion line with all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K. }
 \label{fig:ispecch2}
 \end{figure}
-
-
-The IS spectrum has a number of different sections separated in frequency but for this thesis we will focus on the "ion line" shown in Figure \ref{fig:ispecch2}. This naming is due to the IS spectrum is showing a damped version of ion acoustic waves,
-
+The IS spectrum has a number of different sections separated in frequency.
+This thesis focuses on the ``ion line'' shown in Figure~\ref{fig:ispecch2}. This naming is due to the IS spectrum revealing a damped version of ion acoustic waves
 \begin{equation} 
 \label{eqn:ial}
 \omega=k_0\sqrt{\frac{K_b(T_e+3T_i)}{m_i}}
 \end{equation}
+where $k_0$ is the wavenumber, $\omega$ is the radian frequency of the wave, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species and $T_e$ and $T_i$ are the temperatures of the electron and ions \cite{chen1984introduction}. 
+The ion acoustic mode returns the most power and can give information on both electron and ions, so it is commonly used in ISR analysis.
 
- \noindent where $k_0$ is the wavenumber, $\omega$ is the radian frequency of the wave, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species, $T_e$ and $T_i$ are the temperatures of the electron and ions \cite{chen1984introduction}. Other plasma wave modes can be viewed but ion acoustic mode returns the most power and can give information on both electron and ions.
-
-As mentioned before this process is inherently stochastic in nature. In order to measure this spectrum with any confidence a number of samples of this process must be averaged together \cite{Diaz:2008co}. Within this thesis and often in other radar publications the samples of this random process are often referred to as "pulses" to distinguish this from samples in signal processing applications \cite{dtsp:openhiem}. A demonstration of the convergence of a measurement going to the spectrum, using a periodogram estimator \cite{kay1988modern}, can be seen in Figure \ref{fig:ispecch2ave}.
-
+As its name implies, IS is inherently stochastic in nature. To measure this spectrum with usable error margins a number of samples of this process must be averaged together \cite{Diaz:2008co}. Common ISR analysis practice refers to samples of this random process as "pulses" to distinguish this from samples in signal processing applications \cite{dtsp:openhiem}. A demonstration of the convergence of a measurement going to the spectrum, using a periodogram estimator \cite{kay1988modern}, is depicted in Figure \ref{fig:ispecch2ave}.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=4in]{Specionave}
@@ -79,86 +66,65 @@ As mentioned before this process is inherently stochastic in nature. In order to
 
 \section{Radar Signal Processing}
 
-ISR systems like other pulsed radar systems radiate a signal, $y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid,
-
+ISR systems like other pulsed radar systems radiate a signal, $y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid
 \begin{equation}
 \label{eqn:sigone}
 y(t)=s(t)e^{j2\pi f_0 t}
 \end{equation}
-\noindent where $f_0$ is the transmit frequency in Hz. This transmit frequency can also be equivalently as $ f_0=c/\lambda_0$, where $\lambda_0$ is the wavelength of the transmitted wave and $c$ is the speed of light. This return signal, reflected off of a target, which assuming for now has no motion,
-
+where $f_0$ is the transmit frequency in Hz. Equivalently, $ f_0=c/\lambda_0$, where $\lambda_0$ is the wavelength of the transmitted wave and $c$ is the speed of light. The return signal reflected off of a target, which assuming for now has no motion may be modeled as
 \begin{equation}
 \label{eqn:sigone}
 y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta t)}
 \end{equation}
-
-\noindent where $\Delta T$ round trip time and is $A_0$  is an amplitude of which is amplitude factor including propagation losses and target reflectivity \cite{richards2014fundamentals}. The radar system measures the range $r$, or the distance between the target and sensor, by simply measuring the and using the following conversion,
-
+where $\Delta T$ round trip time and $A_0$ is an amplitude factor including propagation losses and target reflectivity \cite{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor, by convention
 \begin{equation}
 \label{eqn:range_intro}
 r=\frac{c\Delta T}{2}.
 \end{equation}
-
-\noindent Lastly, the signal is demodulated down to base band and it becomes the following
-
+Lastly, the signal is demodulated down to baseband, becoming
 \begin{equation}
 \label{eqn:baseband}
 x(t)=A_0s(t-\Delta t)e^{-j2\pi\Delta t}
 \end{equation}
-
-Another quantity that can be measured is the line of sight or Doppler velocity. The Doppler for this specific case acts multiplication of the radar signal $s(t)$ with a simple single complex exponential
-
+Another key quantity estimated by ISR is the line of sight or Doppler velocity. The Doppler for this specific case acts as multiplication of the radar signal $s(t)$ with a simple single complex exponential
 \begin{equation}
 \label{simpledop}
 x_d(t) = x(t)e^{j2\pi f_d t},
 \end{equation}
- 
-\noindent where $\omega_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
+ where $\omega_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
 
-
-
-With ISR a distribution of electrons are actually being probed, so we have more than one target. A better model would be set of scatters each with their weighted return and Doppler frequency, which can be represented as the following
-
+With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their weighted return and Doppler frequency, represented as
 \begin{equation}
 \label{multiDop}
 \displaystyle x_d(t) = \sum_{n}^{N} x(t)V_ne^{j2\pi f_{n} t}.
 \end{equation}
-
-
-\noindent This then can be extended to a continuum of signals each at each Doppler frequency which becomes
-
+This model can be extended to a continuum of signals each with unique Doppler frequency, becoming
 \begin{equation}
 \label{conDop}
 x_d(t) = \int x(t) V(f)e^{j2\pi ft} df.
 \end{equation}
-\noindent Pulling the $x(t)$ term out of the integral we can see that we are taking the Fourier transform of this relative weighting between each of the scatters and then multiplying it with the signal.  Using simple Fourier properties we can see that this equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
-
+Pulling the $x(t)$ term out of the integral it is apparent that this is the Fourier transform of this relative weighting between each of the scatterers multiplied with the signal.  This is equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
 The final form of the signal spectrum with Doppler added can be shown as the following
-
 \begin{equation}
 \label{finalDop}
 x_d(t) = \int \left[\int X(\lambda)V(\lambda-f)d\lambda\right] e^{j\omega t}df.
 \end{equation}
+This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of the radar signal along with the Doppler spectrum of the target.
 
-\noindent This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of radar's signal along with the Doppler spectrum of the target.
-
-
-This model can be extended to a much more general form from being just at a single range to being spread across range
+This model can be extended from a single point to a much more general form spread across range
 \begin{equation}
 \label{eqn:scateqn}
 x(t)= \int \int V(\mu,f)s(t-\mu)e^{j2\pi f t} d \mu df,
 \end{equation}
-
-\noindent where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
-
-This creates two classes of targets, by what will be called is called their range bandwidth product. For the case of an an \textit{underspread} target,
-
+where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
+This model creates two classes of targets, distinguished by range bandwidth product. For the case of an an \textit{underspread} target
 \begin{equation}
 \label{eqn:trp}
 B\frac{2r}{c}<1,
 \end{equation}
+where $B$ is the Doppler bandwidth \cite{Pfander:2015ea}. 
+The case of the \textit{overspread} target occurs when this inequality does not hold.
 
-\noindent where $B$ is the Doppler bandwidth \cite{Pfander:2015ea}. The case of the \textit{overspread} target occurs when this inequality does not hold.
 \subsection{Doppler Measurement}
 
 Pulsed radar systems are able to measure the Doppler spectrum of target, and to show ISR systems perform this two methods will be focused on. The first, pulse-Doppler, sends out a set of pulses, which scatter off of the target, and when received are then binned into a two dimensional array representing range and interpulse period (IPP). Then a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. In order to avoid any sort of aliasing, or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. A power spectrum is formed then by taking squared magnitude of the full range-Doppler map. This method is often referred to in the radar community as \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
