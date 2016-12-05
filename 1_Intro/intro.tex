@@ -7,12 +7,12 @@
 % it has a trailing directory separator (i.e., '/')!
 \graphicspath{{1_Intro/Figures/}}
 
-Incoherent scatter radar (ISR), like all scientific instruments, is a testament to humankind's desire to understand the world around it. This is especially true for ISR because these systems are generally very large, complicated and use substantial amounts of power, in the range of megawatts. These systems are able to probe Earth's ionosphere and unlike other ground-based measures this modality can give direct measurements of various plasma parameters including electron density ($N_e$), electron temperature ($T_e$), ion temperature ($T_i$) and ion velocity ($V_i$). ISRs has been in use since the 1950's \cite{gordon58} and these systems have evolved over time from only being able to measure parameters along a single line of site to recently having the ability to be used as full 3-D sensors \cite{Semeter2009738,Nicolls:2007ie}. The goal of this dissertation is to present a framework to analyze and improve the quality of the data that comes from modern ISR systems. This framework can  improve the spatial and time sampling of the ISR systems and help researchers improve their experiments and better understand the data products from ISR.
+Incoherent scatter radar (ISR), like all scientific instruments, is a testament to humankind's desire to understand the world around it. This is especially true for ISR because these systems are generally very large, complicated and use substantial amounts of power, in the range of megawatts. These systems are able to probe Earth's ionosphere and unlike other ground-based measures this modality can give direct measurements of various plasma parameters including electron density ($N_e$), electron temperature ($T_e$), ion temperature ($T_i$) and ion velocity ($V_i$). ISRs have been in use since the 1950's \cite{gordon58} and these systems have evolved over time from only being able to measure parameters along a single line of site to recently having the ability to be used as full 3-D sensors \cite{Semeter2009738,Nicolls:2007ie}. The goal of this dissertation is to present a framework to analyze and improve the quality of the data that comes from modern ISR systems. This framework can  improve the spatial and time sampling of the ISR systems and help researchers improve their experiments and better understand the data products from ISR.
 
 Until recently, these systems were constructed using single, mechanically steered antennas. Because of this, the rate that the look angle can change is limited by the mechanical speed of the antenna steering mechanism. The newest generation of ISR systems are now taking advantage of electronically steerable array (ESA) antennas, which allow for a near instantaneous change in the radar look direction. While this thesis mainly focuses on ESA ISR systems, many of the ideas contained within are applicable to single mechanically steered antenna based systems. 
  
 \section{Purpose}
-The basics of ISR are introduced in the following section along with recent developments expanding ISR capabilities. The ionosphere and ISR observable characteristics are discussed. Finally, a short introduction is given to inverse theory and image reconstruction as used by engineers and scientists to analyze and improve the output of sensors.
+The basics of ISR will be introduced in the following section along with recent developments expanding ISR capabilities. The ionosphere and ISR observable characteristics will then be discussed. Finally the section will close with a short introduction to inverse theory and image reconstruction as used by engineers and scientists to analyze and improve the output of sensors.
 
 \subsection{ISR as a 3-D Sensor}
 Radar is a common remote sensing modality that has found diverse uses ranging from mundane supermarket door openers and traffic speed control~\cite{richards2010principles} to mapping the surfaces of planetary bodies~\cite{campbell2002radar}. ISR systems estimate plasma parameters via radiating electromagnetic energy and monitoring the reflected signal from large groups of free electrons in the ionosphere. The monitoring of radar returns may take place at the transmitter site (monostatic) or at one or more distinct receive locations in bistatic or multistatic systems~\cite{RDS:RDS2903}. The plasma-scattered radar energy has a specific spectral distribution driven by the ion and electron temperature, electron density and bulk flow of the plasma in the measured ionospheric volume~\cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. Two important steps in ISR processing are:
@@ -23,26 +23,41 @@ Radar is a common remote sensing modality that has found diverse uses ranging fr
 This process is executed at each point in time and space where the radar can create an ACF estimate~\cite{nikoukar2008}. 
 
 As stated previously, ESA antennas can create three dimensional reconstructions of plasma parameters. Examples of ESA ISRs include Advanced Modular Incoherent Scatter Radars (AMISR).
-As the name implies, AMISRs can be built with varying numbers of panels and can be relocated.
-Full 96-panel AMISR sites are currently deployed to Poker Flat Research Range north of Fairbanks, Alaska and Resolute Bay, Nunavut, Canada~\cite{Semeter2009738,Valentic:2013jg}. 
+As the name implies, AMISRs can be built with varying numbers of panels and can be relocated. Each of these panels contain 32 antenna element units.
+Full 128-panel AMISR sites are currently deployed to Poker Flat Research Range north of Fairbanks, Alaska and Resolute Bay, Nunavut, Canada~\cite{Semeter2009738,Valentic:2013jg,Nicolls2015a}. These systems are constructed into a roughly 30$\times$30 meter square face.
 Smaller sixteen-panel AMISRs are deployed to Gakona, Alaska (HAARP site) and Arecibo, Puerto Rico.
 The Poker Flat Incoherent Scatter Radar (PFISR) is depicted in Figure~\ref{fig:amisrpic}, with Resolute Bay Incoherent Scatter Radar (RISR) having similar construction. 
 These systems have already yielded unprecedented views in the ionosphere and upper atmosphere and allowed for new types of measurements that were not possible before \cite{semeter2010CI,butler:imagingfregiondrifts,Nicolls:2007ie}. %Currently EISCAT-3D is being developed as well and is expected to give even greater views due to the multi-static set up \cite{eiscat3ddesign}.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=3in]{amisrimage2}
-\caption{PFISR field deployment at Poker Flat Research Range~\cite{Valentic:2013jg}}
-% * <mhirsch@bu.edu> 2016-11-14T17:41:02.369Z:
-%
-% perhaps add a physical scale reference to give a sense of the size e.g. 30 meters or whatever
-%
-% ^.
-\label{fig:amisrpic}
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=3in]{amisrimage2}
+%\caption{PFISR field deployment at Poker Flat Research Range~\cite{Valentic:2013jg}}
+%% * <mhirsch@bu.edu> 2016-11-14T17:41:02.369Z:
+%%
+%% perhaps add a physical scale reference to give a sense of the size e.g. 30 meters or whatever
+%%
+%% ^.
+%\label{fig:amisrpic}
+%\end{figure}
+
+\begin{figure}[htb]
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \includegraphics[width=7cm]{amisrimage2}
+    \medskip
+    \centerline{(a)}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \includegraphics[width=7cm]{amisrface}
+    \medskip
+    \centerline{(b)}
+  \end{minipage}
+  \caption{PFISR field deployment at Poker Flat Research Range~\cite{Valentic:2013jg}: (a) View of full system, approximately 30$\times$30 meter; and (b) Close up view of the individual cross dipole antenna elements units. }
+  \label{fig:amisrpic}
 \end{figure}
 
 \subsubsection{Objectives related to 3-D ISR}
-A large and growing number of studies have used ISR to reconstruct two- and three-dimensional fields of plasma parameters. Some studies use various types of interpolation to stitch together a spatially-continuous parameter estimate from the sparsely angularly-sampled one dimensional beams, which give a one dimensional view along range \cite{Semeter2009738,Butler:2013ul,Semeter:2005fo}. Others have taken a tact closer to inverse theory and image reconstruction to create reconstruction of velocity fields of bulk flows or electric fields \cite{butler:imagingfregiondrifts,RDS:RDS20195}. These publications do not get to the core details of reconstructing plasma parameters like the ion and electron temperatures. Interpolations can help visualize the data but these techniques make a lot of assumptions about the underlying imaging process. The goal of this thesis is to present a first principles model of ISR as a three dimensional sensor and use it to create better reconstructions of the plasma parameters.
+A large and growing number of studies have used ISR to reconstruct two- and three-dimensional fields of plasma parameters. Some studies use various types of interpolation to stitch together a spatially-continuous parameter estimate from the sparse angularly-sampled one dimensional beams, which give a one dimensional view along range \cite{Semeter2009738,Butler:2013ul,Semeter:2005fo}. Others have taken a tact closer to inverse theory and image reconstruction to create reconstruction of velocity fields of bulk flows or electric fields \cite{butler:imagingfregiondrifts,RDS:RDS20195}. These publications do not get to the core details of reconstructing plasma parameters like the ion and electron temperatures. Interpolations can help visualize the data but these techniques make a lot of assumptions about the underlying imaging process. The goal of this thesis is to present a first-principles model of ISR as a three dimensional sensor and use it to create better reconstructions of the plasma parameters.
 % * <mhirsch@bu.edu> 2016-11-14T17:46:58.012Z:
 %
 % consider rephrasing positivity, something like the prior work interpolates but here we use inverse theory instead of just smearing numbers together
@@ -158,7 +173,7 @@ An important ISR use case is obtaining accurate reconstructions of ionospheric p
 \label{sec:imgrec}
 Inverse theoretic image reconstruction gives engineers and scientists a robust framework to determine the state of system parameters given a data set \cite{menke2012geophysical,Vogel:2002:CMI:581830,Karl:2005jy}. This sort of framework has been applied to numerous problems in science and engineering from X-Ray computed tomographic scanning \cite{kak1988principles} to synthetic aperture radar \cite{1456966}. In this thesis we will use this framework and techniques to improve the quality of the plasma parameter estimates from ISR.
 
-Image reconstruction and inverse theory create a framework to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical} a general inverse problem can be stated as
+Image reconstruction and inverse theory create a framework to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical} a general inverse problem is to find $\mathbf{m}$ such that,
 \begin{equation}
 \label{eqn:invprob}
 \mathbf{d}=\mathbf{g}(\mathbf{m})
