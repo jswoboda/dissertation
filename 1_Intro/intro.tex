@@ -119,9 +119,10 @@ For this thesis most of the focus will be on phenomena from the auroral and pola
 %
 %\subsubsection{Dynamic Phenomena}
 
-These phenomena vary over several decades of spatio-temporial scales, creating difficult sampling problems for sensors tasked with measuring them. Two examples from the literature are examined to highlight the challenges associated with trying to reconstruct the plasma parameters.
-The events shown in \cite{Semeter:2005fo} consist of event known as a poleward boundary intensification (PBI). This occurs when the auroral oval breaks into two separate rings which show a demarcation of different field line configurations in the magnetosphere. The auroral ring closer to the magnetic pole shows a number of strong pulsations seen in both optical and radar data \cite{Semeter:2005fo} .
-The radar reconstruction of this event shown in Figure~\ref{fig:Sampling} shows large enhancements in electron density perpendicular to the ground. The enhancements are rapidly moving, which significantly impacts reconstruction ambiguity by how one processes the data. In this case the researchers found if they integrated fewer pulses per position and allowed for a greater variance in the data they could observe column structuring to the enhancement.
+The resulting ionospheric structures vary over several decades of spatio-temporial scales, creating difficult sampling problems for sensors tasked with measuring them. There are a number of different mechanisms behind this structuring. Auroral precipitation produces variation sub kilometer scale variation in electron density perpendicular to magnetic field \cite{Semeter:2005fo}. Convective transport induced by electric fields ($\vec{E}\times\vec{B}$ drift \cite{chen1984introduction}) can cause differential flow velocities and striates the plasma \cite{Tsunoda:1988ul}. This transport can also induce gradient-drift instabilities which have the ability to produce a wide range of irregular structures \cite{GRL:GRL52468}. Field aligned currents (Birkeland currents) can lead to density depletions caused by downward current channels (upflowing ions) \cite{Perry:2015jf}.
+
+Two examples from the literature are examined to highlight the challenges associated with trying to reconstruct the plasma parameters.
+The events shown in \cite{Semeter:2005fo} are referred to as a poleward boundary intensification (PBI). This occurs when the auroral oval breaks into two separate rings which show a demarcation of different field line configurations in the magnetosphere. The auroral ring closer to the magnetic pole shows a number of strong pulsations seen in both optical and radar data. The radar reconstruction of this event shown in Figure~\ref{fig:Sampling} shows large enhancements in electron density perpendicular to the ground. The enhancements are rapidly moving, which significantly impacts reconstruction ambiguity by how one processes the data. In this case the researchers found if they integrated fewer pulses per position and allowed for a greater variance in the data they could observe finer column structuring within the enhancement. The simple change in the processing yields significantly different interpretations of the true space-time variability of these structures. More problematic is that the researchers, at the time, did not have a frame work to evaluate the fidelity of their results.
 % * <mhirsch@bu.edu> 2016-11-14T18:07:03.028Z:
 %
 % ground_\perp or B_\perp?
@@ -139,19 +140,27 @@ The radar reconstruction of this event shown in Figure~\ref{fig:Sampling} shows 
     \medskip
     \centerline{(b)}
   \end{minipage}
-  \caption{Different views of a PBI event as seen in \cite{Semeter:2005fo}: (a) Data from the Sondrestrøm ISR processed at 5 seconds; and (b) the same data from the circled frame in b but processed at 2 seconds. }
+  \caption{Different views of a PBI event as seen in \cite{Semeter:2005fo}: (a) Data from the Sondrestrøm ISR processed at 5 seconds; and (b) the same data from the circled frame in a but processed at 2 seconds.}
   \label{fig:Sampling}
 \end{figure}
 
 The second example event is a sun-aligned auroral arc~\cite{Perry:2015jf}. These arcs are created by Field Aligned Currents (FAC) from the magnetosphere. The evidence of these structures are electron and ion temperature enhancements coincident with electron density depletions next to density enhancements. These structures also are in motion, which can create ambiguities (blurring) in the measurement process as the plasma moves through the field of view. A plasma parameter distribution associated with this type of auroral arc can be seen in Figure~\ref{fig:mzsim}.
-
 \begin{figure}[!t]
 \centering
 \includegraphics[width=5.0in]{MZsim}
-\caption{Plasma parameters~\cite{Perry:2015jf} from a multi-fluid model~\cite{semeter:plasmatransport2012} simulating the impact of an auroral arc. }
+\caption{Plasma parameters~\cite{Perry:2015jf} from a multi-fluid model~\cite{semeter:plasmatransport2012} simulating the impact of a field align current. }
 \label{fig:mzsim}
 \end{figure}
 
+
+In order to measure these highly structured events using ESA ISR systems researchers would created highly dense beam modes and recreate 3-D interpolations of the data \cite{Dahlgren:2012dq,dahlgren2012di}. Often the radar data sets would be plotted with measurements from corresponding sensors such as in Figure~\ref{figrisrfusion}. This sort of sensor fusion technique can give an overall picture to the process that is taking place. If ambiguities in each sensor are not understood properly though incorrect interpretations of the physics could take place or lowering the chance of properly testing theoretical models. 
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=4.0in]{risrfusion}
+\caption{Combination of red-line emission data, in gray scale, and an interpolated electron density slice at 340 km from RISR. The red-line emission corresponds with high gradient within the electron density.}
+\label{fig:risrfusion}
+\end{figure}
 %There are also a large number of dynamics and structure found in many auroral events. Using the AMISR system to create volumetric reconstruction of the electron density \cite{Semeter2009738} helped show variability of these events. Figure \ref{fig:eregionact} shows an example of one of these reconstructed events.  Again the like before the researchers again showed the variability during these events by changing the number of pulses integrated and found a large difference in the visible structure.
 %\begin{figure}[!t]
 %\centering
@@ -167,25 +176,26 @@ The second example event is a sun-aligned auroral arc~\cite{Perry:2015jf}. These
 %In the past researchers have studied errors associated with different plasma distributions mixing together.  These errors can be quite complex due to the nonlinear nature of the inversion process\cite{Vallinkoski1990665}.  Similar behavior has been observed during times of auroral turbulence where shear flows seems to have caused non isotropic temperature measurements\cite{knudsen1993}. 
 
 \subsubsection{Objectives related to the Phenomena of the Ionosphere}
-An important ISR use case is obtaining accurate reconstructions of ionospheric plasma parameters. This research creates a framework researchers can use to improve their ISR experiment planning. This framework includes an ISR data simulator useful for trying different experiment setups and reconstruction methods. The ISR simulation outputs parameter distributions derived or directly from those shown in Figures~\ref{fig:Sampling} and~\ref{fig:mzsim} as phantoms to test the reconstruction methodology.
+An important ISR use case is obtaining accurate reconstructions of ionospheric plasma parameters and research creates a framework researchers can use to improve their experiment planning. This framework includes an ISR data simulator useful for trying different experiment setups and reconstruction methods. The simulator can be used as a way to understand possible ambiguities that may arise from experiments if plasma parameters from a physical model are available, such as in~\cite{Perry:2015jf}. The ISR simulation outputs possible measurements given a set of input plasma parameters, including though from fully consistent physical models. In this thesis examples of the simulator are show using phantoms derived from plasma parameters those shown in Figures~\ref{fig:Sampling} and~\ref{fig:mzsim}. 
+
 
 \subsection{Image Reconstruction}
 \label{sec:imgrec}
-Inverse theoretic image reconstruction gives engineers and scientists a robust framework to determine the state of system parameters given a data set \cite{menke2012geophysical,Vogel:2002:CMI:581830,Karl:2005jy}. This sort of framework has been applied to numerous problems in science and engineering from X-Ray computed tomographic scanning \cite{kak1988principles} to synthetic aperture radar \cite{1456966}. In this thesis we will use this framework and techniques to improve the quality of the plasma parameter estimates from ISR.
+Inverse theoretic image reconstruction gives engineers and scientists a robust framework to determine the state of system parameters given a set of observations \cite{menke2012geophysical,Vogel:2002:CMI:581830,Karl:2005jy}. This sort of framework has been applied to numerous problems in science and engineering from X-Ray computed tomographic scanning \cite{kak1988principles} to synthetic aperture radar \cite{1456966}. In this thesis we will use this framework and techniques to improve the quality of the plasma parameter estimates from ISR.
 
-Image reconstruction and inverse theory create a framework to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical} a general inverse problem is to find $\mathbf{m}$ such that,
+Image reconstruction and inverse theory create a framework to reconstruct a set of parameters given a set of data using knowledge of the forward model. Using the notation found in \cite{menke2012geophysical}, a general inverse problem is to find $\mathbf{m}$ such that,
 \begin{equation}
 \label{eqn:invprob}
 \mathbf{d}=\mathbf{g}(\mathbf{m})
 \end{equation}
 where $\mathbf{d}$ is the observable data and $\mathbf{g}$ is the operator that changes the unobservable parameters $\mathbf{m}$ to the data space. 
 
-Equation \ref{eqn:invprob} gives the most general form of these problems; unfortunately this can very difficult to solve without further assumptions. Techniques often used to solve inverse problems specify a constraint on the operator $\mathbf{g}$, such that it has to be well-posed \cite{0266-5611-4-4-010}. Still, there are ways to expand the utility of these techniques by adding constraints to the inversion method or regularizing the solution \cite{Vogel:2002:CMI:581830,Karl:2005jy}.
+Equation \ref{eqn:invprob} gives the most general form of these problems; unfortunately this can be very difficult to solve without further assumptions. Techniques often used to solve inverse problems specify a constraint on the operator $\mathbf{g}$, such that it has to be well-posed \cite{0266-5611-4-4-010}. Still, there are ways to expand the utility of these techniques by adding constraints to the inversion method or regularizing the solution \cite{Vogel:2002:CMI:581830,Karl:2005jy}.
 
 ISR systems have been analyzed in this format, albeit mainly for a single beam \cite{Vierinen:2012ve}. ISR can be posed as a general inverse problem because of the non-linear operation that brings the plasma parameters to the ACF space. Two schools of thought have emerged in the community on how to be constrain these inversions. The first, full profile analysis, uses plasma parameter constraints, which can give physical constraints to the inversion thereby improving the outcome \cite{hysell2008,RDS:RDS3308}. The second set of techniques apply constraints on the estimated ACFs \cite{Virtanen:20082vx,nikoukar2008}, which is less expensive computationally but can create ACFs that cannot be created through incoherent scatter (IS) theory.
 
 \subsubsection{Objectives related to the image reconstruction}
-This thesis will couch the estimation of 3-D ISR in the language of inverse theory. It will use techniques to improve the accuracy of the reconstruction of plasma parameters.
+This thesis will couch the estimation of 3-D ISR in the language of inverse theory. The mathematical framework developed in this thesis will be used in a number of ways. This includes showing how ISR data can be improperly interpreted. This framework will be further be used to develop techniques to improve the accuracy of the reconstruction of plasma parameters.
 
 \subsection{Outline of dissertation}
 
@@ -193,9 +203,9 @@ Chapter \ref{chapter:isrproc} will go into the background of ISR signal processi
 
 Chapter 3 will show the derivation of space-time ambiguity function. This will allow for the posing the reconstruction of the field of three dimensional plasma parameters in the language of inverse theory. 
 
-Chapter 4 contains a discussion of the framework behind the Simulator for ISR (SimISR). This simulator can create complex voltage samples and process the data. This can help plan experiments the future. This will also include the examples of simulated data to show the capabilities of this framework.
+Chapter 4 contains a discussion of the framework behind the Simulator for ISR (SimISR). This simulator can create complex voltage samples and process the data. This can help plan experiments in the future. Experiments used to validate model predictions require a rigorous understanding of the measurement process. This will also include examples of simulated data to show the capabilities of this framework.
 
-Chapter 5 will detail an inversion method that has been developed to reduce the impact of the space-time ambiguity. This inversion method allows for plasma parameter reconstructions along the frame of reference of the moving plasma.
+Chapter 5 will detail an inversion method that has been developed to reduce the impact of the space-time ambiguity. This inversion method allows for plasma parameter reconstructions along the frame of reference of the moving plasma assuming a stationary morphology. This takes advantage of the multi-beam measurement capability of ESA ISRs to create high-fidelity image of the moving plasma parameters. This will remove motion blur and could allow researchers to get a better measurements of spatiotemporal structure of the ionosphere. 
 
 \section{Contributions}
 Specific contributions of this research are summarized below.
