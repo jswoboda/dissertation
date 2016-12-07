@@ -5,7 +5,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This is the mathematical basis for calculating incoherent scatter spectrum for a given set of ionosphere state parameters. The appendix uses the methods developed \cite{kudeki:milla:1} and \cite{Kudeki:2006kx}.
+This is the mathematical basis for calculating incoherent scatter spectrum for a given set of ionosphere state parameters such as electron density ($N_e$), electron temperature ($T_e$),  and ion temperature ($T_i$). The appendix uses the methods developed \cite{kudeki:milla:1} and \cite{Kudeki:2006kx}.
 
 \section*{Overall Formulation}
 The first step comes from \cite{kudeki:milla:1} where a lumped circuit model is used to describe the spectrum. In it the independent thermal fluctuations of each species of ions and electrons are treated as current sources and the macroscopic conductances are treated as discrete components. The electric field $E$ impinged from the radar acts as a voltage. This lumped circuit model, seen in Figure \ref{fig:circuit}, is derived is taking the scalar component of Ampere's law in the direction of $\mathbf{k}$.  
@@ -181,7 +181,7 @@ h = \frac{1}{N}\ln(1.05\sqrt{2}N).
 \end{equation} 
 
 
-Lastly to avoid cases of divid by zero errors the main equations have to be rearrange slightly. First off because some ion species could have zero density Equation \ref{eq:cond} uses the Debye length of the electron species,$\lambda_e$ as follows
+Lastly to avoid cases of divid by zero errors the main equations have to be rearrange slightly. First off because some ion species could have zero density Equation \ref{eq:cond} uses the Debye length of the electron species, $\lambda_e$ as follows
 
 \begin{equation}
 \label{eq:condnew}

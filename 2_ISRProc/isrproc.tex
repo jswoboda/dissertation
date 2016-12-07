@@ -33,22 +33,8 @@ k*\lambda_{e} << 1,
 where $\lambda_{e}$ is the electron Debye length, and $k=|\mathbf{k}|$. This will cause the spectrum to show the collective effects of the velocity distribution of the particles \cite{sheffield2010}.
 Although the scattering is driven through a random process it reveals several pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops, creating a shaped Doppler spectrum that a radar can detect. This Doppler spectrum is a power spectral density estimate of the electron density fluctuations across time $t$ and $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
 
-There have been a number of derivations of this process since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. This thesis uses the formulation from~\cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx}
-\begin{equation}
-\label{eq:mainspeceq:body}
-\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
-\end{equation}
-The full derivation of~\eqref{eq:mainspeceq:body} is given in Appendix~\ref{appendix1}.
-An example of this spectrum, with a $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, is shown in Figure \ref{fig:ispecch2}. 
-% make ISR spectra
-\begin{figure}[!t]
-\centering
-\includegraphics[width=4in]{Specion}
-\caption{IS spectrum ion line with all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K. }
-\label{fig:ispecch2}
-\end{figure}
 The IS spectrum has a number of different sections separated in frequency.
-This thesis focuses on the ``ion line'' shown in Figure~\ref{fig:ispecch2}. This naming is due to the IS spectrum revealing a damped version of ion acoustic waves
+This thesis focuses on the ``ion line'' portion of the spectrum shown in Figure~\ref{fig:ispecch2}. This naming is due to the IS spectrum revealing a damped version of ion acoustic waves
 \begin{equation} 
 \label{eqn:ial}
 \omega=k_0\sqrt{\frac{K_b(T_e+3T_i)}{m_i}}
@@ -56,11 +42,52 @@ This thesis focuses on the ``ion line'' shown in Figure~\ref{fig:ispecch2}. This
 where $k_0$ is the wavenumber, $\omega$ is the radian frequency of the wave, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species and $T_e$ and $T_i$ are the temperatures of the electron and ions \cite{chen1984introduction}. 
 The ion acoustic mode returns the most power and can give information on both electron and ions, so it is commonly used in ISR analysis.
 
-As its name implies, IS is inherently stochastic in nature. To measure this spectrum with usable error margins a number of samples of this process must be averaged together \cite{Diaz:2008co}. Common ISR analysis practice refers to samples of this random process as "pulses" to distinguish this from samples in signal processing applications \cite{dtsp:openhiem}. A demonstration of the convergence of a measurement going to the spectrum, using a periodogram estimator \cite{kay1988modern}, is depicted in Figure \ref{fig:ispecch2ave}.
-\begin{figure}[!t]
+The physical intuition behind the ``ion line'' can useful for understanding basic processes, but a full mathematical model tying plasma parameters, such as electron density ($N_e$), electron temperature ($T_e$),  and ion temperature ($T_i$) to the power spectral density ($\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$) is necessary for ISR to perform its measurements. There have been a number of derivations and formulations for this since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. This thesis will use the formulation from~\cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx},
+\begin{equation}
+\label{eq:mainspeceq:body}
+\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
+\end{equation}
+The overall spectra from the collective effects of the electrons and different species of ions is made up of the weighted superposition of independent fluctuation spectra for each species $\langle |n_{ts}(\mathbf{k},\omega)|^2\rangle$. The weightings are made up of the longitudinal conductivities of each species $\sigma_s$, the frequency $\omega$ and $\epsilon_0$ is the vacuum permittivity. 
+
+The independent fluctuation spectra and conductivities are related to plasma parameters through Gordeyeve integrals $J_s(\omega)$, specifically 
+\begin{equation}
+\label{eq:thermalfl:bod}
+\frac{\langle|n_{ts}(\mathbf{k},\omega)|^2\rangle}{N_s} = 2\text{Re}\{J_s(\omega)\},
+\end{equation}
+
+\noindent and 
+\begin{equation}
+\label{eq:cond:bod}
+\frac{\sigma_{s}(\mathbf{k},\omega)}{j\omega\epsilon_0} = \frac{1-j\omega J_s(\omega)}{k^2\lambda_s^2},
+\end{equation}
+where $N_s$ is the average density for the species, and $\lambda_{e}$ is its Debye length. The Gordeyeve integrals are the one sided Fourier transforms of the characteristic functions of the particle displacements $\langle e^{j\mathbf{k}\cdot\Delta\mathbf{r}_s}\rangle$, or  
+\begin{equation}
+\label{eq:gord:body}
+J_s(\omega)\equiv \int_0^\infty \langle e^{j\mathbf{k}\cdot\Delta \mathbf{r}_s}\rangle e^{j\omega\tau}d\tau.
+\end{equation}
+For the case of a Maxwellian distributed plasma where collisions and magnetic field can be neglected,
+ \begin{equation}
+\label{eq:pdfallc2}
+\langle e^{j\mathbf{k}\cdot\Delta \mathbf{r}}\rangle= e^{-\frac{1}{2}k^2C^2 \tau^2},
+\end{equation}
+where $C=\frac{K_bT_s}{m_s}$, $T_s$ is the temperature of the species, $K_b$ is Boltzmans constant and $m_s$ is the mass of the species in kg.
+
+This formulation can also allows for the measurement of bulk of the plasma. This measurement is along the radars wave vector and results in the substitution of $\omega_s=\omega-\mathbf{k}\cdot\mathbf{V}_s$, where $\mathbf{V}_s$ is the bulk motion of the plasma species, into the Gordeyve integrals in Equation~\ref{eq:gord:body} for $\omega$. Generally all of the species will flow together, otherwise large electric fields would form, and this overall motion can be measured as a overall shift of the spectrum in frequency.
+
+A more complete treatment of the IS spectrum formulation, derivation and computational considerations is given in Appendix~\ref{appendix1}. An example of ion line portion of the IS spectrum, with  $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, is shown in Figure \ref{fig:ispecch2}. 
+% make ISR spectra
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4in]{Specion}
+\caption{IS spectrum ion line with all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K. }
+\label{fig:ispecch2}
+\end{figure}
+
+As its name implies, IS is inherently stochastic in nature. To measure this spectrum with usable error margins a number of observations of this process must be averaged together \cite{Diaz:2008co}. Common ISR analysis practice refers to observations of this random process as ``pulses," to distinguish this from samples in signal processing applications \cite{dtsp:openhiem}. These observations can then be used in some sort of spectral estimator . A demonstration of the convergence of a periodogram estimator to the spectrum from Figure \ref{fig:ispecch2} as the number of pulses $J$ is increased is depicted in Figure \ref{fig:ispecch2ave}.
+\begin{figure}[htb]
 \centering
 \includegraphics[width=4in]{Specionave}
-\caption{IS spectrum ion line with all parameters from Figure \ref{fig:ispecch2} with $J =$ 50, 100, 500 and 1000 averaged realizations. }
+\caption{IS spectrum ion line with all parameters from Figure \ref{fig:ispecch2} with, number of observations or pulses $J =$ 50, 100, 500 and 1000 averaged together using a periodogram estimator. }
 \label{fig:ispecch2ave}
 \end{figure}
 
@@ -74,9 +101,9 @@ y(t)=s(t)e^{j2\pi f_0 t}
 where $f_0$ is the transmit frequency in Hz. Equivalently, $ f_0=c/\lambda_0$, where $\lambda_0$ is the wavelength of the transmitted wave and $c$ is the speed of light. The return signal reflected off of a target, which assuming for now has no motion may be modeled as
 \begin{equation}
 \label{eqn:sigone}
-y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta t)}
+y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta T)}
 \end{equation}
-where $\Delta T$ round trip time and $A_0$ is an amplitude factor including propagation losses and target reflectivity \cite{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor, by convention
+where $\Delta T$ round trip time and $A_0$ is a complex amplitude factor including propagation losses, phase shifts and target reflectivity \cite{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor, by convention
 \begin{equation}
 \label{eqn:range_intro}
 r=\frac{c\Delta T}{2}.
@@ -84,14 +111,14 @@ r=\frac{c\Delta T}{2}.
 Lastly, the signal is demodulated down to baseband, becoming
 \begin{equation}
 \label{eqn:baseband}
-x(t)=A_0s(t-\Delta t)e^{-j2\pi\Delta t}
+x(t)=A_0s(t-\Delta T)e^{-j2\pi\Delta T}
 \end{equation}
-Another key quantity estimated by ISR is the line of sight or Doppler velocity. The Doppler for this specific case acts as multiplication of the radar signal $s(t)$ with a simple single complex exponential
+Another key quantity estimated by ISR is the line of sight, or bulk Doppler velocity. The Doppler for this specific case acts as multiplication of the radar signal $s(t)$ with a simple single complex exponential
 \begin{equation}
 \label{simpledop}
-x_d(t) = x(t)e^{j2\pi f_d t},
+s_d(t) = s(t)e^{j2\pi f_d t},
 \end{equation}
- where $\omega_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
+ where $f_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
 
 With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their weighted return and Doppler frequency, represented as
 \begin{equation}
@@ -107,7 +134,7 @@ Pulling the $x(t)$ term out of the integral it is apparent that this is the Four
 The final form of the signal spectrum with Doppler added can be shown as the following
 \begin{equation}
 \label{finalDop}
-x_d(t) = \int \left[\int X(\lambda)V(\lambda-f)d\lambda\right] e^{j\omega t}df.
+x_d(t) = \int \left[\int X(\lambda-f)V(\lambda)d\lambda\right] e^{j2\pi f t}df.
 \end{equation}
 This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of the radar signal along with the Doppler spectrum of the target.
 
@@ -117,7 +144,7 @@ This model can be extended from a single point to a much more general form sprea
 x(t)= \int \int V(\mu,f)s(t-\mu)e^{j2\pi f t} d \mu df,
 \end{equation}
 where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
-This model creates two classes of targets, distinguished by range bandwidth product. For the case of an an \textit{underspread} target
+This model creates two classes of targets, distinguished by range bandwidth product. For the case of an \textit{underspread} target
 \begin{equation}
 \label{eqn:trp}
 B\frac{2r}{c}<1,
