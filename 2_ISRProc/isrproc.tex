@@ -93,6 +93,9 @@ As its name implies, IS is inherently stochastic in nature. To measure this spec
 
 \section{Radar Signal Processing}
 
+In this section the general signal model behind ISR will be discussed. Following that the specifics of measuring a Doppler spectra, like the IS spectrum will be covered. Some comparisons to hard-target radar systems will be made as well.
+
+\subsection{Radar Signal Model}
 ISR systems like other pulsed radar systems radiate a signal, $y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid
 \begin{equation}
 \label{eqn:sigone}
@@ -121,20 +124,31 @@ s_d(t) = s(t)e^{j2\pi f_d t},
 \end{equation}
  where $f_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
 
-With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam, so the single Doppler frequency is an insufficient model for the data from ISR. A simple illustration of the sampling is shown in Figure \ref{fig:isrfigure} which shows range-time diagram for ISR. In this case three samples are taken from different ranges and the pulse, $s(t)$ is multiplied by the electron density fluctuations $n_e$ at its corresponding time and range. The sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout}.
+With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their weighted return and Doppler frequency, represented as
+\begin{equation}
+\label{multiDop}
+\displaystyle s_d(t) = \sum_{n}^{N} s(t)V_ne^{j2\pi f_{n} t}.
+\end{equation}
+This model can be extended to a continuum of signals each with unique Doppler frequency, becoming
+\begin{equation}
+\label{conDop}
+s_d(t) = \int s(t) V(f)e^{j2\pi ft} df.
+\end{equation}
+
+A simple illustration of the sampling is shown in Figure \ref{fig:isrfigure} which shows range-time diagram for ISR. In this case three samples are taken from different ranges and the pulse, $s(t)$ is multiplied by the electron density fluctuations $n_e$ at its corresponding time and range. The return signal $x$ is sampled with a period of $T_s$  making sample values at times $t_1$, $t_2$ and $t_3$. 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=5in]{ISRpicture}
 \caption{As the pulse in time traverses the ranges a, b, and c, it is multiplied by the electron density fluctuations at each of those points. The samples at each time are the summations of those returns from each point that the lines intersect in range. These different points are also delayed in time as well giving time delayed observations of the process at each point. }
 \label{fig:isrfigure}
 \end{figure}
-
+sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout}.
 \begin{equation}
 \label{eqn:isrbrokenout}
 \begin{split}
  x(t_1)=& n_e(\text{a},t-\text{a}/c)s(t-2\text{a}/c) \\ 
- x(t_2)=& n_e(\text{a},t-\text{a}/c)s(t-2\text{a}/c) +  n_e(\text{b},t-\text{b}/c)s(t-2\text{b}/c)\\
- x(t_3)=& n_e(\text{a},t-\text{a}/c)s(t-2\text{a}/c) +  n_e(\text{b},t-\text{b}/c)s(t-2\text{b}/c) +\end{split}
+ x(t_2)=& n_e(\text{a},t-\text{a}/c-T_s)s(t-2\text{a}/c-T_s) +  n_e(\text{b},t-\text{b}/c)s(t-2\text{b}/c)\\
+ x(t_3)=& n_e(\text{a},t-\text{a}/c-2T_s)s(t-2\text{a}/c-2T_s) +  n_e(\text{b},t-\text{b}/c-T_s)s(t-2\text{b}/c-T_s) \end{split}
 \end{equation}
 
 The terms in Equation \ref{eqn:isrbrokenout} are single points in range from Equation~\ref{eqn:xwithne} which is the common formulation of the return data for ISR \cite{hysell2008}, 
@@ -142,73 +156,66 @@ The terms in Equation \ref{eqn:isrbrokenout} are single points in range from Equ
 \label{eqn:xwithne}
 x_c(t)= \int n_e(r,t-r/c)s(t-2r/c)  dr.
 \end{equation}
-By performing a change of variables it should be noted that Equation \ref{eqn:xwithne} has the same form as Equation\ref{eqn:timevarfilt}
+By performing a change of variables it should be noted that Equation \ref{eqn:xwithne} has the same form as Equation~\ref{eqn:timevarfilt}
 \begin{equation}
 \label{eqn:timevarfilt}
-x_d(t)= \int h(\tau,t)s(t-\tau)  d\tau
+x_c(t)= \int h(\tau,t)s(t-\alpha\tau)  d\tau,
 \end{equation}
-
+where $h(\tau,t)$ is a filter with an impulse response along $t$ varies with $\tau$ and $\alpha$ is a translation so the time steps between $t$ and $\tau$ are equal.  One of the earlier uses of model  form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This time-varying filter model can help determine the method of measurement by looking at the Fourier Transform of $h(\tau,t)$,
 \begin{equation}
 \label{eqn:timvarefreq}
-H(\tau,f)=\int h(\tau,t)\text{e}^{-j2\pi ft}dt
+H(\tau,f)=\int h(\tau,t)\text{e}^{-j2\pi ft}dt.
 \end{equation}
-
-\begin{equation}
-\label{eqn:wigdist}
-W_x(t,f)=\int x(t-\tau/2)x^*(t+\tau/2)\text{e}^{-j2\pi \tau f}d\tau
-\end{equation}
-
-
-With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their weighted return and Doppler frequency, represented as
-\begin{equation}
-\label{multiDop}
-\displaystyle x_d(t) = \sum_{n}^{N} x(t)V_ne^{j2\pi f_{n} t}.
-\end{equation}
-This model can be extended to a continuum of signals each with unique Doppler frequency, becoming
-\begin{equation}
-\label{conDop}
-x_d(t) = \int x(t) V(f)e^{j2\pi ft} df.
-\end{equation}
-Pulling the $x(t)$ term out of the integral it is apparent that this is the Fourier transform of this relative weighting between each of the scatterers multiplied with the signal.  This is equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
-The final form of the signal spectrum with Doppler added can be shown as the following
-\begin{equation}
-\label{finalDop}
-x_d(t) = \int \left[\int X(\lambda-f)V(\lambda)d\lambda\right] e^{j2\pi f t}df.
-\end{equation}
-This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of the radar signal along with the Doppler spectrum of the target.
-
-This model can be extended from a single point to a much more general form spread across range
-\begin{equation}
-\label{eqn:scateqn}
-x(t)= \int \int V(\mu,f)s(t-\mu)e^{j2\pi f t} d \mu df,
-\end{equation}
-where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
-This model creates two classes of targets, distinguished by range bandwidth product. For the case of an \textit{underspread} target
+The term $H(\tau,f)$ is known as the time-varying frequency response, which can be used to determine how the function can be measured and does this by distinguishing two different target classes. The first class, an \textit{underspread} target the following inequality must hold,
 \begin{equation}
 \label{eqn:trp}
-B\frac{2r}{c}<1,
+BL<1,
 \end{equation}
-where $B$ is the Doppler bandwidth \cite{Pfander:2015ea}. 
-The case of the \textit{overspread} target occurs when this inequality does not hold.
+where $B$ is the bandwidth of $H(\tau,f)$ and $L$ is its extent along $\tau$ \cite{Kay:2003jl,Pfander:2015ea}. The second class, the \textit{overspread} target, occurs when this inequality does not hold.
+
+With ISR this same frame work can be used, the term $L$ must now change to $R_L/c$ where $R_L$ is the farthest range that needs to be probed. In the case of ISR probing the F-region the target is overspread as the inequality in Equation \ref{eqn:trp} will not hold. In order to estimate the time-varying frequency response an ambiguity will be introduced \cite{Kailath:1962jx,Kailath:1963gh}, which is the same as performing the measurement of the Doppler spectrum. This discussion of \textit{overspread} vs. \textit{underspread} will drive the Doppler measurement methodology discussed next.
+
+
+
 
 \subsection{Doppler Measurement}
-
-In this section, two methods of ISR pulse-Doppler measurement are examined. The pulse-Doppler method consists of the following steps:
+In a pulsed radar system Doppler is measured starting with these steps:
 \begin{enumerate}
+\label{list:uno}
 \item radar sends a set of pulses that scatter off the targets 
-\item target returns are binned into a two-dimensional array representing range and interpulse period (IPP)
-\item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. 
+\item target returns are binned into a two-dimensional array representing range and interpulse period (IPP).
+\end{enumerate}
+In the case of an \textit{underspread} target the pulse-Doppler processing method can be used, which is commonly denoted \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. The pulse-Doppler method consists of the following steps after the first two listed:
+\begin{enumerate}
+  \setcounter{enumi}{2}
+  \item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. 
 \item A power spectrum is formed by taking squared magnitude of the full range-Doppler map.  
 \end{enumerate}
+
+In order to avoid aliasing or Doppler folding, the pulse repetition frequency (PRF) must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. 
+a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $R_a$, can be represented as 
+\begin{equation}
+\label{eqn:maxuar}
+R_a =  \frac{cT}{2}
+\end{equation}
+where $T$ is the IPP time. These requirements fit perfectly within the definition of an  \textit{underspread} target, thus pulse-Doppler processing assumes this class of target.
+
+
+
 This pulse-Doppler processing method is commonly denoted \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}.
 To avoid aliasing or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. 
 
 An alternative Doppler processing method replaces steps \#2 and \#3 with a measurement of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
 The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}.
+\begin{equation}
+\label{eqn:wigdist}
+W_x(t,f)=\int x(t-\tau/2)x^*(t+\tau/2)\text{e}^{-j2\pi \tau f}d\tau
+\end{equation}
+
 Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
 Note that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \cite{gordon58,dougherty:farley1960}.
 
-Both of these measurement methods have trade offs. Using the pulse-Doppler method, a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $r_a$, can be represented as 
+Both of these measurement methods have trade offs. Using the pulse-Doppler method, a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $R_L$, can be represented as 
 \begin{equation}
 \label{eqn:maxuar}
 r_a =  \frac{cT}{2}
@@ -385,4 +392,42 @@ In the past, ISR researchers have used the Levenberg-Marquart algorithm to fit d
 %\noindent where $N_{\mathbf{p}}$ is the number of parameters being fit. The variances of the parameters are then taken as the diagonals of the matrix.}
 
  %If the Hessian matrix is undefined so it can not be inverted and a proper estimate of the errors is not possible.
+ 
+ 
+ 
+ 
+ 
+ % from section 2.2
+ %With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their weighted return and Doppler frequency, represented as
+%\begin{equation}
+%\label{multiDop}
+%\displaystyle x_d(t) = \sum_{n}^{N} x(t)V_ne^{j2\pi f_{n} t}.
+%\end{equation}
+%This model can be extended to a continuum of signals each with unique Doppler frequency, becoming
+%\begin{equation}
+%\label{conDop}
+%x_d(t) = \int x(t) V(f)e^{j2\pi ft} df.
+%\end{equation}
+%Pulling the $x(t)$ term out of the integral it is apparent that this is the Fourier transform of this relative weighting between each of the scatterers multiplied with the signal.  This is equivalent to a convolution in frequency space of the spectrum of the original radar signal and the Doppler spectrum with the collection of targets.  
+%The final form of the signal spectrum with Doppler added can be shown as the following
+%\begin{equation}
+%\label{finalDop}
+%x_d(t) = \int \left[\int X(\lambda-f)V(\lambda)d\lambda\right] e^{j2\pi f t}df.
+%\end{equation}
+%This shows that the measured Doppler on the radar signal can be formulated as the convolution of the Fourier transform of the radar signal along with the Doppler spectrum of the target.
+%
+%This model can be extended from a single point to a much more general form spread across range
+%\begin{equation}
+%\label{eqn:scateqn}
+%x(t)= \int \int V(\mu,f)s(t-\mu)e^{j2\pi f t} d \mu df,
+%\end{equation}
+%where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
+%This model creates two classes of targets, distinguished by range bandwidth product. For the case of an \textit{underspread} target
+%\begin{equation}
+%\label{eqn:trp}
+%B\frac{2r}{c}<1,
+%\end{equation}
+%where $B$ is the Doppler bandwidth \cite{Pfander:2015ea}. 
+%The case of the \textit{overspread} target occurs when this inequality does not hold.
+
 
