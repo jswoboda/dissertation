@@ -288,7 +288,7 @@ An example summation rule for a central product is shown in Figure \ref{fig:sumr
 %\hat{R}_w(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} w(m_w-\lfloor l/2\rfloor,j)w^*(m_w+\lceil l/2 \rceil,j),
 %\end{equation}
 
-Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that scattered ionospheric signal is assumed to be negligible. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
+Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that the scattered ionospheric signal is assumed to be negligible. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
 
 Along with the first order moment of the ACF seen in Equation \ref{eq:sumruleest}, in order to do error analysis a second order moment is needed. The covariance matrix between each lag estimate can be formed using the formulation in Equation 2 of \cite{hysell2008}, rewritten here as
 
@@ -324,6 +324,15 @@ The class of nonlinear least squares problems relevant to ISR parameter estimati
 
 In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The matrix $\mathbf{C}_{\mathbf{y}}$  is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a model mapping these parameters to spectra. For the examples in thesis the model shown in Section~\ref{sec:incohscat}, and in greater detail in Appendix~\ref{appendix1}, is used for this mapping. In order to properly fit the ambiguity function must then be applied to the spectra. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
 
+The Levenberg-Marquardt algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration\cite{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods Gradient Decent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
+
+\begin{equation}
+\left[ \mathbf{J}^T\bm{\Sigma}^{-1}\mathbf{J}\right]\mathbf{h}_{lm} =\mathbf{J}^T\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p}))
+\label{hlm}
+\end{equation}
+
+\noindent where $\mathbf{J}$ is the Jacobian matrix $\partial \bm{\theta}/\partial \mathbf{p}$ \cite{levenberg1944,marquardt:1963}. 
+
 The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation is computed of the Jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. Given this Jacobian, the formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
 
 \begin{equation}
@@ -358,15 +367,8 @@ A simpler formula for estimating the possible uncertainties from ACF is the foll
 
 \noindent where $S$ is the signal power and $SNR$ is the ratio of signal power to noise power \cite{nicollsisrschool2013}. The noise level can be estimated from the calibration period, which can be done in each IPP after which there is no expected appreciable return from ionosphere incoherent scatter. If there are localized but large returns, for example coherent reflections from satellites, this impact can be reduced by applying estimators that use order statistics \cite{ordstatcfar}.
 
-In the past, ISR researchers have used the Levenberg-Marquart algorithm to fit data \cite{nikoukar2008}. This specific iterative algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration\cite{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods Gradient Decent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
-
-\begin{equation}
-\left[ \mathbf{J}^T\bm{\Sigma}^{-1}\mathbf{J}\right]\mathbf{h}_{lm} =\mathbf{J}^T\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p}))
-\label{hlm}
-\end{equation}
-
-\noindent where $\mathbf{J}$ is the Jacobian matrix $\partial \bm{\theta}/\partial \mathbf{p}$ \cite{levenberg1944,marquardt:1963}. 
-
+\section{Summary}
+In this Chapter the basic model of ISR and the standard signal processing to perform plasma parameter measurements was examined. The first section detailed the physical intuition and basic model of the IS spectra, essentially how the plasma parameters are mapped to the Doppler spectra. The second section detailed a signal model for a pulsed radar system being used to resolve the IS spectra and compared the model to time-varying filters. Lastly the standard signal processing found in most ISR systems, from sampled complex voltages to estimated plasma parameters, was detailed.
 %Using the covariance matrix from the fitted parameters, an overall error estimate can be achieved. This matrix is calculated using a numerical approximation to the Jacobian matrix that the function uses to determine the solution. The Hessian, $\mathbf{H}$ is then calculated by using the Jacobian and then inverted to get the covariance matrix. Due to the way the numerical routines solve the problem, this matrix must be multiplied by the error between the estimated parameters and the data,
 %
 %\begin{equation}
