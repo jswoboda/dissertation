@@ -189,7 +189,7 @@ In the case of an \textit{underspread} target the pulse-Doppler processing metho
 \begin{enumerate}
   \setcounter{enumi}{2}
   \item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. 
-\item A power spectrum is formed by taking squared magnitude of the full range-Doppler map.  
+\item A power spectrum is formed by taking squared magnitude .  
 \end{enumerate}
 
 In order to avoid aliasing or Doppler folding, the pulse repetition frequency (PRF) must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. 
@@ -198,46 +198,31 @@ a phase-coherent signal that is relatively narrow in frequency can obtain a larg
 \label{eqn:maxuar}
 R_a =  \frac{cT}{2}
 \end{equation}
-where $T$ is the IPP time. These requirements fit perfectly within the definition of an  \textit{underspread} target, thus pulse-Doppler processing assumes this class of target.
+where $T$ is the IPP time. These requirements fit within the definition of an  \textit{underspread} target, thus pulse-Doppler processing assumes this class of target.
 
-
-
-This pulse-Doppler processing method is commonly denoted \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}.
-To avoid aliasing or Doppler folding, the pulse repetition frequency must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. 
-
-An alternative Doppler processing method replaces steps \#2 and \#3 with a measurement of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
-The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}.
-\begin{equation}
-\label{eqn:wigdist}
-W_x(t,f)=\int x(t-\tau/2)x^*(t+\tau/2)\text{e}^{-j2\pi \tau f}d\tau
-\end{equation}
-
-Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
-Note that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \cite{gordon58,dougherty:farley1960}.
-
-Both of these measurement methods have trade offs. Using the pulse-Doppler method, a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $R_L$, can be represented as 
-\begin{equation}
-\label{eqn:maxuar}
-r_a =  \frac{cT}{2}
-\end{equation}
-where $T$ is the IPP time. 
-The method using the Wigner-Ville distribution for the spectrum formation will not give nearly as much gain but it can form a much more broadband spectrum without having to decrease the unambiguous range~\cite{richards2014fundamentals}.
-
-When designing a moving target indicator (MTI) radar system the target scattering function can be approximated as a Dirac delta or a compactly supported function in range and Doppler \cite{richards2014fundamentals}. 
-These types are generally underspread as their range extent and Doppler bandwidth follows the inequality in~\eqref{eqn:trp}. 
 The ionosphere is not compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. 
 Using the spectrum in Figure~\ref{fig:ispecch2}, it can be seen that the signal is at least 20~kHz in bandwidth.
-This broad bandwidth requires the same PRF for unambiguous sampling. 
-This would yield only 7.5~km of unambiguous range so it is necessary to use the Wigner-Ville distribution method on this overspread target. 
+This broad bandwidth and unambiguous range requirement yields an text{overspread} target. 
+
+In order to measure an this class of target, an alternative Doppler processing method must be used. This method replaces steps \#2 and \#3 with a estimate of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
+The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}. The formulation of the Wigner-Ville distribution is as follows using a signal $x(t)$,
+\begin{equation}
+\label{eqn:wigdist}
+W_x(t,f)=\int x_c(t-\tau/2)x_c^*(t+\tau/2)\text{e}^{-j2\pi \tau f}d\tau,
+\end{equation}
+where $\tau$ is the lag variable. Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
+Note that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \cite{gordon58,dougherty:farley1960}.
 
 
- %There are still cases of ISR systems that use a pulse Doppler technique, but these are generally relegated to D-region studies where the necessary unambiguous range is lower and the spectrums are narrower.
+In the specific case of ISR processing for an uncoded pulse the processing follows this logic and performs an approximation to the formation of the Wigner-Ville distribution, which will be examined in the next section. 
 
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}\label{section:isrproc}
-After complex receiver voltage data have been received, the data are processed to create estimates of the ACF at desired points of space~\cite{farley1969,nygren1996}. 
-This processing follows the flow chart presented in Figure~\ref{fig:chain}.  
+The specifics of ISR processing will be discussed in this section. It will mainly use the terminology found in much of the ISR literature~\cite{farley1969,nygren1996}. This examination of the processing will start after complex receiver voltage data have been received, and detail how it is processed to create estimates of the ACF at desired points of space.
+
+ 
+The processing follows the flow chart presented in Figure~\ref{fig:chain}.  
 Note that we assume here a signal pipeline which creates a single altitude measurement for analysis. 
 More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this chapter.
 \begin{figure}[!t]
@@ -246,7 +231,7 @@ More sophisticated approaches for ISR analysis exist that use information from m
 \caption{ISR signal processing chain, with signal processing operations as squares and data products as diamonds.}
 \label{fig:chain}
 \end{figure}
-The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter-pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$.  To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
+The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter-pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$. To keep the number of integrated samples for each lag the same across all of range, the number of range gates for each IPP will be at most $N-(L-1)$. To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
 
 \begin{equation}
 \label{eq:lagpro}
@@ -305,7 +290,7 @@ An example summation rule for a central product is shown in Figure \ref{fig:sumr
 
 Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that scattered ionospheric signal is assumed to be negligible. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
 
-Along with the first order moment of the ACF seen in \ref{eq:sumruleest}, in order to do error analysis a second order moment is needed. The covariance matrix between each lag estimate can be formed using the formulation in Equation 2 of \cite{hysell2008}, rewritten here as
+Along with the first order moment of the ACF seen in Equation \ref{eq:sumruleest}, in order to do error analysis a second order moment is needed. The covariance matrix between each lag estimate can be formed using the formulation in Equation 2 of \cite{hysell2008}, rewritten here as
 
 \begin{equation}
 \label{eqn:covcalc}
@@ -337,7 +322,7 @@ The class of nonlinear least squares problems relevant to ISR parameter estimati
 \label{nlls}
 \end{equation}
 
-In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The matrix $\mathbf{C}_{\mathbf{y}}$  is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a models \cite{kudeki:milla:1} and smeared by the ambiguity function. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
+In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The matrix $\mathbf{C}_{\mathbf{y}}$  is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a model mapping these parameters to spectra. For the examples in thesis the model shown in Section~\ref{sec:incohscat}, and in greater detail in Appendix~\ref{appendix1}, is used for this mapping. In order to properly fit the ambiguity function must then be applied to the spectra. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
 
 The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation is computed of the Jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. Given this Jacobian, the formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
 
@@ -350,7 +335,7 @@ The last step is to calculate the errors in the parameter estimates. In order to
 %\bm{\Sigma}_{\mathbf{\hat{p}}}=\frac{(\mathbf{J}^T\mathbf{J})^{-1} (\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))^*\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{\hat{p}}))}{L-N_{\mathbf{p}}},
 %\end{equation}
 
-\noindent  The variances of the parameters are then taken as the diagonals of the matrix. 
+\noindent  The variances of the parameters are then taken as the diagonals of the matrix. The off-diagonal elements can be used as a measure of correlation between the different plasma parameters.
 
 %The correlation matrix $\bm{\Sigma}$ is often realized as a diagonal matrix for many ISR systems the variance of the lags or each point of the spectrum being the values. The variance of the ACF estimator can be estimated using the following,
 %
@@ -364,14 +349,14 @@ The last step is to calculate the errors in the parameter estimates. In order to
 
 
 %%
-The diagonal values usually used, noted as $\mathbf{c}_i^2$, usually the same unless there is a larger measurement error for one of the lags or spectrums. The following formula from  \cite{nicollsisrschool2013} can be used:
+A simpler formula for estimating the possible uncertainties from ACF is the following:
 
 \begin{equation}
 \label{sigpow}
 \sigma_i = \frac{S}{\sqrt{J}}\left(1+\frac{1}{SNR}\right).
 \end{equation}
 
-\noindent where $S$ is the signal power and $SNR$ is the signal to noise ratio. The noise level can be estimated from the calibration period. 
+\noindent where $S$ is the signal power and $SNR$ is the ratio of signal power to noise power \cite{nicollsisrschool2013}. The noise level can be estimated from the calibration period, which can be done in each IPP after which there is no expected appreciable return from ionosphere incoherent scatter. If there are localized but large returns, for example coherent reflections from satellites, this impact can be reduced by applying estimators that use order statistics \cite{ordstatcfar}.
 
 In the past, ISR researchers have used the Levenberg-Marquart algorithm to fit data \cite{nikoukar2008}. This specific iterative algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration\cite{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods Gradient Decent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
 
