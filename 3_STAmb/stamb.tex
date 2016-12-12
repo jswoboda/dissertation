@@ -85,14 +85,14 @@ The physical scattering mechanism underlying ISR produces measurable radar scatt
 
 \begin{equation}
 \label{eq:xt}
-x(n) = h(n) \ast \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\frac{2r}{c}\right) n_e(\mathbf{r},n) d\mathbf{r},
+x(n) = h(n) \ast \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\frac{2r}{c}\right) n_e\left(\mathbf{r},n-\frac{r}{c}\right) d\mathbf{r},
 \end{equation}
 
 \noindent where $h(n)$ is the receiver filter and the $\ast$ represents the convolution operator. In modern ISR systems, this signal $x(n)$ is then sampled at discrete points in fast-time which will be referred to as $n_s$. The convolution and sampling operation can be brought in the integral as the following,
 
 \begin{equation}
 \label{ex:xtaug}
-x(n_s) = \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\frac{2r}{c}\right) n_e(\mathbf{r},n)h(n_s-n) d\mathbf{r}dn.
+x(n_s) = \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\frac{2r}{c}\right) n_e\left(\mathbf{r},n-\frac{r}{c}\right)h(n_s-n) d\mathbf{r}dn.
 \end{equation}
 
 
@@ -100,7 +100,7 @@ Once the signal has been received and sampled, the autocorrelation function is t
 
 \begin{multline}
 \label{ex:acf0}
-\langle x(n_s)x^*(n_s')\rangle =  \int \exp\left[-j \mathbf{k}\cdot \left(\mathbf{r}'-\mathbf{r} \right)\right]s\left(n-\frac{2r}{c}\right)s^*\left(n'-\frac{2r'}{c}\right) \\ h(n_s-n)h(n_s'-n')\langle n_e(\mathbf{r},n)n^*_e(\mathbf{r}',n')\rangle d\mathbf{r} d\mathbf{r}'dn dn',
+\langle x(n_s)x^*(n_s')\rangle =  \int \exp\left[-j \mathbf{k}\cdot \left(\mathbf{r}'-\mathbf{r} \right)\right]s\left(n-\frac{2r}{c}\right)s^*\left(n'-\frac{2r'}{c}\right) \\ h(n_s-n)h(n_s'-n')\left\langle n_e\left(\mathbf{r},n-\frac{r}{c}\right)n^*_e\left(\mathbf{r}',n'-\frac{r'}{c}\right)\right\rangle d\mathbf{r} d\mathbf{r}'dn dn',
 \end{multline}
 
 \noindent where $r'$ is the magnitude of the vector $\mathbf{r}'$. By assuming stationarity of second order signal statistics along fast time, lag variables $\tau\equiv n'-n$, and $\tau_s\equiv n_s'-n_s$ can be substituted. With these substitutions, Equation \ref{ex:acf0} becomes
@@ -108,10 +108,10 @@ Once the signal has been received and sampled, the autocorrelation function is t
 
 \begin{multline}
 \label{ex:acf1}
-\langle x(n_s)x^*(n_s+\tau_s)\rangle =\int \exp\left[-j \mathbf{k}\cdot \left(\mathbf{r}'-\mathbf{r} \right)\right]s\left(n-\frac{2r}{c}\right)s^*\left(n+\tau-\frac{2r'}{c}\right) \\ h(n_s-n)h(n_s+\tau_s-n-\tau) \langle n_e(\mathbf{r},n)n^*_e(\mathbf{r}',n+\tau)\rangle d\mathbf{r} d\mathbf{r}' dnd\tau
+\langle x(n_s)x^*(n_s+\tau_s)\rangle =\int \exp\left[-j \mathbf{k}\cdot \left(\mathbf{r}'-\mathbf{r} \right)\right]s\left(n-\frac{2r}{c}\right)s^*\left(n+\tau-\frac{2r'}{c}\right) \\ h(n_s-n)h(n_s+\tau_s-n-\tau) \left\langle n_e\left(\mathbf{r},n-\frac{r}{c}\right)n^*_e\left(\mathbf{r}',n+\tau-\frac{r'}{c}\right)\right\rangle d\mathbf{r} d\mathbf{r}' dnd\tau
 \end{multline}
 
-\noindent A simplifying assumption at this point that the space-time autocorrelation function of $n_e(\mathbf{r},t)$, $\langle n_e(\mathbf{r},n)n_e(\mathbf{r}',n+\tau)\rangle$, will go to zero as the magnitude of $\mathbf{y} \equiv \mathbf{r}'-\mathbf{r}$ increases beyond the Debye length \cite{farley1969}. Thus, the rate which the spatial autocorrelation goes to zero will be such that $\tau\gg \frac{2||\mathbf{y}||}{c}$, allowing us to set $r= r'$ inside the arguments of $s$ and $h$. This allows Equation \ref{ex:acf1} to be rewritten as 
+\noindent A simplifying assumption at this point that the space-time autocorrelation function of $n_e(\mathbf{r},t)$, $\left\langle n_e\left(\mathbf{r},n-\frac{r}{c}\right)n^*_e\left(\mathbf{r}',n'-\frac{r'}{c}\right)\right\rangle$, will go to zero as the magnitude of $\mathbf{y} \equiv \mathbf{r}'-\mathbf{r}$ increases beyond the Debye length \cite{farley1969}. Thus, the rate which the spatial autocorrelation goes to zero will be such that $\tau\gg \frac{2||\mathbf{y}||}{c}$, allowing us to set $r= r'$ inside the arguments of $s$ and $h$. Also the $\frac{r}{c}$ and $\frac{r'}{c}$ terms to be dropped from the space-time autocorrelation function of $n_e(\mathbf{r},t)$. This allows Equation \ref{ex:acf1} to be rewritten as 
  
  \begin{multline}
  \label{ex:acf2}
@@ -121,7 +121,7 @@ Once the signal has been received and sampled, the autocorrelation function is t
 The inner integral is a spatial Fourier transform evaluated at the Bragg vector of radar $\mathbf{k}$. By again asserting stationarity along fast time, the true ACF can be represented as the following,
  \begin{equation}
  \label{eq:spft}
-R(\tau,\mathbf{r})= \langle |n_e(\mathbf{k},r,\tau)|^2\rangle \equiv  \int \exp\left[-2j \mathbf{k}\cdot \mathbf{y} \right] \langle n_e(\mathbf{r},b)n^*_e(\mathbf{y}+\mathbf{r},n+\tau)\rangle d\mathbf{y}.
+R(\tau,\mathbf{r})= \langle |n_e(\mathbf{k},r,\tau)|^2\rangle \equiv  \int \exp\left[-2j \mathbf{k}\cdot \mathbf{y} \right] \langle n_e(\mathbf{r},n)n^*_e(\mathbf{y}+\mathbf{r},n+\tau)\rangle d\mathbf{y}.
  \end{equation}
  
  \noindent Now Equation \ref{ex:acf2} becomes
