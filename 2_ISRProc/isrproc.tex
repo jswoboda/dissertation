@@ -106,7 +106,7 @@ where $f_0$ is the transmit frequency in Hz. Equivalently, $ f_0=c/\lambda_0$, w
 \label{eqn:sigone}
 y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta T)}
 \end{equation}
-where $\Delta T$ round trip time and $A_0$ is a complex amplitude factor including propagation losses, phase shifts and target reflectivity \cite{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor, by convention
+where $\Delta T$ round trip time and $A_0$ is a complex amplitude factor including propagation losses, phase shifts and target reflectivity \cite{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor,
 \begin{equation}
 \label{eqn:range_intro}
 r=\frac{c\Delta T}{2}.
@@ -122,14 +122,14 @@ Another key quantity estimated by ISR is the line of sight, or bulk Doppler velo
 \label{simpledop}
 s_d(t) = s(t)e^{j2\pi f_d t},
 \end{equation}
- where $f_d$ is the Doppler frequency of the target. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
+ where $f_d$ is the Doppler frequency of the target and $s_d(t)$ is the received signal in~\ref{eqn:baseband} with a Doppler shift. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
 
-With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their weighted return and Doppler frequency, represented as
+With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their return weighted ($V_n$) and with a frequency shift, ($f_n$), represented as
 \begin{equation}
 \label{multiDop}
-\displaystyle s_d(t) = \sum_{n}^{N} s(t)V_ne^{j2\pi f_{n} t}.
+\displaystyle s_d(t) = \sum_{n}^{N} s(t)V_ne^{j2\pi f_{n} t},
 \end{equation}
-This model can be extended to a continuum of signals each with unique Doppler frequency, becoming
+For very large $N$ number of scatterers this model can be extended to a continuum of signals, becoming
 \begin{equation}
 \label{conDop}
 s_d(t) = \int s(t) V(f)e^{j2\pi ft} df.
@@ -148,7 +148,9 @@ sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout
 \begin{split}
  x(t_1)=& n_e(\text{a},t-\text{a}/c)s(t-2\text{a}/c) \\ 
  x(t_2)=& n_e(\text{a},t-\text{a}/c-T_s)s(t-2\text{a}/c-T_s) +  n_e(\text{b},t-\text{b}/c)s(t-2\text{b}/c)\\
- x(t_3)=& n_e(\text{a},t-\text{a}/c-2T_s)s(t-2\text{a}/c-2T_s) +  n_e(\text{b},t-\text{b}/c-T_s)s(t-2\text{b}/c-T_s) \end{split}
+ x(t_3)=& n_e(\text{a},t-\text{a}/c-2T_s)s(t-2\text{a}/c-2T_s)   +
+ \\ & n_e(\text{b},t-\text{b}/c-T_s)s(t-2\text{b}/c-T_s) 
+ \end{split}
 \end{equation}
 
 The terms in Equation \ref{eqn:isrbrokenout} are single points in range from Equation~\ref{eqn:xwithne} which is the common formulation of the return data for ISR \cite{hysell2008}, 
@@ -202,9 +204,9 @@ where $T$ is the IPP time. These requirements fit within the definition of an  \
 
 The ionosphere is not compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. 
 Using the spectrum in Figure~\ref{fig:ispecch2}, it can be seen that the signal is at least 20~kHz in bandwidth.
-This broad bandwidth and unambiguous range requirement yields an text{overspread} target. 
+This broad bandwidth and unambiguous range requirement yields an \textit{underspread} target. 
 
-In order to measure an this class of target, an alternative Doppler processing method must be used. This method replaces steps \#2 and \#3 with a estimate of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
+In order to measure an this class of target, an alternative Doppler processing method must be used. This method replaces steps \#2 and \#3 with an estimate of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
 The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}. The formulation of the Wigner-Ville distribution is as follows using a signal $x(t)$,
 \begin{equation}
 \label{eqn:wigdist}

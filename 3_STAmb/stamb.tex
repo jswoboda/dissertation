@@ -8,7 +8,7 @@
 \graphicspath{{3_STAmb/Figures/}}
 
 %%%%%%%%%%%%%% Intro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This chapter explains the theoretical backbone for sampling issues associated with ISR. The first section will detail the differences in space-time sampling between single antenna and electronically steerable array (ESA) systems. The next section will then detail the derivation of the space-time ambiguity. Lastly the impact of moving plasma on the apparent ambiguity will be shown, both from a theoretical stand point and a demonstration using collected ISR data.
+This chapter explains the theoretical backbone for sampling issues associated with ISR. The first section will detail the differences in space-time sampling between single antenna and electronically steerable array (ESA) systems. The next section will then detail the derivation of the space-time ambiguity. Lastly the impact of moving plasma on the apparent ambiguity will be shown, both from a theoretical stand point and a demonstration using collected ISR data. Much of the material in this chapter was previously published in \cite{RDS:RDS20236}.
 
 
 \section{Space-Time Sampling}
@@ -50,7 +50,7 @@ The space-time ambiguity can be thought of as a kernel to a combined volume and 
 \rho(\tau_s ,\mathbf{r}_{s},t_s) = \int L(\tau_s, \mathbf{r}_{s},t_s,\tau,\mathbf{r},t) R(\tau,\mathbf{r},t) dVd t d\tau
 \end{equation}
 
-\noindent where, for ISR, $L(\tau_s, \mathbf{r}_{s},t_s,\tau,\mathbf{r},t) $ is a blurring kernel over time and space, and $R(\tau,\mathbf{r},t) $ indicates the plasma medium's autocorrelation function at the lag $\tau$, time $t$, and position $\mathbf{r}$.
+\noindent where, for ISR, $L(\tau_s, \mathbf{r}_{s},t_s,\tau,\mathbf{r},t) $ is a blurring kernel over time and space, and $R(\tau,\mathbf{r},t) $ indicates the plasma medium's autocorrelation function  for electron density fluctuations ,$n_e$, at the lag $\tau$, time $t$, and position $\mathbf{r}$.
 
 By using this formulation, many parallels between ISR and classic camera blurring problems can be made. In cameras, blurring can take place when an object moves over a space covered by one pixel while the shutter is open and the CCD is collecting photons. A diagram of this can be seen in Figure \ref{fig:ccd}. The same holds for the ISR measurement problem, except that the pixels are no longer square or continuous in Cartesian space and instead are determined by the beam shape and pulse pattern. This is shown in the diagrams in Figure \ref{fig:radarblur}.
 
@@ -75,7 +75,7 @@ Before the full space-time ambiguity function, $L(\tau_s,\mathbf{r}_s,t_s,\tau,\
 
 The radar samples this space at a set of discrete points which will be referred to as $\mathbf{r}_s = [x_s,y_s,z_s]^T$ along with the discretized range expression $r_s=|\mathbf{r}_s|$. The sampled space consists of a number of points, composed of range gates within a beam multiplied by the number of beams. These points can also be referred in polar coordinates $\mathbf{r}_s = [r_s,\theta_s,\phi_s]^T$, where $\theta_s$  and $\phi_s$ are, respectively, the observationally sampled elevation and azimuth angles.
 
-For notation purposes, two different sets of time are used, commonly known in the hard-target radar literature as fast-time, $n$ and slow-time, $t$ \cite{richards:fundamentalsigproc}. Fast-time is used to describe processes with correlation time less than one PRI. Slow-time will be used for processes that decorrelate in time on the order of, or longer than, the system's PRI. In order to form estimates of ACFs with desired statistical properties, it is assumed that the plasma parameters parameters will change on the order of many tens to hundreds of PRIs in their stationary reference frame (i.e. remain wide sense stationary for this time). Generally, for incoherent scatter applications in the E-region of the ionosphere ($\approx$100 km altitude) and above, the decorrelation time is less than a PRI for systems with a center frequency in the UHF band, and thus ACFs must be formed over fast-time.
+For notation purposes, two different sets of time are used, commonly known in the hard-target radar literature as fast-time, $n$ and slow-time, $t$ \cite{richards:fundamentalsigproc}. Fast-time is used to describe processes with correlation time less than one PRI. Slow-time will be used for processes that decorrelate in time on the order of, or longer than, the system's PRI. In order to form estimates of ACFs with desired statistical properties, it is assumed that the plasma parameters will change on the order of many tens to hundreds of PRIs in their stationary reference frame (i.e. remain wide sense stationary for this time). Generally, for incoherent scatter applications in the E-region of the ionosphere ($\approx$100 km altitude) and above, the decorrelation time of the electron density fluctuations is less than a PRI for systems with a center frequency in the UHF band, and thus ACFs must be formed over fast-time.
 
 The terms $n$ and $t$ represent continuous variables, while $n_s$ and $t_s$ will be the fast time and slow time parameters sampled by the radar. The sampling rate of $n_s$ is set by the rate at which the system's A/D converters are run. The sampling of $t_s$ can, at the highest rate, be the PRI. At its lowest rate, it can be sampled once in a non-coherent processing interval (NCPI), or equivalently in a period of time it takes the radar to average the desired number of pulses for each beam. 
 
@@ -92,7 +92,7 @@ x(n) = h(n) \ast \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\
 
 \begin{equation}
 \label{ex:xtaug}
-x(n_s) = \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\frac{2r}{c}\right) n_e(\mathbf{r},n)h(n_s-n) d\mathbf{r}dn
+x(n_s) = \int \exp\left[-j\mathbf{k} \cdot \mathbf{r}\right]  s\left(n-\frac{2r}{c}\right) n_e(\mathbf{r},n)h(n_s-n) d\mathbf{r}dn.
 \end{equation}
 
 
@@ -153,7 +153,10 @@ The spatial ambiguity across azimuth and elevation angles is determined by the a
 
  \begin{equation}
  \label{eqn:amisrpat}
-F(\theta_s,\phi_s,\theta,\phi) = \frac{1}{2}(1+\cos(\theta)^2)\left[ \frac{1}{MN} \left(1+\exp\left[j(\psi_y/2 + \psi_x)\right]\right)\frac{\sin((M/2) \psi_x)}{\sin(\psi_x)} \frac{\sin((N/2) \psi_x)}{\sin(\psi_x/2)}\right]^2,
+ \begin{split}
+F(\theta_s,\phi_s,\theta,\phi) =& \frac{1}{2}(1+\cos(\theta)^2)\frac{1}{MN} \times \\
+	&\left[ \left(1+\exp\left[j(\psi_y/2 + \psi_x)\right]\right)\frac{\sin((M/2) \psi_x)}{\sin(\psi_x)} \frac{\sin((N/2) \psi_x)}{\sin(\psi_x/2)}\right]^2,
+\end{split}
  \end{equation}
  
  \noindent where $\psi_x = -k d_x(\sin\theta\cos\phi-\sin\theta_s\cos\phi_s)$, $\psi_y = -k d_y(\sin\theta\sin\phi-\sin\theta_s\sin\phi_s)$ and $M$ is the number of elements in the $x$ direction of the array, and $N$ is the number of elements in the $y$ direction(see Appendix: \ref{App:AMISRarr} for derivation).
@@ -238,25 +241,25 @@ The operator $A$ can be determined through knowledge of the radar system's beam 
 
 With knowledge of the ambiguity the possible size of features can be inferred. An example using real data can further elucidate this idea. One way that the true size of features is comparing real data with possible inputs and applying the ambiguity to them. Often, researchers using ISR combine data from different sensors \cite{Dahlgren:2012dq}, such as all sky camera data \cite{Shiokawa1999,GRL:GRL21871,Shiokawa2009}. This combination of information allows for researchers to get a better understanding of the underlying physical phenomena.
 
-An example of real data that shows how features could have been impacted by this ambiguity is seen through the series of images in Figure \ref{fig:realdataplane3points}. The auroral arc, seen as an electron density enhancement in the radar data and a brightness enhancement in the optical data, is moving along horizontal position of the plane over a two minute integration period for each image. The radar data is sampled in a spherical coordinate space, thus it is necessary to use some sort of interpolation to view it on the plane of motion, in this case natural neighbors. 
+An example of real data that shows how features could have been impacted by this ambiguity is seen through the series of images in Figure \ref{fig:realdataplane3points}. This figure shows an auroral arc moving through the geomagnetic polar region near Resolute Bay Canada at approximately 500 m/s. The gray scale image on the bottom is the projection of auroral brightness in the 630 nm wavelength optical band, which gives a measure of a weak ($\sim$100eV) electron precipitation in to the ionosphere. The radar electron density measurement is interpolated, using natural neighbors, along the the plane of motion of the arc. The black dot represent the original spatial sampling points of the data. The arc is seen as an electron density enhancement in the radar data and a brightness enhancement in the optical data, is moving along horizontal position of the plane over a two minute integration period for each image. 
 
-\begin{figure}[h!]
+\begin{figure}[htb]
 	\centering
-	\includegraphics[width=6in]{radarwithoptical}
+	\includegraphics[width=5in]{radarwithoptical}
 	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc with green line emission optical data plotted underneath. Each image is a plotted over a two minute integration time for the radar. Also in the image is the sample points of the radar (black dots) and the path of the auroral emission. }
 	\label{fig:realdataplane3points}
 \end{figure}
 
-The final set of radar data seen in Figure \ref{fig:realdataplane3points} is replotted in Figure \ref{fig:realdataplane} without other data sets and sampling grids. This will help with the comparisons to the following figures, which are plotted along the same plane of motion.
+The final set of radar data seen in Figure \ref{fig:realdataplane3points} is replotted in Figure \ref{fig:realdataplane}a without other data sets and sampling grids. This will help with the comparisons to the following figures, which are plotted along the same plane of motion.
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=3.5in]{acdata}
-	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc.}
-	\label{fig:realdataplane}
-\end{figure}
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=3.5in]{acdata}
+%	\caption{Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc.}
+%	\label{fig:realdataplane}
+%\end{figure}
 
-The specific experiment beam pattern yielded a sampling pattern seen as the black dots in \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion can give a basic idea of the "resolution" of the image of the objects if there is not motion. Also, it can show if an object may be hidden if stationary during the integration time.
+The specific experiment beam pattern yielded a sampling pattern seen as the black dots in Figure \ref{fig:rambplane}. The specific result of the ambiguity along the the plane of the motion can give a basic idea of the "resolution" of the image of the objects if there is not motion. Also, it can show if an object may be hidden if stationary during the integration time.
 
 \begin{figure}[h!]
 	\centering
@@ -265,7 +268,7 @@ The specific experiment beam pattern yielded a sampling pattern seen as the blac
 	\label{fig:rambplane}
 \end{figure}
 
-In order to find the actual size of the feature in Figure \ref{fig:realdataplane} we have to take into account the ambiguity in Figure \ref{fig:rambplane} along with any motion that may be present in the feature. The feature shown in Figure \ref{fig:simdataplaneorig} is a possible distribution that could create a similar measurement seen in Figure  \ref{fig:realdataplane}. Using the optical data we have inferred that that this feature is from a cylinder with a Gaussian shaped cross-sectional plasma density. 
+In order to find the actual size of the feature in Figure \ref{fig:realdataplane}a we have to take into account the ambiguity in Figure \ref{fig:rambplane}  along with any motion that may be present in the feature. The feature shown in Figure \ref{fig:simdataplaneorig} is a possible distribution that could create a similar measurement seen in Figure  \ref{fig:realdataplane}a. Using the optical data we have inferred that that this feature is from a cylinder with a Gaussian shaped cross-sectional plasma density. 
 
 \begin{figure}[h!]
 	\centering
@@ -274,17 +277,33 @@ In order to find the actual size of the feature in Figure \ref{fig:realdataplane
 	\label{fig:simdataplaneorig}
 \end{figure}
 
-Applying the space time ambiguity in Figure \ref{fig:rambplane} along with an assumed motion of 500 m/s, which again suggested by the data in Figure \ref{fig:realdataplane3points}, the distribution in Figure \ref{fig:simdataplane} is created. This seems to suggest that the features seen in Figure \ref{fig:realdataplane} could be from physical phenomena that is much smaller than what is shown in the interpolated image. 
+Applying the space time ambiguity in Figure \ref{fig:rambplane} along with an assumed motion of 500 m/s, which again suggested by the data in Figure \ref{fig:realdataplane3points}, the distribution in Figure \ref{fig:realdataplane}b is created. This seems to suggest that the features seen in Figure \ref{fig:realdataplane}a could be from physical phenomena that is much smaller than what is shown in the interpolated image. 
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=3.5in]{simdataplane}
-	\caption{The same feature from Figure \ref{fig:simdataplaneorig} after applying the effect the spatial ambiguity seen in \ref{fig:rambplane} and 500 m/s motion over the two minute integration period.}
-	\label{fig:simdataplane}
+
+\begin{figure}[htb]
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \includegraphics[width=7cm]{acdata}
+    \medskip
+    \centerline{(a)}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \includegraphics[width=7cm]{simdataplane}
+    \medskip
+    \centerline{(b)}
+  \end{minipage}
+  \caption{ (a) Data taken from the Resolute Bay Incoherent Scatter Radar (RISR) and interpolated along the plane of motion of the auroral arc. (b) The same feature from Figure \ref{fig:simdataplaneorig} after applying the effect the spatial ambiguity seen in Figure \ref{fig:realdataplane}a and 500 m/s motion over the two minute integration period.}
+  \label{fig:realdataplane}
 \end{figure}
+
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=3.5in]{simdataplane}
+%	\caption{The same feature from Figure \ref{fig:simdataplaneorig} after applying the effect the spatial ambiguity seen in \ref{fig:rambplane} and 500 m/s motion over the two minute integration period.}
+%	\label{fig:simdataplane}
+%\end{figure}
 
 \section{Summary}
 
-The use of the Space-Time Ambiguity function as a kernel of Fridholm integral equation is the theoretical framework of this thesis. The process for the estimation of the ACFs fits very well within this mathematical structure. This structure though, is not rigid and can be adapted to the situation that a researcher may face when performing ISR experiments by taking advantage of the fact that the ambiguity kernel is a set of separable functions. The ambiguity can be used similar as a blurring kernel if there is plasma motion which can allow one to set of different possible features, thus creating an ill-posed inverse problem. Lastly, the impact of the ambiguity function can be demonstrated in experiments where real data is used.
+The use of the Space-Time Ambiguity function as a kernel of Fredholm integral equation is the theoretical framework of this thesis. The process for the estimation of the ACFs fits very well within this mathematical structure. This structure though, is not rigid and can be adapted to the situation that a researcher may face when performing ISR experiments by taking advantage of the fact that the ambiguity kernel is a set of separable functions. The ambiguity can be used similar as a blurring kernel if there is plasma motion which can allow one to set of different possible features, thus creating an ill-posed inverse problem. Lastly, the impact of the ambiguity function can be demonstrated in experiments where real data is used.
 
 Ambiguity function can greatly augment the features seen in the ISR data. The changes one sees are also highly dependent on the interpolation scheme beam pattern and motion of the plasma during the integration time. It is utmost importance that researchers take this impact into account when analyzing ISR data and experiments. The following chapters will show a tool to help predict the impact of the ambiguity and a set of algorithms to reduce its impact.
