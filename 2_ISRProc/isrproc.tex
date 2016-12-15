@@ -272,15 +272,21 @@ However, the final result of this summation rule will still lead to a statistica
 \left\langle\widehat{R}_s(m,l) \right\rangle  =\frac{v+l}{v\mathcal{W}(0)}\mathcal{W}(l)R(m,l) =\left(-\frac{1}{vL}l^2+\frac{L-v}{Lv}l+1\right)   R(m,l).
 \end{equation}
 
-An example summation rule for a central product is shown in Figure \ref{fig:sumrule}.The image on the left is a basic representation of an ambiguity function of a long pulse and is mirrored on the right with red bars which would show the integration area under it so the ambiguity function for each lag will be of equal size in range. There are a number of different summing rule each with their own trade offs \cite{nygren1996}.
+An example summation rule for a central product is shown in Figure \ref{fig:sumrule}.The image on the left is a basic representation of an ambiguity function of a long pulse and is mirrored on the right with red bars which would show the integration area under it so the ambiguity function for each lag will be of equal size in range. There are a number of different summing rule each with their own trade offs \cite{nygren1996}. Also of note the function in the parenthesis of the RHS of Equation~\ref{eq:sumruleest} is also known in the signal processing literature as a window function along the lags of the ACF \cite{dtsp:openhiem}. This window function can be seen in Figure~\ref{fig:isrwindow}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=3in]{sumrule}
-\caption{Summation Rule Diagram}
+\caption{Summation Rule Diagram.}
 \label{fig:sumrule}
 \end{figure}
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=5in]{ISRWindow}
+\caption{The window function that is applied to the ACF as seen in Equation~\ref{eq:sumruleest} in the left pane for $L=15$ and its 128 point length Fast Fourier Transform in the right panel. }
+\label{fig:isrwindow}
+\end{figure}
 %In the processing this is basically a summing of lags from different ranges. The amount of summing is similar to what is shown in Figure \ref{fig:sumrule}.   
 
 

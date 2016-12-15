@@ -147,7 +147,7 @@ The chosen parameters for the inputs can be seen in Figure \ref{fig:simisrparamc
 \begin{figure}[h!]
 \centering
 \includegraphics[width=4.5in]{Paramcomp}
-\caption{Comparison of real data from PFISR with SimISR data and a possible input parameter distribution.}
+\caption{Comparison of real data from PFISR, in blue, with SimISR data, in red, and an input parameter distribution in green.}
 \label{fig:simisrparamcomp}
 \end{figure}
 
@@ -160,14 +160,21 @@ A version of Figure \ref{fig:simisrparamcomp} can be seen with error bars in Fig
 \label{fig:simisrparamcompeb}
 \end{figure}
 
-Lastly a comparison of example ACFs and spectra are shown in Figure \ref{fig:simisrspectcom}. This shows relatively good correspondence between PFISR and SimISR. 
+Lastly a comparison of example ACFs and spectra are shown in Figure \ref{fig:simisrspectcom}. In both cases the ACFs were estimated using the method described in Section~\ref{section:isrproc}. This leads to a windowing of the ACF specified by Equation~\ref{eq:sumruleest}, and is the cause of the ringing artifacts seen in the spectra and that the $0^{th}$ lag is not the largest amplitude, as would be expected. Qualitatively this shows relatively good correspondence between PFISR and SimISR and can give some confidence in the ability of SimISR to create realistic data. 
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=4.5in]{speccomp}
-\caption{Comparison of ACFs and spectra from PFISR with SimISR.}
+\caption{Comparison of ACFs and spectra from PFISR with SimISR. In both cases the ACFs were estimated using the method described in Section~\ref{section:isrproc} thus adding a windowing function like in Equation~\ref{eq:sumruleest}.}
 \label{fig:simisrspectcom}
 \end{figure}
+
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=6in]{ISRWindow}
+%\caption{The window function that is applied to the ACF as seen in Equation~\ref{eq:sumruleest} in the left pane for $L=15$ and its 128 point length Fast Fourier Transform in the right panel. }
+%\label{fig:isrwindow}
+%\end{figure}
 
 \subsection{Monte Carlo Example}
 
@@ -188,8 +195,8 @@ For this example we show how distributions of plasma parameter measurements chan
 \begin{tabular}{ll}
 Species & O+ e-\\
 $N_e$    & $1\times 10^{11}$ \\
-$T_e$      & $2100^o$ K   \\
-$T_i$      & $1100^o$ K \\
+$T_e$      & $2100^\circ$ K   \\
+$T_i$      & $1100^\circ$ K \\
 $V_i$      & $0$ m/s
 \end{tabular}
 \end{table}
