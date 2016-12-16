@@ -77,7 +77,7 @@ The algorithm used to create sampled complex receiver voltages employs a complex
 \begin{figure}[h!]
 \centering
 \includegraphics[width=4in]{diagrampart}
-\caption{Diagram for complex receiver voltage simulator signal flow.}
+\caption{Diagram for main kernel of complex receiver voltage simulator signal flow.}
 \label{fig:IQdiagram}
 \end{figure}
 
@@ -114,7 +114,7 @@ The received signal power calculated at each range gate using Equation~\ref{eq3}
 x(n) = \displaystyle\sum\limits_{m =0}^{M-1} \alpha(m)y_m(n-m),
 \end{equation}
 
-\noindent where $\alpha(m) = \sqrt{P_r(m)}/\widehat{\sigma}_y$ and $\widehat{\sigma}_y$ is the estimate of the standard deviation of $y_m(k)$. Lastly, to model total noise from the radar system and environment, an additive CWGN process is included, creating the final simulated complex receiver voltage sequence
+\noindent where $\alpha(m) = \sqrt{P_r(m)}/\widehat{\sigma}_y$ and $\widehat{\sigma}_y$ is the estimate of the standard deviation of $y_m(k)$. Each signal from each $M$ number of range gates is assumed independent of one and other as this would violate the assumption that any spatial correlations drop off much faster than the distance covered by one range gate, see Section ~\ref{sec:sptimeamb}. Lastly, to model total noise from the radar system and environment, an additive CWGN process is included, creating the final simulated complex receiver voltage sequence
 
 \begin{equation}
 \label{eq:addnoise}
@@ -127,9 +127,10 @@ A full diagram of the model can be seen in Figure \ref{fig:isrdiag}.
 \begin{figure}[!h]
 \centering
 \includegraphics[width=5.5in]{diagram}
-\caption{ISR simulation diagram.}
+\caption{Full SimISR signal flow diagram where the diagram from Figure~\ref{fig:IQdiagram} is replicated for each range gate. The signals for each range gate are then weighted and then summed together to form the data from a single beam. Also note that each noise plant is assumed independent of one and other.}
 \label{fig:isrdiag}
 \end{figure}
+
 \section{Simulation Examples}
 \label{sec:simex}
 
@@ -160,7 +161,7 @@ A version of Figure \ref{fig:simisrparamcomp} can be seen with error bars in Fig
 \label{fig:simisrparamcompeb}
 \end{figure}
 
-Lastly a comparison of example ACFs and spectra are shown in Figure \ref{fig:simisrspectcom}. In both cases the ACFs were estimated using the method described in Section~\ref{section:isrproc}. This leads to a windowing of the ACF specified by Equation~\ref{eq:sumruleest}, and is the cause of the ringing artifacts seen in the spectra and that the $0^{th}$ lag is not the largest amplitude, as would be expected. Qualitatively this shows relatively good correspondence between PFISR and SimISR and can give some confidence in the ability of SimISR to create realistic data. 
+Lastly a comparison of example ACFs and spectra are shown in Figure \ref{fig:simisrspectcom}. In both cases the ACFs were estimated using the method described in Section~\ref{section:isrproc}. This leads to a windowing of the ACF specified by Equation~\ref{eq:sumruleest}, and is the cause of the ringing artifacts seen in the spectra and that the $0^{th}$ lag is not the largest amplitude, as would be expected. Also of note is the lack of symmetry in the PFISR spectra, which is likely due to the mixing of different populations of plasma during the radar integration period of five minutes \cite{knudsen1993}. Still, qualitatively this shows relatively good correspondence between PFISR and SimISR and gives some confidence in the ability of SimISR to create realistic data. 
 
 \begin{figure}[h!]
 \centering
@@ -229,7 +230,7 @@ An important aspect of experiment design is determining the observability of pla
 \begin{figure}[!t]
 \centering
 \includegraphics[width=3.5in]{backgroundandsamp}
-\caption{Contour of background $N_e$ for simulations and the spatial sampling pattern}
+\caption{Contour of background $N_e$ for simulations and the spatial sampling pattern as white dots.}
 % JOHN:  you don't need both of these panels, just the one on the right along with the colorbar.   Also, you should reduce the number of labels on colorbar, increase the font, and absorb exponent into units (which are not given).  Also there is no indication of what scalar is being plotted.   Typically you would write parameter/units above the colorbar:   $N_e (10^{10}$m$^{-3})$.   This comment goes for other plots too.
 % Josh: I've updated the figures as you suggested.
 % MZ - why run the colorbar out to 30 instead of the max density (~1.5e11) for this field?  Maybe because you want to keep the same colorbar for all density plots?

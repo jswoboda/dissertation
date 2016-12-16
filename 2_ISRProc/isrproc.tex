@@ -74,14 +74,30 @@ where $C=\frac{K_bT_s}{m_s}$, $T_s$ is the temperature of the species, $K_b$ is 
 
 This formulation can also allows for the measurement of bulk of the plasma. This measurement is along the radars wave vector and results in the substitution of $\omega_s=\omega-\mathbf{k}\cdot\mathbf{V}_s$, where $\mathbf{V}_s$ is the bulk motion of the plasma species, into the Gordeyve integrals in Equation~\ref{eq:gord:body} for $\omega$. Generally all of the species will flow together, otherwise large electric fields would form, and this overall motion can be measured as a overall shift of the spectrum in frequency.
 
-A more complete treatment of the IS spectrum formulation, derivation and computational considerations is given in Appendix~\ref{appendix1}. An example of ion line portion of the IS spectrum, with  $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, is shown in Figure \ref{fig:ispecch2}. 
+A more complete treatment of the IS spectrum formulation, derivation and computational considerations is given in Appendix~\ref{appendix1}. An example of ion line portion of the IS spectrum, with  $|\mathbf{k}|=18.5$ rad/m and using parameters representative of the F-region ionosphere, along with a corresponding ACF, is shown in Figure \ref{fig:ispecch2}. 
 % make ISR spectra
+
 \begin{figure}[htb]
-\centering
-\includegraphics[width=4in]{Specion}
-\caption{IS spectrum ion line with all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K. }
-\label{fig:ispecch2}
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \includegraphics[width=2.8in]{Specion}
+    \medskip
+    \centerline{(a)}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.49\linewidth}\centering
+    \includegraphics[width=2.8in]{acfion}
+    \medskip
+    \centerline{(b)}
+  \end{minipage}
+  \caption{(a) IS spectrum ion line; and (b) corresponding ACF. With all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K.}
+  \label{fig:ispecch2}
 \end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\includegraphics[width=4in]{Specion}
+%\caption{IS spectrum ion line with all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K. }
+%\label{fig:ispecch2}
+%\end{figure}
 
 As its name implies, IS is inherently stochastic in nature. To measure this spectrum with usable error margins a number of observations of this process must be averaged together \cite{Diaz:2008co}. Common ISR analysis practice refers to observations of this random process as ``pulses," to distinguish this from samples in signal processing applications \cite{dtsp:openhiem}. These observations can then be used in some sort of spectral estimator . A demonstration of the convergence of a periodogram estimator to the spectrum from Figure \ref{fig:ispecch2} as the number of pulses $J$ is increased is depicted in Figure \ref{fig:ispecch2ave}.
 \begin{figure}[htb]
@@ -240,7 +256,7 @@ The lag product formation is an initial estimate of the autocorrelation function
 \widehat{R}(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} x(m-\lfloor l/2\rfloor,j)x^*(m+\lceil l/2 \rceil,j).
 \end{equation}
 
-The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other types of lag product calculations are available but a centered product is most common. For this case, the range gate index $m$ and sample index $n$ can be related by $m=n-\lfloor L/2\rfloor$ and the maximum lag and sample relation is $M=N-\lceil L/2 \rceil$.  This lag product formation is the first step in computing a discrete Wigner Distribution \cite{TFAcohen}. This  step adds a bias to the ACF estimate which acts as a weighting on larger lags, represented as $\mathcal{W}(l)$ where weighting can be calculated from details of the range-lag ambiguity function. The expected value for the estimator, assuming the use of a simple uncoded pulse waveform, becomes
+The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other types of lag product calculations are available but a centered product is most common. For this case, the range gate index $m$ and sample index $n$ can be related by $m=n-\lfloor L/2\rfloor$ and the maximum lag and sample relation is $M=N-\lceil L/2 \rceil$.  This lag product formation is the first step in computing a discrete Wigner distribution \cite{TFAcohen}. This  step adds a bias to the ACF estimate which acts as a weighting on larger lags, represented as $\mathcal{W}(l)$ where weighting can be calculated from details of the range-lag ambiguity function. The expected value for the estimator, assuming the use of a simple uncoded pulse waveform, becomes
 
 \begin{equation}
 \label{eq:lagprobias}
