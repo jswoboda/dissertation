@@ -9,29 +9,29 @@
 
 %%%%%%%%%%%%%% Intro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This chapter will give the background on the signal model and processing aspects of ISR. The first section will explore the physical  underpinning of the incoherent scatter signal from the ionosphere. The second section will detail the basics of radar processing and how the different types of measurements are made. In the final section of this chapter the specific processing that takes place in an ISR will be detailed.
+This chapter gives the background on the signal model and processing aspects of ISR. The first section explores the physical  underpinning of the incoherent scatter signal from the ionosphere. The second section details the basics of radar processing and how the different types of measurements are made. In the final section of this chapter the specific processing that takes place in an ISR is detailed.
 
 \section{Incoherent Scatter}
 \label{sec:incohscat}
-When electrons are freed from their bonds as in a plasma they can oscillate in a manner modeled as a dipole antenna. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave. This scattering process is known as Thomson scatter \cite{Hutchinson_2002}. This radiation, when taken as a collection of scatterers from a large set of electrons, varies in time $t$, with fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector \cite{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as
+When electrons are freed from their bonds as in a plasma, they can oscillate in a manner modeled as a Hertzian dipole antenna. If an electromagnetic wave, such as one from a radar pulse, impinges on these electrons they will accelerate and re-radiate a wave. This scattering process is known as Thomson scatter \citep{Hutchinson_2002}. This radiation, when taken as a collection of scatterers from a large set of electrons, varies in time $t$, with fluctuations in electron density $n_e(\mathbf{k},t)$, where $\mathbf{k}$ is the Bragg vector \citep{kudeki:milla:1}. In the far-field condition the Bragg vector is defined as
 \begin{equation}
 \label{eqn:bragg}
 \mathbf{k}=\mathbf{k}_s-\mathbf{k}_i,
 \end{equation}
-where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \cite{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where the spatial Fourier transform $n_e(\mathbf{r},t)$ has position vector $\mathbf{r}$. As these charges move the scattered waves are given a Doppler shift based off of their velocity, $\mathbf{v}$ along the Bragg vector. This Doppler shift in frequency can be represented as
+where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and incident waves respectively \citep{sheffield2010}. The Bragg vector is the frequency parameter in $n_e(\mathbf{k},t)$, where the spatial Fourier transform $n_e(\mathbf{r},t)$ has position vector $\mathbf{r}$. As these charges move, the scattered waves are given a Doppler shift based off of their velocity $\mathbf{v}$ along the Bragg vector. This Doppler shift in frequency can be represented as
 \begin{equation}
 \label{eqn:dop1}
 \omega=\mathbf{k} \cdot \mathbf{v},
 \end{equation}
-where $\omega$ is the frequency shift from the velocity along the Bragg vector \cite{sheffield2010}. $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
+where $\omega$ is the frequency shift from the velocity along the Bragg vector \citep{sheffield2010}. $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
 
-These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \cite{kudeki:milla:1}. Another term for this is \textit{non-collective} scattering with relation,
+These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \citep{kudeki:milla:1}. Another term for this is \textit{non-collective} scattering using the relation
 \begin{equation}
 \label{eqn:incohorig}
 k*\lambda_{e} << 1,
 \end{equation}
-where $\lambda_{e}$ is the electron Debye length, and $k=|\mathbf{k}|$. This will cause the spectrum to show the collective effects of the velocity distribution of the particles \cite{sheffield2010}.
-Although the scattering is driven through a random process it reveals several pieces of information about a plasma, especially in the ionosphere. Due to the electrical interaction between the ions and electrons a correlation structure develops, creating a shaped Doppler spectrum that a radar can detect. This Doppler spectrum is a power spectral density estimate of the electron density fluctuations across time $t$ and $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
+where $\lambda_{e}$ is the electron Debye length, and $k=|\mathbf{k}|$. Satisfying this condition causes the spectrum to show collective effects of the velocity distribution of the particles \citep{sheffield2010}.
+Although the scattering is driven through a random process, it reveals several pieces of information about a plasma, especially in the ionosphere. Due to electrical interaction between the ions and electrons, a correlation structure develops, creating a shaped Doppler spectrum that a radar can detect. This Doppler spectrum is a power spectral density estimate of the electron density fluctuations across time $t$ and $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
 
 The IS spectrum has a number of different sections separated in frequency.
 This thesis focuses on the ``ion line'' portion of the spectrum shown in Figure~\ref{fig:ispecch2}. This naming is due to the IS spectrum revealing a damped version of ion acoustic waves
@@ -39,10 +39,10 @@ This thesis focuses on the ``ion line'' portion of the spectrum shown in Figure~
 \label{eqn:ial}
 \omega=k_0\sqrt{\frac{K_b(T_e+3T_i)}{m_i}}
 \end{equation}
-where $k_0$ is the wavenumber, $\omega$ is the radian frequency of the wave, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species and $T_e$ and $T_i$ are the temperatures of the electron and ions \cite{chen1984introduction}. 
+where $k_0$ is the wavenumber, $\omega$ is the radian frequency of the wave, $K_b$ is Boltzman's constant, $m_i$ is the mass of the ion species and $T_e$ and $T_i$ are the temperatures of the electron and ions \citep{chen1984introduction}. 
 The ion acoustic mode returns the most power and can give information on both electron and ions, so it is commonly used in ISR analysis.
 
-The physical intuition behind the ``ion line'' can useful for understanding basic processes, but a full mathematical model tying plasma parameters, such as electron density ($N_e$), electron temperature ($T_e$),  and ion temperature ($T_i$) to the power spectral density ($\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$) is necessary for ISR to perform its measurements. There have been a number of derivations and formulations for this since the development of ISR \cite{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. This thesis will use the formulation from~\cite{kudeki:milla:1,kudeki:milla:2,Kudeki:2006kx},
+The physical intuition behind the ``ion line'' can be useful for understanding some of the basic processes behind IS. Still, a full mathematical model tying plasma parameters, such as electron density ($N_e$), electron temperature ($T_e$),  and ion temperature ($T_i$) to the power spectral density ($\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$) is necessary for ISR to perform its measurements. There have been a number of derivations and formulations for this since the development of ISR \citep{dougherty:farley1960,farleydougherty:ISR2,doughteryfarley:ISR3,hagfors1961}. This thesis will use the formulation from~\citet{Kudeki:2006kx,kudeki:milla:1,kudeki:milla:2},
 \begin{equation}
 \label{eq:mainspeceq:body}
 \langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle = \frac{|j\omega\epsilon_0 + \sigma_i|^2 \langle |n_{te}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2} + \frac{| \sigma_e|^2 \langle |n_{ti}(\mathbf{k},\omega)|^2\rangle}{|j\omega\epsilon_0 +\sigma_e+\sigma_i|^2}.
@@ -65,7 +65,7 @@ where $N_s$ is the average density for the species, and $\lambda_{e}$ is its Deb
 \label{eq:gord:body}
 J_s(\omega)\equiv \int_0^\infty \langle e^{j\mathbf{k}\cdot\Delta \mathbf{r}_s}\rangle e^{j\omega\tau}d\tau.
 \end{equation}
-For the case of a Maxwellian distributed plasma where collisions and magnetic field can be neglected,
+For the case of a Maxwellian distributed plasma where collisions and magnetic fields can be neglected,
  \begin{equation}
 \label{eq:pdfallc2}
 \langle e^{j\mathbf{k}\cdot\Delta \mathbf{r}}\rangle= e^{-\frac{1}{2}k^2C^2 \tau^2},
@@ -88,7 +88,7 @@ A more complete treatment of the IS spectrum formulation, derivation and computa
     \medskip
     \centerline{(b)}
   \end{minipage}
-  \caption{(a) IS spectrum ion line; and (b) corresponding ACF. With all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K.}
+  \caption{(a) IS spectrum ion line; and (b) corresponding ACF. The spectrum and ACF were created using all O$^+$ ions, $N_e = 10^{11}$, $T_e=2500 ^\circ$ K and $T_i=1000 ^\circ$ K.}
   \label{fig:ispecch2}
 \end{figure}
 
@@ -99,7 +99,7 @@ A more complete treatment of the IS spectrum formulation, derivation and computa
 %\label{fig:ispecch2}
 %\end{figure}
 
-As its name implies, IS is inherently stochastic in nature. To measure this spectrum with usable error margins a number of observations of this process must be averaged together \cite{Diaz:2008co}. Common ISR analysis practice refers to observations of this random process as ``pulses," to distinguish this from samples in signal processing applications \cite{dtsp:openhiem}. These observations can then be used in some sort of spectral estimator . A demonstration of the convergence of a periodogram estimator to the spectrum from Figure \ref{fig:ispecch2} as the number of pulses $J$ is increased is depicted in Figure \ref{fig:ispecch2ave}.
+As its name implies, IS is inherently stochastic in nature. To measure this spectrum with usable uncertainty margins, a number of observations of this process must be averaged together \citep{Diaz:2008co}. Common ISR analysis practice refers to observations of this random process as ``pulses," to distinguish this from samples in signal processing applications \citep{dtsp:openhiem}. These observations can then be used in some sort of spectral estimator. A demonstration of the convergence of a periodogram estimator to the spectrum from Figure \ref{fig:ispecch2} as the number of pulses $J$ is increased is depicted in Figure \ref{fig:ispecch2ave}.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=4in]{Specionave}
@@ -109,20 +109,20 @@ As its name implies, IS is inherently stochastic in nature. To measure this spec
 
 \section{Radar Signal Processing}
 
-In this section the general signal model behind ISR will be discussed. Following that the specifics of measuring a Doppler spectra, like the IS spectrum will be covered. Some comparisons to hard-target radar systems will be made as well.
+In this section the general signal model behind ISR is discussed. Following that the specifics of measuring a Doppler spectra, like the IS spectrum is covered. Some comparisons to hard-target radar systems are made as well.
 
 \subsection{Radar Signal Model}
-ISR systems like other pulsed radar systems radiate a signal, $y(t)$, that can be represented as a finite length pulse, $s(t)$ modulated by a complex sinusoid
+ISR systems like other pulsed radar systems radiate a signal, $y(t)$, that can be represented as a finite length pulse $s(t)$, modulated by a complex sinusoid
 \begin{equation}
 \label{eqn:sigone}
 y(t)=s(t)e^{j2\pi f_0 t}
 \end{equation}
-where $f_0$ is the transmit frequency in Hz. Equivalently, $ f_0=c/\lambda_0$, where $\lambda_0$ is the wavelength of the transmitted wave and $c$ is the speed of light. The return signal reflected off of a single point target, which assuming for now has no motion may be modeled as
+where $f_0$ is the transmit frequency in Hz. Equivalently, $ f_0=c/\lambda_0$, where $\lambda_0$ is the wavelength of the transmitted wave and $c$ is the speed of light. The return signal reflected off of a single point target with, assuming for now, no motion, may be modeled as
 \begin{equation}
 \label{eqn:sigone}
 y_r(t)=A_0s(t-\Delta t)e^{j2\pi f_0 (t-\Delta T)}
 \end{equation}
-where $\Delta T$ round trip time and $A_0$ is a complex amplitude factor including propagation losses, phase shifts and target reflectivity \cite{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor,
+where $\Delta T$ is round trip time and $A_0$ is a complex amplitude factor including propagation losses, phase shifts and target reflectivity \citep{richards2014fundamentals}. The radar system estimates the range $r$, or the distance between the target and sensor,
 \begin{equation}
 \label{eqn:range_intro}
 r=\frac{c\Delta T}{2}.
@@ -138,9 +138,9 @@ Another key quantity estimated by ISR is the line of sight, or bulk Doppler velo
 \label{simpledop}
 s_d(t) = s(t)e^{j2\pi f_d t},
 \end{equation}
- where $f_d$ is the Doppler frequency of the target and $s_d(t)$ is the received signal in~\ref{eqn:baseband} with a Doppler shift. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
+ where $f_d$ is the Doppler frequency of the target and $s_d(t)$ is the received signal in Equation~\ref{eqn:baseband} with a Doppler shift. Assuming there are no relativistic effects this frequency can be represented as the following $f_d = 2v/\lambda_0 $, where $v$ is the velocity of the target. 
 
-With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model would be a set of scatterers each with their return weighted ($V_n$) and with a frequency shift, ($f_n$), represented as
+With ISR a distribution of electrons are probed, so we have an extremely large number of small cross-section targets within the beam. A better model uses a set of scatterers each with their return weighted ($V_n$) and with a frequency shift, ($f_n$), represented as
 \begin{equation}
 \label{multiDop}
 \displaystyle s_d(t) = \sum_{n}^{N} s(t)V_ne^{j2\pi f_{n} t},
@@ -151,14 +151,14 @@ For very large $N$ number of scatterers this model can be extended to a continuu
 s_d(t) = \int s(t) V(f)e^{j2\pi ft} df.
 \end{equation}
 
-A simple illustration of the sampling is shown in Figure \ref{fig:isrfigure} which shows range-time diagram for ISR. In this case three samples are taken from different ranges and the pulse, $s(t)$ is multiplied by the electron density fluctuations $n_e$ at its corresponding time and range. The return signal $x$ is sampled with a period of $T_s$  making sample values at times $t_1$, $t_2$ and $t_3$. 
+This continuum of scatterers is also distributed along range. A simple illustration of the sampling of these scatterers along range is shown in the range-time diagram for ISR, Figure \ref{fig:isrfigure}. In this case three samples are taken from different ranges and the pulse $s(t)$, is multiplied by the electron density fluctuations $n_e$ at its corresponding time and range. The return signal $x$ is sampled with a period of $T_s$, making sample values at times $t_1$, $t_2$ and $t_3$. 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=5in]{ISRpicture}
 \caption{As the pulse in time traverses the ranges a, b, and c, it is multiplied by the electron density fluctuations at each of those points. The samples at each time are the summations of those returns from each point that the lines intersect in range. These different points are also delayed in time as well giving time delayed observations of the process at each point. }
 \label{fig:isrfigure}
 \end{figure}
-sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout}.
+The sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout}.
 \begin{equation}
 \label{eqn:isrbrokenout}
 \begin{split}
@@ -169,7 +169,7 @@ sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout
  \end{split}
 \end{equation}
 
-The terms in Equation \ref{eqn:isrbrokenout} are single points in range from Equation~\ref{eqn:xwithne} which is the common formulation of the return data for ISR \cite{hysell2008}, 
+The terms in Equation \ref{eqn:isrbrokenout} are single samples along time $t$ from Equation~\ref{eqn:xwithne}, which is the common continuous time formulation of the return data for ISR along range $r$ \citep{hysell2008}, 
 \begin{equation}
 \label{eqn:xwithne}
 x_c(t)= \int n_e(r,t-r/c)s(t-2r/c)  dr.
@@ -179,7 +179,7 @@ By performing a change of variables it should be noted that Equation \ref{eqn:xw
 \label{eqn:timevarfilt}
 x_c(t)= \int h(\tau,t)s(t-\alpha\tau)  d\tau,
 \end{equation}
-where $h(\tau,t)$ is a filter with an impulse response along $t$ varies with $\tau$ and $\alpha$ is a translation so the time steps between $t$ and $\tau$ are equal.  One of the earlier uses of model  form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This time-varying filter model can help determine the method of measurement by looking at the Fourier Transform of $h(\tau,t)$,
+where $h(\tau,t)$ is a filter with an impulse response along $t$ varies with $\tau$ and $\alpha$ is a translation so the time steps between $t$ and $\tau$ are equal.  One of the earlier uses of model  form comes from the study of time varying communication channels \citep{Kailath:1962jx,Kailath:1963gh}. This time-varying filter model can help determine the method of measurement by looking at the Fourier Transform of $h(\tau,t)$,
 \begin{equation}
 \label{eqn:timvarefreq}
 H(\tau,f)=\int h(\tau,t)\text{e}^{-j2\pi ft}dt.
@@ -189,9 +189,9 @@ The term $H(\tau,f)$ is known as the time-varying frequency response, which can 
 \label{eqn:trp}
 BL<1,
 \end{equation}
-where $B$ is the bandwidth of $H(\tau,f)$ and $L$ is its extent along $\tau$ \cite{Kay:2003jl,Pfander:2015ea}. The second class, the \textit{overspread} target, occurs when this inequality does not hold.
+where $B$ is the bandwidth of $H(\tau,f)$ and $L$ is its extent along $\tau$ \citep{Kay:2003jl,Pfander:2015ea}. The second class, the \textit{overspread} target, occurs when this inequality does not hold.
 
-With ISR this same frame work can be used, the term $L$ must now change to $R_L/c$ where $R_L$ is the farthest range that needs to be probed. In the case of ISR probing the F-region the target is overspread as the inequality in Equation \ref{eqn:trp} will not hold. In order to estimate the time-varying frequency response an ambiguity will be introduced \cite{Kailath:1962jx,Kailath:1963gh}, which is the same as performing the measurement of the Doppler spectrum. This discussion of \textit{overspread} vs. \textit{underspread} will drive the Doppler measurement methodology discussed next.
+With ISR this same frame work can be used, the term $L$ must now change to $R_L/c$ where $R_L$ is the farthest range that needs to be probed. In the case of an ISR probing the F-region the target is overspread as the inequality in Equation \ref{eqn:trp} will not hold. In order to estimate the time-varying frequency response an ambiguity will be introduced \citep{Kailath:1962jx,Kailath:1963gh}, which is the same as performing the measurement of the Doppler spectrum. This discussion of \textit{overspread} vs. \textit{underspread} will drive the Doppler measurement methodology discussed next.
 
 
 
@@ -203,33 +203,33 @@ In a pulsed radar system Doppler is measured starting with these steps:
 \item radar sends a set of pulses that scatter off the targets 
 \item target returns are binned into a two-dimensional array representing range and interpulse period (IPP).
 \end{enumerate}
-In the case of an \textit{underspread} target the pulse-Doppler processing method can be used, which is commonly denoted \textit{coherent processing} \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. The pulse-Doppler method consists of the following steps after the first two listed:
+In the case of an \textit{underspread} target the pulse-Doppler processing method can be used, which is commonly denoted as \textit{coherent processing} \citep{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. The pulse-Doppler method consists of the following steps after the first two listed:
 \begin{enumerate}
   \setcounter{enumi}{2}
-  \item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \cite{richards2014fundamentals}. 
+  \item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \citep{richards2014fundamentals}. 
 \item A power spectrum is formed by taking squared magnitude .  
 \end{enumerate}
 
-In order to avoid aliasing or Doppler folding, the pulse repetition frequency (PRF) must be at least twice as large as largest Doppler frequency in the signal \cite{dtsp:openhiem}. 
-a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $R_a$, can be represented as 
+In order to avoid aliasing or Doppler folding, the pulse repetition frequency (PRF) must be at least twice as large as largest Doppler frequency in the signal \citep{dtsp:openhiem}. 
+Using pulse-Doppler processing a phase-coherent signal that is relatively narrow in frequency can obtain a large amount of gain compared to the background noise. The Doppler bandwidth that can be view unambiguously will be tied to the PRF. The issue of range ambiguity can arise if the support of the target is further in range than a single pulse can travel in an IPP. The maximum unambiguous range, $R_a$, can be represented as 
 \begin{equation}
 \label{eqn:maxuar}
 R_a =  \frac{cT}{2}
 \end{equation}
 where $T$ is the IPP time. These requirements fit within the definition of an  \textit{underspread} target, thus pulse-Doppler processing assumes this class of target.
 
-The ionosphere is not compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. 
+The ionosphere cannot be assumed to be compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. 
 Using the spectrum in Figure~\ref{fig:ispecch2}, it can be seen that the signal is at least 20~kHz in bandwidth.
 This broad bandwidth and unambiguous range requirement yields an \textit{underspread} target. 
 
 In order to measure an this class of target, an alternative Doppler processing method must be used. This method replaces steps \#2 and \#3 with an estimate of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
-The formation of this spectrum is the same as forming Wigner-Ville distribution along range \cite{TFAcohen}. The formulation of the Wigner-Ville distribution is as follows using a signal $x(t)$,
+The formation of this spectrum is the same as forming Wigner-Ville distribution along range \citep{TFAcohen}. The formulation of the Wigner-Ville distribution is as follows using a signal $x(t)$,
 \begin{equation}
 \label{eqn:wigdist}
 W_x(t,f)=\int x_c(t-\tau/2)x_c^*(t+\tau/2)\text{e}^{-j2\pi \tau f}d\tau,
 \end{equation}
-where $\tau$ is the lag variable. Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \cite{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
-Note that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \cite{gordon58,dougherty:farley1960}.
+where $\tau$ is the lag variable. Because phase coherency is not needed across pulses this is considered an \text{incoherent processing} technique \citep{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. 
+Note that ISR received its name due to the physical definition of incoherent scatter as explained in Section \ref{sec:incohscat} \citep{gordon58,dougherty:farley1960}.
 
 
 In the specific case of ISR processing for an uncoded pulse the processing follows this logic and performs an approximation to the formation of the Wigner-Ville distribution, which will be examined in the next section. 
@@ -237,12 +237,12 @@ In the specific case of ISR processing for an uncoded pulse the processing follo
 
 %%%%%%%%%%%%%% Processing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ISR Processing}\label{section:isrproc}
-The specifics of ISR processing will be discussed in this section. It will mainly use the terminology found in much of the ISR literature~\cite{farley1969,nygren1996}. This examination of the processing will start after complex receiver voltage data have been received, and detail how it is processed to create estimates of the ACF at desired points of space.
+The specifics of an approach to ISR processing are discussed in this section. It will mainly use the terminology found in much of the ISR literature~\citep{farley1969,nygren1996}. This examination of the processing starts after complex receiver voltage data have been received, and details how it is processed to create estimates of the ACF at desired points of space.
 
  
 The processing follows the flow chart presented in Figure~\ref{fig:chain}.  
 Note that we assume here a signal pipeline which creates a single altitude measurement for analysis. 
-More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \cite{RDS:RDS3308}, lag profile inversion \cite{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this chapter.
+More sophisticated approaches for ISR analysis exist that use information from multiple altitudes, including full profile analysis \citep{RDS:RDS3308}, lag profile inversion \citep{Virtanen:20082vx}, and others, but treatment of these approaches is beyond the scope of this chapter.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=5.5in]{datastackchain}
@@ -256,39 +256,39 @@ The lag product formation is an initial estimate of the autocorrelation function
 \widehat{R}(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} x(m-\lfloor l/2\rfloor,j)x^*(m+\lceil l/2 \rceil,j).
 \end{equation}
 
-The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other types of lag product calculations are available but a centered product is most common. For this case, the range gate index $m$ and sample index $n$ can be related by $m=n-\lfloor L/2\rfloor$ and the maximum lag and sample relation is $M=N-\lceil L/2 \rceil$.  This lag product formation is the first step in computing a discrete Wigner distribution \cite{TFAcohen}. This  step adds a bias to the ACF estimate which acts as a weighting on larger lags, represented as $\mathcal{W}(l)$ where weighting can be calculated from details of the range-lag ambiguity function. The expected value for the estimator, assuming the use of a simple uncoded pulse waveform, becomes
+The case shown in Equation \ref{eq:lagpro} is a centered lag product.  Other types of lag product calculations are available but a centered product is most common. For this case, the range gate index $m$ and sample index $n$ can be related by $m=n-\lfloor L/2\rfloor$ and the maximum lag and sample relation is $M=N-\lceil L/2 \rceil$.  This lag product formation is the first step in computing a discrete Wigner-Ville distribution \citep{TFAcohen}. This  step adds a bias to the ACF estimate which acts as a weighting function on larger lags, represented as $\mathcal{W}(l)$ where weighting can be calculated from details of the range-lag ambiguity function. The expected value for the estimator, assuming the use of a simple uncoded pulse waveform, becomes
 
 \begin{equation}
 \label{eq:lagprobias}
 \left\langle\widehat{R}(m,l) \right\rangle = \mathcal{W}(l)R(m,l) =\frac{L-l}{L}R(m,l).
 \end{equation}
 
-%This specific type of lag product formation is detailed in \cite{farley1969} and had been referred to as unbiased. This terminology does differ from what is used in statistic signal processing literature such as \cite{randomsigshanmugan} where the unbiased autocorrelation function estimate is carried out as so,
+%This specific type of lag product formation is detailed in \citep{farley1969} and had been referred to as unbiased. This terminology does differ from what is used in statistic signal processing literature such as \citep{randomsigshanmugan} where the unbiased autocorrelation function estimate is carried out as so,
 %
 %\begin{equation}
 %\label{eq:lagproub}
 %\hat{R}(m,l) = \frac{1}{L-l}\displaystyle\sum\limits_{j=0}^{J-1} x(m-\lfloor l/2\rfloor,j)x^*(m+\lceil l/2 \rceil,j).
 %\end{equation}
 %
-%\noindent With out the $\frac{1}{L-l}$ term the estimator will be windowed with a triangular function thus impacting the estimate of the ISR spectrum as this will act as a convolution in the frequency domain. This bias is taken into account in \cite{farley1969} but it is simply wrapped up into the ambiguity function. 
+%\noindent With out the $\frac{1}{L-l}$ term the estimator will be windowed with a triangular function thus impacting the estimate of the ISR spectrum as this will act as a convolution in the frequency domain. This bias is taken into account in \citep{farley1969} but it is simply wrapped up into the ambiguity function. 
 
-Applying a summation rule is generally the next step in creating an estimate of the autocorrelation function for single altitude analysis. This is done for a number of reasons, but primarily to improve estimate statistics.  Furthermore, if the right rule is chosen, then the range ambiguity can be made approximately constant across the lags, which can make inversions easier \cite{nygren1996}. Summation rules based on other criteria can be used but our simulations use the trapezoidal summation, which is a common choice and leads to uniform range resolution across all lags. It can be represented as follows:
+Applying a summation rule is generally the next step in creating an estimate of the autocorrelation function for single altitude analysis. This is done for a number of reasons, but primarily to improve estimate statistics.  Furthermore, if the right rule is chosen, then the range ambiguity can be made approximately constant across the lags, which can make inversions easier \citep{nygren1996}. Summation rules based on other criteria can be used but our simulations use the trapezoidal summation, which is a common choice and leads to uniform range resolution across all lags. It can be represented as follows:
 
 \begin{equation}
 \label{eq:sumrule}
 \widehat{R}_s(m,l) = \displaystyle\sum\limits_{i=-((v-1)/2+\lceil l/2 \rceil)}^{((v-1)/2+\lfloor l/2\rfloor)} \widehat{R}(m+i,l),
 \end{equation}
 
-\noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to positive odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \cite{nygren1996}. 
+\noindent where $v$ is the 'volume' index or the number of gates integrated at zero lag (restricted to positive odd integers here) and $\widehat{R}_s(m,l)$ is the final ACF estimate after the summation rule \citep{nygren1996}. 
 % pcom checked for variables, already defined
-However, the final result of this summation rule will still lead to a statistically biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \cite{nygren1996},
+However, the final result of this summation rule will still lead to a statistically biased ACF. For the uncoded waveform case, this summation rule leads to the following expected value for the estimator \citep{nygren1996},
 
 \begin{equation}
 \label{eq:sumruleest}
 \left\langle\widehat{R}_s(m,l) \right\rangle  =\frac{v+l}{v\mathcal{W}(0)}\mathcal{W}(l)R(m,l) =\left(-\frac{1}{vL}l^2+\frac{L-v}{Lv}l+1\right)   R(m,l).
 \end{equation}
 
-An example summation rule for a central product is shown in Figure \ref{fig:sumrule}.The image on the left is a basic representation of an ambiguity function of a long pulse and is mirrored on the right with red bars which would show the integration area under it so the ambiguity function for each lag will be of equal size in range. There are a number of different summing rule each with their own trade offs \cite{nygren1996}. Also of note the function in the parenthesis of the RHS of Equation~\ref{eq:sumruleest} is also known in the signal processing literature as a window function along the lags of the ACF \cite{dtsp:openhiem}. This window function can be seen in Figure~\ref{fig:isrwindow}
+An example summation rule for a central product is shown in Figure \ref{fig:sumrule}. The image on the left is a basic representation of an ambiguity function of a long pulse and is mirrored on the right with red bars which would show the integration area under it so the ambiguity function for each lag will be of equal size in range. There are a number of different summing rule each with their own trade offs \citep{nygren1996}. Also of note, the function in the parenthesis of the RHS of Equation~\ref{eq:sumruleest} is also known in the signal processing literature as a window function along the lags of the ACF \citep{dtsp:openhiem}. This window function can be seen in Figure~\ref{fig:isrwindow}
 
 \begin{figure}[!t]
 \centering
@@ -312,9 +312,9 @@ An example summation rule for a central product is shown in Figure \ref{fig:sumr
 %\hat{R}_w(m,l) = \displaystyle\sum\limits_{j=0}^{J-1} w(m_w-\lfloor l/2\rfloor,j)w^*(m_w+\lceil l/2 \rceil,j),
 %\end{equation}
 
-Finally, noise effects are included by subtracting an estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that the scattered ionospheric signal is assumed to be negligible. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
+Finally, noise effects are accommodated by subtracting an separate estimate of the noise correlation from $\widehat{R}_s(m,l)$.  We represent the noise correlation function as $\widehat{R}_w(m,l)$, the ACF estimate of the background noise process of the radar $w(n_w)$ using the steps in Equations \ref{eq:lagpro} and \ref{eq:sumrule}. In a real radar system, the noise process is typically sampled either during a calibration period for the radar when nothing is being emitted, or at ranges sufficiently distant that the scattered ionospheric signal is assumed to be negligible. The final estimate of the autocorrelation function after the noise subtraction and summation rule is represented by $\widehat{R}_f(m,l)$.
 
-Along with the first order moment of the ACF seen in Equation \ref{eq:sumruleest}, in order to do error analysis a second order moment is needed. The covariance matrix between each lag estimate can be formed using the formulation in Equation 2 of \cite{hysell2008}, rewritten here as
+Along with the first order moment of the ACF seen in Equation \ref{eq:sumruleest}, in order to do error analysis a second order moment is needed. The covariance matrix between each lag estimate can be formed using the formulation in Equation 2 of \citep{hysell2008}, rewritten here as
 
 \begin{equation}
 \label{eqn:covcalc}
@@ -339,25 +339,25 @@ C_{\tau,\tau} = \frac{1}{2J} \left(  |R(0)|^2 +|R(\tau)|^2 + \left|R_w (0)\right
 After the final estimation of the spectrum is complete, nonlinear least squares fitting takes place to determine plasma parameters.  
 %\pcom{This entire section can be collapsed to one reference and saved for the thesis chapter.}%
 %{
-The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the minimization of a cost function of the form \cite{kayvol1},
+The class of nonlinear least squares problems relevant to ISR parameter estimation can be represented as the minimization of a cost function of the form \citep{kayvol1},
 
 \begin{equation}
 	\mathbf{\hat{p}}= \underset{\mathbf{p}}{\text{argmin}} (\mathbf{y}-\bm{\theta}(\mathbf{p}))^*\mathbf{C}_{\mathbf{y}}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p})).
 \label{nlls}
 \end{equation}
 
-In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The matrix $\mathbf{C}_{\mathbf{y}}$  is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The parameter vector $\mathbf{P}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a model mapping these parameters to spectra. For the examples in thesis the model shown in Section~\ref{sec:incohscat}, and in greater detail in Appendix~\ref{appendix1}, is used for this mapping. In order to properly fit the ambiguity function must then be applied to the spectra. In the case of the long pulse the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ if the summation rule is properly applied. As in previous publications, \cite{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \cite{levenberg1944,marquardt:1963}.
+In Equation \ref{nlls}, the data represented as $\mathbf{y}$ would be the final estimate of the ACF $\widehat{R}_f(m,l)$ at a specific range, or its spectrum $\widehat{S}_f(m,\omega)$. The matrix $\mathbf{C}_{\mathbf{y}}$  is the covariance matrix from the ACFs or spectra depending on what is being fit. The covariance matrix for the ACF is detailed in Equation \ref{eqn:covcalc}, while the covariance matrix of the spectra is simply the ACF matrix but with discrete Fourier Transforms applied to the rows and columns. The parameter vector $\mathbf{p}$ would be the plasma parameters $N_e$, $T_e$, $T_i$ and $V_i$. The fit function, $\bm{\theta}$, is the IS spectrum calculated from a model mapping these parameters to ACF or spectra. For the examples in thesis the model shown in Section~\ref{sec:incohscat}, and in greater detail in Appendix~\ref{appendix1}, is used for this mapping. In order to properly fit the parameters the ambiguity function must then be applied to the ACF or spectra. In the case of the long pulse and a system with a large receiver bandwidth compared to the spectra, the ambiguity can be simply applied by multiplying it with the autocorrelation function $R(l)$ assuming the proper summation rule used. As in previous publications, \citet{nikoukar2008}, the Levenberg-Marquardt algorithm is used to fit the plasma parameters to the ACFs or spectra \citep{levenberg1944,marquardt:1963}.
 
-The Levenberg-Marquardt algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration\cite{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods Gradient Decent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
+The Levenberg-Marquardt algorithm moves the parameter vector $\mathbf{p}$ by a perturbation $\mathbf{h}$ at each iteration \citep{gavin:2013}. Specifically Levenberg-Marquart was designed to be a sort of meld between two different methods: Gradient Descent, and Gauss-Newton. The perturbation vector $\mathbf{h}_{lm}$ can be calculated using the following:
 
 \begin{equation}
 \left[ \mathbf{J}^T\bm{\Sigma}^{-1}\mathbf{J}\right]\mathbf{h}_{lm} =\mathbf{J}^T\bm{\Sigma}^{-1}(\mathbf{y}-\bm{\theta}(\mathbf{p}))
 \label{hlm}
 \end{equation}
 
-\noindent where $\mathbf{J}$ is the Jacobian matrix $\partial \bm{\theta}/\partial \mathbf{p}$ \cite{levenberg1944,marquardt:1963}. 
+\noindent where $\mathbf{J}$ is the Jacobian matrix $\partial \bm{\theta}/\partial \mathbf{p}$ \citep{levenberg1944,marquardt:1963}. 
 
-The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation is computed of the Jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. Given this Jacobian, the formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \cite{Hysell:2000cq}, is
+The last step is to calculate the errors in the parameter estimates. In order to do this a numerical approximation is computed of the Jacobian matrix between the data and the ACF, $\mathbf{J}$, at $\mathbf{p}=\mathbf{\hat{p}}$. Given this Jacobian, the formula to estimate the parameter error matrix, $\mathbf{C}_{\mathbf{\hat{p}}}$ according to \citet{Hysell:2000cq}, is
 
 \begin{equation}
 \label{eqn:jacinv}
@@ -389,7 +389,7 @@ A simpler formula for estimating the possible uncertainties from ACF is the foll
 \sigma_i = \frac{S}{\sqrt{J}}\left(1+\frac{1}{SNR}\right).
 \end{equation}
 
-\noindent where $S$ is the signal power and $SNR$ is the ratio of signal power to noise power \cite{nicollsisrschool2013}. The noise level can be estimated from the calibration period, which can be done in each IPP after which there is no expected appreciable return from ionosphere incoherent scatter. If there are localized but large returns, for example coherent reflections from satellites, this impact can be reduced by applying estimators that use order statistics \cite{ordstatcfar}.
+\noindent where $S$ is the signal power and $SNR$ is the ratio of signal power to noise power \citep{nicollsisrschool2013}. The noise level can be estimated from the calibration period, which can be done in each IPP after which there is no expected appreciable return from ionosphere incoherent scatter. If there are localized but large returns, for example coherent reflections from satellites, this impact can be reduced by applying estimators that use order statistics \citep{ordstatcfar}.
 
 \section{Summary}
 In this Chapter the basic model of ISR and the standard signal processing to perform plasma parameter measurements was examined. The first section detailed the physical intuition and basic model of the IS spectra, essentially how the plasma parameters are mapped to the Doppler spectra. The second section detailed a signal model for a pulsed radar system being used to resolve the IS spectra and compared the model to time-varying filters. Lastly the standard signal processing found in most ISR systems, from sampled complex voltages to estimated plasma parameters, was detailed.
@@ -432,13 +432,13 @@ In this Chapter the basic model of ISR and the standard signal processing to per
 %\label{eqn:scateqn}
 %x(t)= \int \int V(\mu,f)s(t-\mu)e^{j2\pi f t} d \mu df,
 %\end{equation}
-%where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \cite{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
+%where $V(\mu,\nu)$ is the scatter function and $\mu=2r/c$. One of the earlier uses of this form comes from the study of time varying communication channels \citep{Kailath:1962jx,Kailath:1963gh}. This scattering function drives the methodology on how the target can be properly measured. 
 %This model creates two classes of targets, distinguished by range bandwidth product. For the case of an \textit{underspread} target
 %\begin{equation}
 %\label{eqn:trp}
 %B\frac{2r}{c}<1,
 %\end{equation}
-%where $B$ is the Doppler bandwidth \cite{Pfander:2015ea}. 
+%where $B$ is the Doppler bandwidth \citep{Pfander:2015ea}. 
 %The case of the \textit{overspread} target occurs when this inequality does not hold.
 
 
