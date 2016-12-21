@@ -9,7 +9,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The previous chapter developed a forward model for the ISR sensing modality, valid for an arbitrary beam pattern and a target that may vary in space and time.   As described, the collected signal in ISR is noise-like with the variance of the fitted parameters directly dependent on the length of temporal integration.   Therefore, evaluation of any inverse theoretic scheme requires a full simulation of the ISR acquisitionThe following chapter will detail the methodology behind SimISR along with some processed examples. The first section will show how the synthetic data is created at complex voltage level. After which results of these simulations will be shown after the data has been processed as shown in Section \ref{section:isrproc}. The results will then be interpolated back to the original Cartesian space of the plasma parameters. 
+The previous chapter developed a forward model for the ISR sensing modality, valid for an arbitrary beam pattern and a target that may vary in space and time.   As described, the collected signal in ISR is noise-like with the variance of the fitted parameters directly dependent on the length of temporal integration.   Therefore, evaluation of any inverse theoretic scheme requires a full simulation of the ISR acquisition. The following chapter details the methodology behind SimISR along with some processed examples. The first section shows how the synthetic data is created at complex voltage level. After which results of these simulations are shown after the data has been processed as described in Section \ref{section:isrproc}. The results are interpolated back to the original Cartesian space of the plasma parameters. 
 
 \section{Simulation Methodology}
 \label{sec:simmeth}
@@ -98,7 +98,7 @@ y_m (k)= s(k)\left[h_m(k)*w(k)\right],
 %
 %\noindent where $\omega_i$ is the frequency variable, $w(\omega_i) \sim CN(0,\mathbf{I})$ and $K$ is the number of points used for the DFT \cite{michellnoisesim1981}.
 
-After the data for each range gate $y_m(k)$ is created, the received signal's power spectrum can be calculated from ISR plasma scattering theory as 
+After the data for each range gate $y_m(k)$ is created, the received signal's power can be calculated from ISR plasma scattering theory as 
 
 \begin{equation}
 \label{eq3}
