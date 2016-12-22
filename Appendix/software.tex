@@ -8,15 +8,15 @@
 This appendix covers software architecture of two software packages that have been created during the course of the research for this thesis. The first package called Simulation for Incoherent Scatter Radar (SimISR), can create synthetic ISR data at the level of complex voltages sampled at the antenna. The other major package is called GeoData and is an advanced programing interface (API) that allows researchers to quickly import new sensor and information sources. Included are a number of functions to register, interpolate, plot and analyze this data.
 
 \section{ISRSpectrum}
-The ISR spectrum code base was developed to create the backscatter spectra from the ionosphere given a set of plasma state parameters. The code is based off of the the theoretical in \cite{kudeki:milla:1}, which has been discussed in Appendix \ref{appendix1} along with added formulations for multiple ion species.
+The ISR spectrum code base was developed to create the backscatter spectra from the ionosphere given a set of plasma state parameters. The code is based off of the the theoretical in \citet{kudeki:milla:1}, which has been discussed in Appendix \ref{appendix1} along with added formulations for multiple ion species.
 
-The software is built using a simple class set up where first the user initializes an object called \textit{ISRSpectrum} using the parameters for the ISR system. After the initial definition a spectrum can be created with the method \textit{getspecsep}, which takes information on the ion species, temperatures, densities. There are optional inputs for magnetic field aspect angle, ion velocities and neutral species to calculate collision frequencies using the methods found in \cite{schunk2004ionospheres}.
+The software is built using a simple class set up where first the user initializes an object called \textit{ISRSpectrum} using the parameters for the ISR system. After the initial definition a spectrum can be created with the method \textit{getspecsep}, which takes information on the ion species, temperatures, densities. There are optional inputs for magnetic field aspect angle, ion velocities and neutral species to calculate collision frequencies using the methods found in \citet{schunk2004ionospheres}.
 
 \section{SimISR}
 
 SimISR was developed to make synthetic data that one could use to create different processing algorithms and methods while having a known input or "truth" data. This simulator will take plasma fields of plasma parameters, create complex voltages from these parameters and then process that data to the point where it can estimate the input plasma parameters.
 
-The need to create a full 3-dimensional software package was necessitated by the desire to explore the utility of the new phased array radar systems and their ability to measure 3-D fields of plasma parameters. This desire to understand the measurement capabilities of electronically scanned ISR lead to the following publication \cite{RDS:RDS20236} where this software package was used to create reconstructions of 3-D fields of plasma parameters.
+The need to create a full 3-dimensional software package was necessitated by the desire to explore the utility of the new phased array radar systems and their ability to measure 3-D fields of plasma parameters. This desire to understand the measurement capabilities of electronically scanned ISR lead to the following publication, \citet{RDS:RDS20236} where this software package was used to create reconstructions of 3-D fields of plasma parameters.
 
 The software itself has been developed in such a way that the code mirrors the processing. An object oriented paradigm is used and thus this different processes in the processing chain are broken up in to different classes, which are: 
 
@@ -38,7 +38,7 @@ The overall flow can be seen in Figure \ref{fig:swflow}, where  $\Theta$ is the 
 \end{figure}
 
 
-%This report is broken up in to the following chapters. The next chapter will cover the method to calculate the ISR spectrum. There are a number of publications on this including \cite{dougherty:farley1960,hagfors1971,sheffield2010} that cover this area but we focus on the treatment found in \cite{kudeki:milla:1}. Next the method to form the ISR data will be shown, this will include the signal processing steps taken to create the data. The processing of the data from estimating the lags to fitting the plasma parameters will then be covered. We will focus on methods for long pulse but we will show where this differentiates when using other waveforms such as alternating codes and Barker codes. Lastly we will show examples of the output of the ISR simulator at a number of different spots in the processing chain.
+%This report is broken up in to the following chapters. The next chapter will cover the method to calculate the ISR spectrum. There are a number of publications on this including \citep{dougherty:farley1960,hagfors1971,sheffield2010} that cover this area but we focus on the treatment found in \citep{kudeki:milla:1}. Next the method to form the ISR data will be shown, this will include the signal processing steps taken to create the data. The processing of the data from estimating the lags to fitting the plasma parameters will then be covered. We will focus on methods for long pulse but we will show where this differentiates when using other waveforms such as alternating codes and Barker codes. Lastly we will show examples of the output of the ISR simulator at a number of different spots in the processing chain.
 
 \section{GeoData}
 

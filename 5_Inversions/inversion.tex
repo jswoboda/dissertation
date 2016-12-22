@@ -8,34 +8,78 @@
 \graphicspath{{5_Inversions/Figures/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-This chapter describes methods developed to invert the ISR space-time ambiguity function and improve on current reconstruction schemes. The first section describes these inversion methods which are different types of constrained least squares. The next section shows examples using runs from SimISR to determine the utility of these inversion on reconstructing the true plasma parameters.
+This chapter describes methods developed to invert the ISR space-time ambiguity function and improve on current reconstruction schemes. The first section restates the briefly restates the forward model that was explored in depth in the earlier chapters. The follow section describes different inversion methods that have been used in the past in ISR along a single beam, thus removing only the range ambiguity. This leads next to a novel method of removing the effects of the full space-time ambiguity function described in Chapter~\ref{chapter:stamb} by reconstructing the parameters along the frame of reference of the moving plasma. The last section shows examples using runs from SimISR to determine the utility of these inversion on reconstructing the true plasma parameters.
 
-\section{Method Description}
-As discussed in Section \ref{sec:imgrec}, the main trade-off between the two approaches, parametric and data based reconstruction, is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution, as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from linear inverse theory are not completely applicable. With data-based regularization techniques the computational requirements are significantly lowered as one is performing a linear inversion. Still this can lead to estimated ACFs that can not be created by the incoherent scattering operator.
+\section{Forward Model}
 
-In order to reconstruct the field of plasma parameter values we treat the space-time ambiguity as a linear operator. This allows for the use of inversion schemes from image processing. In this case objective function will be 
-
-\begin{equation}
-\label{eqn:lstsqrs:opt}
-\argmin\limits_{R} \| y_s(\tau_s,\mathbf{r}_s,t_s)- \int L(\tau_s,\mathbf{r}_s,t_s,\tau,\mathbf{r},t)R(\tau,\mathbf{r},t)dVdtd\tau \|^2.
-\end{equation}
-
-\noindent If Equation \ref{eqn:lstsqrs:opt} is discretized and the data and input lags are rasterized into a vector format it becomes 
-
-\begin{equation}
-\label{eqn:lstsqrs:disc}
-\argmin\limits_{\mathbf{r}} \| \mathbf{y_s} -\mathbf{ L}\mathbf{r} \|^2.
-\end{equation}
+ISR systems measure the ionospheric plasma parameters by estimating second order statistics from electromagnetic waves scattered from fluctuations of the electron density and fitting plasma parameters to these statistics. The second order statistics of the reflected waves, the ACF or power spectra, are related to the intrinsic plasma parameters through a physics based model, see Section~\ref{sec:incohscat}, and for greater detail Appendix~\ref{appendix1} for the specifics of this model. The full forward model of intrinsic ionospheric plasma parameters to measured parameters from ISR is represented in the diagram seen in Figure \ref{fig:flow1}. The measurement process starts with a set of plasma parameters distributed in time and space. Each set of plasma parameters is then transformed to a set of ACFs using the operator represented by $g()$. The space time ambiguity function $L$, acts as a blurring operator one might see in a camera or numerous other types of sensors. The estimates are then fit and estimates of the plasma parameters $\widehat{\boldsymbol{\theta}}$, are created. Often times these parameters are interpolated or projected back to the original Cartesian coordinate system, as the radar samples in a spherical coordinate space. This is in a way applying the adjoint operator $L^*$ to the fitted plasma parameters so researchers can compare to other sensors.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=.8\textwidth]{ladj}
-\caption{\label{fig:flow1}ISR image formation process.}
+\caption{ISR measurement formation process.}
+\label{fig:flow1}
 \end{figure}
 
+This process shown in Figure \ref{fig:flow1} can be broken up into multiple parts. The linear portion of this, where the space-time ambiguity function $L$ is applied to the intrinsic ACFs in the ionosphere $R$, and creates measurements of the ACFs $\rho$, was detailed in Chapter~\ref{chapter:stamb}. Equation~\ref{eqn:sptamb}, restated in Equation~\ref{eqn:sptamb:inv}, shows this process as a Fredholm integral equation:
+\begin{equation}
+\label{eqn:sptamb:inv}
+	\rho(\tau_s,\mathbf{r}_s,t_s) =\int L(\tau_s,\mathbf{r}_s,t_s,\tau,\mathbf{r},t)R(\tau,\mathbf{r},t)dVdtd\tau.
+\end{equation}
+Not stated in Equation~\ref{eqn:sptamb:inv} is the randomness within the measurement process. One way to model this is to take advantage of the fact that to order to estimate the ACFs a large number of pulses are averaged in ISR and using the central limit theorem, one can argue that the estimated ACFs become Normally distributed random variable \citep{papoulis2002}. The radar data can be modeled as follows $ y_s\sim \mathcal{CN}(\rho,\mathbf{C})$, where $\mathbf{C}$ is the covariance matrix of the ACFs,
+
+\begin{equation}
+\label{eqn:procsignal}
+ y_s(\tau_s,\mathbf{r}_s,t_s) = \rho(\tau_s,\mathbf{r}_s,t_s) + w(\tau_s,\mathbf{r}_s,t_s),
+\end{equation}
+
+\noindent where $w(\tau_s,\mathbf{r}_s,t_s)$ is the ACF of the noise process. 
 
 
+As with nearly all practical inverse problems, it is necessary to carry on the inversion in a discrete space, so inversion algorithms be done by digital computers. For this case the variable $y_s$ will be sampled set  in a vector format where each discrete point in lag (length $N_l$), time (length $N_t$) and space (length $N_s$) are vectorized along the index $i$. This will create a $N_lN_sN_t\times 1$ length vector 
+\begin{equation}
+\label{eqn:vec1}
+\mathbf{y}=[y(\tau_0,\mathbf{r}_0,t_0), y(\tau_1,\mathbf{r}_1,t_1),..., y(\tau_{N_l N_s N_t -1}, \mathbf{r}_{N_l N_s N_t -1}, t_{N_l N_s N_t -1})]^T.
+\end{equation}
+The next step will be to discretize the input space, the intrinsic ACF in Cartesian Coordinates, which will be represented by the vector $\mathbf{x}$, as $\mathbf{r}$ is already used for the spatial variable and $\mathbf{R}$ would imply a matrix variable. Like $\mathbf{y}$ each point in lag (length $N_v$), time (length $N_p$) and space (length $N_c$) are vectorized along the index $j$. The resulting $N_vN_pN_c\times 1$ length vector is the following,
+\begin{equation}
+\label{eqn:vecr}
+\mathbf{x}=[R(\tau_0,\mathbf{r}_0,t_0), R(\tau_1,\mathbf{x}_1,t_1),..., R(\tau_{N_c N_p N_c -1}, \mathbf{r}_{N_v N_p N_c -1}, t_{N_v N_p N_c -1})]^T.
+\end{equation}
+The space-time ambiguity can be represented in a fully discretized form as the matrix $\mathbf{L}$. Substituting this into Equation \ref{eqn:procsignal} it becomes,
+\begin{equation}
+\label{eqn:procsignalvec}
+ \mathbf{y} = \mathbf{L}\mathbf{x}+ \mathbf{w},
+\end{equation}
+\noindent where $\mathbf{x}$ is the intrinsic ACF in the Cartesian Coordinate space, and $\mathbf{w}$ is the vector of the noise process.
 
+With the formulation in Equation~\ref{eqn:procsignalvec} schemes to reduce its impact of the Space-Time ambiguity can be discussed.
+
+%For standard ISR processing, the plasma parameters at each point in space and time individually. The cost function used is tries to reduce the error between the model ACF and the measured value in the least squares sense,
+%
+%\begin{equation}
+%\label{eqn:lstsqrs}
+%\widehat{\boldsymbol{\theta}_s} = \argmin\limits_{\boldsymbol{\theta}} \|y_s - g(\boldsymbol{\theta}_s) \|^2.
+%\end{equation}
+%
+%\noindent The Levenberg-Marquart algorithm is often used to fit the plasma parameters to the final estimate ACFs \citep{levenberg1944,marquardt:1963,nikoukar2008}.
+
+\section{Inversion Schemes}
+\label{sec:isrlit}
+The ambiguity function across range has been well studied and there have been a number of different methods proposed to reduce its impact on ISR measurements,
+\citep{RDS:RDS3308,hysell2008,nikoukar2008,Virtanen:20082vx}. These methods fall into to two different categories of regularization. The first type, Full Profile Analysis \citep{RDS:RDS3308,hysell2008}, inverts the entire ISR process, including the non-linear step when moving between the parameter space and ACF space. This allows for parametric regularization which can include known physical constraints. The second type inverts only the range ambiguity as a linear operator and regularizes the estimated ACF. This is detailed in \citep{nikoukar2008} and \citep{Virtanen:20082vx}, and will be referred to data-based regularization.
+
+The main trade-off between the two approaches is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from are not useful. With data-based regularization techniques the computational requirements are significantly lowered as on is performing a linear inversion. Still this can lead to estimated ACFs that can not be created by the incoherent scattering operator.
+
+%\section{Method Description}
+%As discussed in Section \ref{sec:imgrec}, the main trade-off between the two approaches, parametric and data based reconstruction, is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution, as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from linear inverse theory are not completely applicable. With data-based regularization techniques the computational requirements are significantly lowered as one is performing a linear inversion. Still this can lead to estimated ACFs that can not be created by the incoherent scattering operator.
+%
+%In order to reconstruct the field of plasma parameter values we treat the space-time ambiguity as a linear operator, acting on the true intrinsic ACF of the plasma and outputting noisy and blurred estimates, which are then fitted to plasma parameters. This allows for the use of inversion schemes from image processing. In this case, using $y$ for the estimate of the ACF, $\rho$ seen in equation, Equation~\ref{eqn:sptamb}, the objective function, with no regularization would be 
+%
+%\begin{equation}
+%\label{eqn:lstsqrs:opt}
+%\argmin\limits_{R} \| y_s(\tau_s,\mathbf{r}_s,t_s)- \int L(\tau_s,\mathbf{r}_s,t_s,\tau,\mathbf{r},t)R(\tau,\mathbf{r},t)dVdtd\tau \|^2.
+%\end{equation}
 
 %\section{Introduction}
 %
@@ -109,37 +153,9 @@ In order to reconstruct the field of plasma parameter values we treat the space-
 %
 %\noindent The Levenberg-Marquart algorithm is often used to fit the plasma parameters to the final estimate ACFs \citep{levenberg1944,marquardt:1963,nikoukar2008}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Inversion Schemes}
-\label{sec:isrlit}
-The ambiguity function across range has been well studied and there have been a number of different methods proposed to reduce its impact on ISR measurements,
-\citep{RDS:RDS3308,hysell2008,nikoukar2008,Virtanen:20082vx}. These methods come down to two different types of regularization. The first type Full Profile Analysis which is detailed in \citep{RDS:RDS3308} and \citep{hysell2008}, inverts the entire ISR process, even the non-linear step when moving between the parameter space and ACF space. This allows for parametric regularization which can include known physical constraints. The second type inverts only the range ambiguity as a linear operator and regularizes the estimated ACF. This is detailed in \citep{nikoukar2008} and\citep{Virtanen:20082vx}, and will be referred to data-based regularization.
-
-The main trade-off between the two approaches is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from are not useful. With data-based regularization techniques the computational requirements are significantly lowered as on is performing a linear inversion. Still this can lead to estimated ACFS that can not be created by the incoherent scattering operator.
 
 
-The best way to compare and contrast the two formats is to first pose the problem in a vector format, first each point in lag, length $N_l$, time, length $N_t$ and space, length $N_s$, are vectorized along the index $i$. This will create a $N_lN_sN_t\times 1$ length vector 
-
-\begin{equation}
-\label{eqn:vec1}
-\mathbf{y}=[y(\tau_0,\mathbf{r}_0,t_0), y(\tau_1,\mathbf{r}_1,t_1),..., y(\tau_{N_l N_s N_t -1}, \mathbf{r}_{N_l N_s N_t -1}, t_{N_l N_s N_t -1})]^T.
-\end{equation}
-
-The next step will be to discretize the input space which will be represented by the vector $\mathbf{x}$. Like $\mathbf{y}$ each point in lag, length $N_v$, time, length $N_p$ and space, length $N_c$, are vectorized along the index $j$. The resulting $N_vN_pN_c\times 1$ length vector is the following,
-
-\begin{equation}
-\label{eqn:vecr}
-\mathbf{x}=[x(\tau_0,\mathbf{r}_0,t_0), y(\tau_1,\mathbf{x}_1,t_1),..., y(\tau_{N_c N_p N_c -1}, \mathbf{x}_{N_v N_p N_c -1}, t_{N_v N_p N_c -1})]^T.
-\end{equation}
-
-The space-time ambiguity can be represented in a fully discretized form as the matrix $\mathbf{L}$. Substituting this into Equation \ref{eqn:procsignal} it becomes,
-
-\begin{equation}
-\label{eqn:procsignalvec}
- \mathbf{y} = \mathbf{L}\mathbf{x}+ \mathbf{w},
-\end{equation}
-\noindent where $\mathbf{x}$ is the intrinsic ACF in the Cartesian Coordinate space, and $\mathbf{w}$ is the vector of the noise process.
-
-For the case of parametric based reconstruction schemes such as full profile analysis try to reconstruct the full set of plasma parameters at each point in time and space, represented as the matrix $\boldsymbol{\Theta}$. The cost function for this is the following, 
+For the case of parametric based reconstruction schemes, such as full profile analysis, attempt to reconstruct the full set of plasma parameters at each point in time and space, represented as the matrix $\boldsymbol{\Theta}$. The cost function for this is the following, 
 
 \begin{equation}
 \label{eqn:lstsqrsvecpb}
@@ -155,7 +171,7 @@ With the data based reconstruction the inversion is based on removing the affect
 \widehat{\mathbf{x}} = \argmin\limits_{\mathbf{x}} \|\mathbf{y} -\mathbf{Lx} \|^2 + \boldsymbol{\gamma}\cdotp\mathbf{f}(\mathbf{x}),
 \end{equation}
 
-\noindent where $\mathbf{f}(\mathbf{x})$ is a vector of constraint functionals based on the ACFs, $\boldsymbol{\gamma}$ is a vector that holds the different weightings for these constraints. The ACFs are then fit to plasma parameters at one point in space and time as in Equation \ref{eqn:lstsqrs}.
+\noindent where $\mathbf{f}(\mathbf{x})$ is a vector of constraint functionals based on the ACFs, $\boldsymbol{\gamma}$ is a vector that holds the different weightings for these constraints. The ACFs are then fit to plasma parameters at each point in space and time using a non-linear least squares algorithm as in standard processing schemes, see Section~\ref{section:isrproc}.
 
 %The best way to compare and contrast the two formats is to first pose the problem in a vector format, first each time and spatial vector are rasterized along the index $i$. Next the discrete estimate of each ACF can be placed in an $L$ length single vector for each space-time index $i$,
 %
@@ -187,7 +203,7 @@ With the data based reconstruction the inversion is based on removing the affect
 %
 %Another aspect that needs to be explored is the possibility of using an iterative technique that where the ACFs are estimated and then fit to plasma parameters iteratively. This could yield a solution that would reduce computational complexity but improve the accuracy of the solutions.
 
-\section{Inversion Method}
+\section{Reconstruction in the Frame of Moving Plasma}
 \label{sec:isralg}
 Due to the size of the problem the inversion methods focused on here will be a data based regularization cost functions of the type seen Equation \ref{eqn:lstsqrsvecdb}. The space time ambiguity matrix $\mathbf{L}$ has a block matrix form with the sub-matrix $\mathbf{K}$ representing the spatial ambiguity. This block structure can be seen in Equation \ref{eqn:kmat},
 
@@ -202,7 +218,7 @@ Due to the size of the problem the inversion methods focused on here will be a d
 
 \noindent where $\mathbf{0}$ is a matrix of zeros the same size as $\mathbf{K}$. This representation has some advantages as instead of inverting the whole matrix different blocks can be inverted at a time. This still leads to rather large matrices to invert because the number of rows grow with the number of number of times integrated. 
 
-Another representation that can drop the calculations down further entails adjusting the spatial ambiguity to take into account the velocity of the plasma. Using a Galilean Transform like in \citep{RDS:RDS20236}, the set of $\mathbf{K}$ matrices for each time integration can become a single matrix $\mathbf{A}_{m,n}$. This form is shown as the following:
+Another representation that can drop the calculations down further entails adjusting the spatial ambiguity to take into account the velocity of the plasma. Using a Galilean Transform like in \citet{RDS:RDS20236}, the set of $\mathbf{K}$ matrices for each time integration can become a single matrix $\mathbf{A}_{m,n}$. This form is shown as the following:
 
 \begin{equation}
 \label{eqn:amat}
@@ -275,7 +291,7 @@ The results of the different algorithms can be seen in Figure \ref{fig:simpinput
 
 \subsection{Full Fitting Example}
 
-In order to test the the results of the inversion method a set of plasma parameters is used from \citep{Perry:2015jf} which show an auroral arc moving through the field of view at 200 m/s. The background plasma parameter values can be seen in Figure \ref{fig:plparamst0inv}. The field align current (FAC), which drives the arc, creates enhancements in electron density, electron and ion temperature. Also of importance is the plasma cavity which is co-located with the ion temperature enhancement and slightly ahead of the electron density enhancement. The specific features can be seen in Figure \ref{fig:plparamst960inv} and the same parameters 45 seconds later as the arc travels through the field of view in Figure \ref{fig:plparamst1005inv}
+In order to test the the results of the inversion method a set of plasma parameters is used from \citet{Perry:2015jf} which show an auroral arc moving through the field of view at 200 m/s. The background plasma parameter values can be seen in Figure \ref{fig:plparamst0inv}. The field align current (FAC), which drives the arc, creates enhancements in electron density, electron and ion temperature. Also of importance is the plasma cavity which is co-located with the ion temperature enhancement and slightly ahead of the electron density enhancement. The specific features can be seen in Figure \ref{fig:plparamst960inv} and the same parameters 45 seconds later as the arc travels through the field of view in Figure \ref{fig:plparamst1005inv}
 
 \begin{figure}[!ht]
 \centering
