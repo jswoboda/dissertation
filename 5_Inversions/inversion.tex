@@ -67,7 +67,7 @@ With the formulation in Equation~\ref{eqn:procsignalvec} schemes to reduce its i
 \section{Inversion Schemes}
 \label{sec:isrlit}
 The ambiguity function across range has been well studied and there have been a number of different methods proposed to reduce its impact on ISR measurements,
-\citep{RDS:RDS3308,hysell2008,nikoukar2008,Virtanen:20082vx}. These methods fall into to two different categories of regularization. The first type, Full Profile Analysis \citep{RDS:RDS3308,hysell2008}, inverts the entire ISR process, including the non-linear step when moving between the parameter space and ACF space. This allows for parametric regularization which can include known physical constraints. The second type inverts only the range ambiguity as a linear operator and regularizes the estimated ACF. This is detailed in \citep{nikoukar2008} and \citep{Virtanen:20082vx}, and will be referred to data-based regularization.
+\citep{RDS:RDS3308,hysell2008,nikoukar2008,Virtanen:20082vx}. These methods fall into to two different categories of regularization. The first type, Full Profile Analysis \citep{RDS:RDS3308,hysell2008}, inverts the entire ISR process, including the non-linear step when moving between the parameter space and ACF space. This allows for parametric regularization which can include known physical constraints. The second type inverts only the range ambiguity as a linear operator and regularizes the estimated ACF. This is detailed in \citet{nikoukar2008} and \citet{Virtanen:20082vx}, and will be referred to data-based regularization.
 
 The main trade-off between the two approaches is computational complexity versus accuracy of solution. Full profile analysis and other parametric regularization schemes require a large amount of computation to find a solution as the operator between the plasma parameters and ISR spectra is non-linear and thus various techniques from are not useful. With data-based regularization techniques the computational requirements are significantly lowered as on is performing a linear inversion. Still this can lead to estimated ACFs that can not be created by the incoherent scattering operator.
 
@@ -155,7 +155,7 @@ The main trade-off between the two approaches is computational complexity versus
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-For the case of parametric based reconstruction schemes, such as full profile analysis, attempt to reconstruct the full set of plasma parameters at each point in time and space, represented as the matrix $\boldsymbol{\Theta}$. The cost function for this is the following, 
+For the case of parametric based reconstruction schemes, such as full profile analysis, the goal is to reconstruct the full set of plasma parameters at each point in time and space, represented as the matrix $\boldsymbol{\Theta}$. The cost function for this is the following, 
 
 \begin{equation}
 \label{eqn:lstsqrsvecpb}
@@ -164,7 +164,7 @@ For the case of parametric based reconstruction schemes, such as full profile an
 
 \noindent where $\mathbf{f}(\boldsymbol{\Theta})$ is a vector of constraints functionals based on the plasma parameters, $\boldsymbol{\alpha}$ is a vector that holds the different weightings for these constraints.
 
-With the data based reconstruction the inversion is based on removing the affect of the space time ambiguity function and then fitting the plasma parameters after. The cost function, similar to Equation \ref{eqn:lstsqrsvecpb} is the following
+With data based reconstruction, the inversion is based on removing the effect of the space time ambiguity function on the ACFs and then subsequently fitting the plasma parameters. The cost function, similar to Equation \ref{eqn:lstsqrsvecpb}, is the following
 
 \begin{equation}
 \label{eqn:lstsqrsvecdb}
@@ -205,7 +205,7 @@ With the data based reconstruction the inversion is based on removing the affect
 
 \section{Reconstruction in the Frame of Moving Plasma}
 \label{sec:isralg}
-Due to the size of the problem the inversion methods focused on here will be a data based regularization cost functions of the type seen Equation \ref{eqn:lstsqrsvecdb}. The space time ambiguity matrix $\mathbf{L}$ has a block matrix form with the sub-matrix $\mathbf{K}$ representing the spatial ambiguity. This block structure can be seen in Equation \ref{eqn:kmat},
+Due to the size of the problem the inversion methods focused on in this work are data based regularization cost functions of the type seen in Equation \ref{eqn:lstsqrsvecdb}. The space time ambiguity matrix $\mathbf{L}$ has a block matrix form with the sub-matrix $\mathbf{K}$ representing the spatial ambiguity. This block structure can be expressed as
 
 \begin{equation}
 \label{eqn:kmat}
