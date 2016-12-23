@@ -216,7 +216,7 @@ Due to the size of the problem the inversion methods focused on in this work are
 \end{bmatrix},
 \end{equation}
 
-\noindent where $\mathbf{0}$ is a matrix of zeros the same size as $\mathbf{K}$. This representation has some advantages as instead of inverting the whole matrix different blocks can be inverted at a time. This still leads to rather large matrices to invert because the number of rows grow with the number of number of times integrated. 
+\noindent where $\mathbf{0}$ is a matrix of zeros the same size as $\mathbf{K}$. This representation has some advantages as instead of inverting the whole matrix, different blocks can be inverted at any one time. However, this still leads to rather large matrices to invert because the number of rows grow with the number of number of times integrated. 
 
 Another representation that can drop the calculations down further entails adjusting the spatial ambiguity to take into account the velocity of the plasma. Using a Galilean Transform like in \citet{RDS:RDS20236}, the set of $\mathbf{K}$ matrices for each time integration can become a single matrix $\mathbf{A}_{m,n}$. This form is shown as the following:
 
@@ -230,9 +230,9 @@ Another representation that can drop the calculations down further entails adjus
 \end{bmatrix}.
 \end{equation}
 
-\noindent Each individual matrix can then be inverted. This will now reconstruct the ACFs in the moving frame of reference. This then assumes a stationary morphology of the plasma parameters. 
+\noindent This new version of $\mathbf{L}$ will lead to ACFs in the moving frame of reference. The approach assumes a stationary morphology of the plasma parameters. This assumption may be physically justified for certain high latitude scenarios, where the regional ionosphere probed by an ISR could be described as a structured field (structured by particle precipitation or plasma patch transport) translating according to a regionally uniform convective flow pattern~\citep{Tsunoda:1988ul}.
 
-To invert the ACFs we invert each individual time frame and lag of the ACF separately. It creates the following cost function
+In order to speed up the reconstruction, each individual lag and time frame of the ACF separately are handled separately. The time frame is obvious from the structure of the new $\mathbf{L}$ seen in Equation~\ref{eqn:amat}. The lag ability to separate each lag is assuming that the receiver filter bandwidth is sufficient that it does not impact the shape of the IS spectrum. These assumptions lead to the following cost function
 
 \begin{equation}
 \label{eqn:lstsqrsvecdblag}
@@ -261,11 +261,11 @@ The next type of constraint will also be $l^2$-norm constraint on the solution, 
 \widehat{\mathbf{x}_{m,l}} = \argmin\limits_{\mathbf{x}_{m,l}} \|\mathbf{y}_{m,l} -\mathbf{L}_{m,l}\mathbf{x}_{m,l} \|^2 + \gamma_{m,l} \|\mathbf{D}\mathbf{x}_{m,l}\|.
 \end{equation} 
 
-\noindent This constraint is generally referred to \textit{total variations} and has been used in image processing \citep{Rudin:1992kn}
+\noindent This constraint is generally referred to as \textit{total variations} and has been used in image processing \citep{Rudin:1992kn}
 
 \section{Results}
 \label{sec:results}
-This section we will present two different examples to show our inversion algorithm. The first case will show how the the inversion methods work on reversing the linear process of the space time ambiguity function. The second example will be used on data from a realistic ISR simulator called SimISR (Simulator for ISR).
+This section we will present two different examples to show our inversion algorithm. The first case will show how the the inversion methods work on reversing the linear process of the space time ambiguity function. The second example will be used on data from SimISR (Simulator for ISR), which was detailed in Chapter~\ref{chapter:stisrs}.
 
 For both cases the velocities of the features were assumed to be known. There have been reconstruction schemes in the past that have reconstructed the plasma flow velocities using the Doppler shift in the ISR spectrum \citep{butler:imagingfregiondrifts}. The constraint parameters, $\gamma_{m,l}$, were selected by searching a number of parameter values and taking the minimum mean squared error result. There are other methods of choosing this parameter such as L-curve analysis \citep{Karl:2005jy}. 
 
@@ -285,7 +285,7 @@ The results of the different algorithms can be seen in Figure \ref{fig:simpinput
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{Simpleinvertedfaster}
-\caption{Inversion results a) Using Equation \ref{eqn:tikpow}.  b) Using Equation \ref{eqn:tikD}. c) Using Equation \ref{eqn:tv}.}
+\caption{Reconstruction results a) Using Equation \ref{eqn:tikpow}.  b) Using Equation \ref{eqn:tikD}. c) Using Equation \ref{eqn:tv}.}
 \label{fig:simpoutputfast}
 \end{figure}
 
@@ -360,6 +360,6 @@ Lastly for this case the result of the inversion using the total variations cons
 \label{fig:tv}
 \end{figure}
 
-\section{Summery}
+\section{Summary}
 
 This chapter has discussed a method reconstruct plasma parameters from ESA ISR in the frame of reference of the moving plasma. The space-time ambiguity, described in Chapter 3, easily allows for this. Currently a number simplifying assumptions are made to get a basic reconstruction. The initial results are promising although more work needs to be done to improve this method and determine its limits as more and more realistic aspects are added.
