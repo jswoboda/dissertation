@@ -216,7 +216,7 @@ Due to the size of the problem the inversion methods focused on in this work are
 \end{bmatrix},
 \end{equation}
 
-\noindent where $\mathbf{0}$ is a matrix of zeros the same size as $\mathbf{K}$. This representation has some advantages as instead of inverting the whole matrix, different blocks can be inverted at any one time. However, this still leads to rather large matrices to invert because the number of rows grow with the number of number of times integrated. 
+\noindent where $\mathbf{0}$ is a matrix of zeros the same size as $\mathbf{K}$. This representation has some advantages as the inverse problem can be broken up into smaller pieces. However, this still leads to rather large matrices to invert because the number of rows grow with the number of time frames along the input are integrated. 
 
 Another representation that can drop the calculations down further entails adjusting the spatial ambiguity to take into account the velocity of the plasma. Using a Galilean Transform like in \citet{RDS:RDS20236}, the set of $\mathbf{K}$ matrices for each time integration can become a single matrix $\mathbf{A}_{m,n}$. This form is shown as the following:
 
@@ -232,7 +232,7 @@ Another representation that can drop the calculations down further entails adjus
 
 \noindent This new version of $\mathbf{L}$ will lead to ACFs in the moving frame of reference. The approach assumes a stationary morphology of the plasma parameters. This assumption may be physically justified for certain high latitude scenarios, where the regional ionosphere probed by an ISR could be described as a structured field (structured by particle precipitation or plasma patch transport) translating according to a regionally uniform convective flow pattern~\citep{Tsunoda:1988ul}.
 
-In order to speed up the reconstruction, each individual lag and time frame of the ACF separately are handled separately. The time frame is obvious from the structure of the new $\mathbf{L}$ seen in Equation~\ref{eqn:amat}. The lag ability to separate each lag is assuming that the receiver filter bandwidth is sufficient that it does not impact the shape of the IS spectrum. These assumptions lead to the following cost function
+In order to speed up the reconstruction, each individual lag and time frame of the ACF separately are handled separately. The time frame is obvious from the structure of the new $\mathbf{L}$ seen in Equation~\ref{eqn:amat}. The ability to separate each lag is assuming that the receiver filter bandwidth is sufficient that it does not impact the shape of the IS spectrum. These assumptions lead to the following cost function
 
 \begin{equation}
 \label{eqn:lstsqrsvecdblag}
@@ -240,7 +240,7 @@ In order to speed up the reconstruction, each individual lag and time frame of t
 \end{equation}
 \noindent where the indexes $m$ and $l$ represent time and lag respectively. In order to solve the cost functions the package CVXPY is used \citep{cvxpy}.
 
-For this paper the specific cost functions will be used. The first will be an constraint on the $l^2$-norm of the solution $\mathbf{x}_{m,l}$, which can represented as the following cost function,
+For this study, three specific cost functions are used. The first is a constraint on the $l^2$-norm of the solution $\mathbf{x}_{m,l}$, which can be represented as the following cost function,
 \begin{equation}
 \label{eqn:tikpow}
 \widehat{\mathbf{x}_{m,l}} = \argmin\limits_{\mathbf{x}_{m,l}} \|\mathbf{y}_{m,l} -\mathbf{L}_{m,l}\mathbf{x}_{m,l} \|^2 +\gamma_{m,l} \|\mathbf{x}_{m,l}\|^2.
@@ -248,30 +248,30 @@ For this paper the specific cost functions will be used. The first will be an co
 
 \noindent This type of regularization is generally referred to as Tikhonov Regularization \citep{Karl:2005jy}.
 
-The next type of constraint will also be $l^2$-norm constraint on the solution, Tikhonov Regularization, except that it will be on $\mathbf{D}\mathbf{x}_{m,l}$, a numerical approximation to the spatial gradient of $\mathbf{x}_{m,l}$. The cost function is the following,
+The next type of constraint is also a $l^2$-norm constraint on the solution, i.e. Tikhonov Regularization, except that it operates on $\mathbf{D}\mathbf{x}_{m,l}$, a numerical approximation to the spatial gradient of $\mathbf{x}_{m,l}$. The cost function is the following,
 
 \begin{equation}
 \label{eqn:tikD}
 \widehat{\mathbf{x}_{m,l}} = \argmin\limits_{\mathbf{x}_{m,l}} \|\mathbf{y}_{m,l} -\mathbf{L}_{m,l}\mathbf{x}_{m,l} \|^2 + \gamma_{m,l} \|\mathbf{D}\mathbf{x}_{m,l}\|^2.
 \end{equation}
 
-\noindent The last constraint similar to the that in Equation \ref{eqn:tikpow} but instead using an $l^1$-norm,
+\noindent The last constraint is similar to Equation \ref{eqn:tikpow} but instead uses an $l^1$-norm,
 \begin{equation}
 \label{eqn:tv}
 \widehat{\mathbf{x}_{m,l}} = \argmin\limits_{\mathbf{x}_{m,l}} \|\mathbf{y}_{m,l} -\mathbf{L}_{m,l}\mathbf{x}_{m,l} \|^2 + \gamma_{m,l} \|\mathbf{D}\mathbf{x}_{m,l}\|.
 \end{equation} 
 
-\noindent This constraint is generally referred to as \textit{total variations} and has been used in image processing \citep{Rudin:1992kn}
+\noindent This constraint is generally referred to as \textit{total variations} regularization and has been used in image processing \citep{Rudin:1992kn}
 
 \section{Results}
 \label{sec:results}
-This section we will present two different examples to show our inversion algorithm. The first case will show how the the inversion methods work on reversing the linear process of the space time ambiguity function. The second example will be used on data from SimISR (Simulator for ISR), which was detailed in Chapter~\ref{chapter:stisrs}.
+This section presents two different examples of inversion algorithm performance. The first case shows how  the inversion methods work on reversing the linear process of the space time ambiguity function. The second example employs data from SimISR, which was detailed in Chapter~\ref{chapter:stisrs}.
 
-For both cases the velocities of the features were assumed to be known. There have been reconstruction schemes in the past that have reconstructed the plasma flow velocities using the Doppler shift in the ISR spectrum \citep{butler:imagingfregiondrifts}. The constraint parameters, $\gamma_{m,l}$, were selected by searching a number of parameter values and taking the minimum mean squared error result. There are other methods of choosing this parameter such as L-curve analysis \citep{Karl:2005jy}. 
+For both cases the velocities of the features are assumed to be known. There have been schemes in the past that have reconstructed the plasma flow velocities using the Doppler shift in the ISR spectrum, such as in \citet{butler:imagingfregiondrifts}, which similarly lead to an assumption of stationarity of the plasma parameters in the rest frame of the moving plasma. The constraint parameters, $\gamma_{m,l}$, were selected by searching a number of parameter values and taking the minimum mean squared error result. There are other methods of choosing this parameter such as L-curve analysis \citep{Karl:2005jy}. 
 
 \subsection{Linear Example}
 
-The first example will show the performance of the algorithm on data that has been created from the linear processing of the space-time ambiguity function. The data will consist of a two dimensional phantom with a background chapman function and an enhancement moving through at 2.5 km/s. The enhancement is shaped as a bump function along the horizontal axis which peaks at three times the background. This would be equivalent to measuring the zeroth lag and assuming a constant ratio between ion and electron temperatures. The input phantom at $t=0$ and $t=57$ can be seen in Figures \ref{fig:simpinputfast}a and \ref{fig:simpinputfast}b. The result of applying the operator can be seen in Figure \ref{fig:simpinputfast}c and shows the enhancement smeared out across the field of view.
+The first example shows the performance of the algorithm on data that has been created from the linear processing of the space-time ambiguity function. The data will consist of a two dimensional phantom with a background chapman function and an enhancement moving through at 2.5 km/s. The enhancement is shaped as a bump function along the horizontal axis which peaks at three times the background. This would be equivalent to measuring the zeroth lag and assuming a constant ratio between ion and electron temperatures. The input phantom at $t=0$ and $t=57$ can be seen in Figures \ref{fig:simpinputfast}a and \ref{fig:simpinputfast}b. The result of applying the operator can be seen in Figure \ref{fig:simpinputfast}c and shows the enhancement smeared out across the field of view.
 
 \begin{figure}[!ht]
 \centering
