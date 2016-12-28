@@ -5,9 +5,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This is the mathematical basis for calculating incoherent scatter spectrum for a given set of ionosphere state parameters such as electron density ($N_e$), electron temperature ($T_e$),  and ion temperature ($T_i$). The appendix uses the methods developed \citet{kudeki:milla:1} and \citet{Kudeki:2006kx}.
+This is the mathematical basis for calculating incoherent scatter spectra for a given set of ionospheric plasma state parameters such as electron density ($N_e$), electron temperature ($T_e$),  and ion temperature ($T_i$). The appendix uses the methods developed \citet{kudeki:milla:1} and \citet{Kudeki:2006kx}.
 
 \section*{Overall Formulation}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=3.0in]{circuit}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+\caption{Lumped circuit model seen in  \citep{kudeki:milla:1}.}
+\label{fig:circuit}
+\end{figure}
+
 The first step comes from \citep{kudeki:milla:1} where a lumped circuit model is used to describe the spectrum. In it the independent thermal fluctuations of each species of ions and electrons are treated as current sources and the macroscopic conductances are treated as discrete components. The electric field $E$ impinged from the radar acts as a voltage. This lumped circuit model, seen in Figure \ref{fig:circuit}, is derived is taking the scalar component of Ampere's law in the direction of $\mathbf{k}$.  
 
 \begin{equation}
@@ -22,15 +33,7 @@ The first step comes from \citep{kudeki:milla:1} where a lumped circuit model is
 0=(\sigma_i +\sigma_e)E +\frac{\omega}{k}e(n_{ti}-n_{te}) +j\omega \epsilon_0 E.
 \end{equation}
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=3.0in]{circuit}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-\caption{Lumped circuit model seen in  \citep{kudeki:milla:1}.}
-\label{fig:circuit}
-\end{figure}
+
 
 \noindent Using the electron current expression, $-\omega k^{-1}en_e = E\sigma_e -\omega k^{-1}en_{te}$, these equations can be rearranged to solve for $n_e$, 
 
