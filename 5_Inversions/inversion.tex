@@ -265,27 +265,27 @@ The next type of constraint is also a $l^2$-norm constraint on the solution, i.e
 
 \section{Results}
 \label{sec:results}
-This section presents two different examples of inversion algorithm performance. The first case shows how  the inversion methods work on reversing the linear process of the space time ambiguity function. The second example employs data from SimISR, which was detailed in Chapter~\ref{chapter:stisrs}.
+This section presents two different examples of inversion algorithm performance. The first case shows how  the inversion methods work on reversing the linear process of the space time ambiguity function, which is equivalent to applying the reconstruction to the $0^{th}$ lag. The second example employs data from SimISR, which was detailed in Chapter~\ref{chapter:stisrs}.
 
 For both cases the velocities of the features are assumed to be known. There have been schemes in the past that have reconstructed the plasma flow velocities using the Doppler shift in the ISR spectrum, such as in \citet{butler:imagingfregiondrifts}, which similarly lead to an assumption of stationarity of the plasma parameters in the rest frame of the moving plasma. The constraint parameters, $\gamma_{m,l}$, were selected by searching a number of parameter values and taking the minimum mean squared error result. There are other methods of choosing this parameter such as L-curve analysis \citep{Karl:2005jy}. 
 
-\subsection{Linear Example}
+\subsection{Single Lag Example}
 
-The first example shows the performance of the algorithm on data that has been created from the linear processing of the space-time ambiguity function. The data will consist of a two dimensional phantom with a background chapman function and an enhancement moving through at 2.5 km/s. The enhancement is shaped as a bump function along the horizontal axis which peaks at three times the background. This would be equivalent to measuring the zeroth lag and assuming a constant ratio between ion and electron temperatures. The input phantom at $t=0$ and $t=57$ can be seen in Figures \ref{fig:simpinputfast}a and \ref{fig:simpinputfast}b. The result of applying the operator can be seen in Figure \ref{fig:simpinputfast}c and shows the enhancement smeared out across the field of view.
+The first example shows the performance of the algorithm on data that has been created from the linear processing of the space-time ambiguity function, or essentially the reconstruction of the $0^{th}$ lag. The data will consist of a two dimensional phantom with a background chapman function and an enhancement moving through at 2.5 km/s. The enhancement is shaped as a bump function along the horizontal axis which peaks at three times the background. The input phantom at $t=0$ and $t=57$ can be seen in Figures \ref{fig:simpinputfast}a and \ref{fig:simpinputfast}b. The result of applying the operator can be seen in Figure \ref{fig:simpinputfast}c and shows the enhancement smeared out across the field of view.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{Simpleinputfast}
-\caption{a) The Input Phantom at 0 seconds. b) The input phantom at 57 seconds. c) The average of the moving phantom with the ambiguity applied.}
+\caption{a) The Input phantom at 0 seconds. b) The input phantom at 57 seconds. c) The average of the moving phantom with the ambiguity applied.}
 \label{fig:simpinputfast}
 \end{figure}
 
-The results of the different algorithms can be seen in Figure \ref{fig:simpinputfast}. Using a simple Tikhonov constraint on the energy of the function the reconstruction, seen in Figure \ref{fig:simpinputfast}a, shows a number of artifacts. The behavior of this algorithm is to reduce the power from areas that are not passed through the imaging process and thus it traces out a beam pattern in the reconstruction. The reconstruction using an $l^2$-norm constraint on the derivative operator, seen in Figure \ref{fig:simpinputfast}b, shows good correspondence with the input phantom although there is some carving out of the electron density near the enhancement. Lastly the reconstruction using a reconstruction using the $l^1$-norm constraint on the derivative operator, or \textit{total variations} is shown in Figure \ref{fig:simpinputfast}c. This reconstruction has a "blocky" appearance as is the common trait of these sorts of reconstructions.
+The results of the different algorithms can be seen in Figure \ref{fig:simpoutputfast}. Using a simple Tikhonov constraint on the energy of the function the reconstruction, seen in Figure \ref{fig:simpoutputfast}a, shows a number of artifacts. The behavior of this algorithm is to reduce the power from areas that are not passed through the imaging process and thus it traces out a beam pattern in the reconstruction. The reconstruction using an $l^2$-norm constraint on the derivative operator, seen in Figure \ref{fig:simpoutputfast}b, shows good correspondence with the input phantom although there is some carving out of the electron density near the enhancement. Lastly the reconstruction using a reconstruction using the $l^1$-norm constraint on the derivative operator, or \textit{total variations} is shown in Figure \ref{fig:simpoutputfast}c. This reconstruction has a ``blocky" appearance as is the common trait of these sorts of reconstructions.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{Simpleinvertedfaster}
-\caption{Reconstruction results a) Using Equation \ref{eqn:tikpow}.  b) Using Equation \ref{eqn:tikD}. c) Using Equation \ref{eqn:tv}.}
+\caption{Results using the data in Figure~\ref{fig:simpinputfast}c to reconstruct the the $0^{th}$ lag: a) Using Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$.  b) Using Equation \ref{eqn:tikD}, Tikhonov constraint on $\mathbf{Dx}_{m,l}$. c) Using Equation \ref{eqn:tv}, Total Variations constraint.}
 \label{fig:simpoutputfast}
 \end{figure}
 
@@ -340,7 +340,7 @@ The case using using Tikhonov regularization where the $l^2$-norm of $\mathbf{x}
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{tikfitted}
-\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}}
+\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
 \label{fig:tikpow}
 \end{figure}
 
@@ -348,15 +348,15 @@ The image in Figure \ref{fig:tikD} is the result of using Tikhonov regularizatio
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{tikdfitted}
-\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tikD}}
+\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tikD}, Tikhonov constraint on $\mathbf{Dx}_{m,l}$. }
 \label{fig:tikD}
 \end{figure}
 
-Lastly for this case the result of the inversion using the total variations constraint is shown in Figure \ref{fig:tv}. This inversion method does the features discussed earlier but they take on a "blocky" look. This can be expected for total variations as has been very popular in use of reconstructing high contrast images\citep{Karl:2005jy}.
+Lastly for this case the result of the inversion using the total variations constraint is shown in Figure \ref{fig:tv}. This inversion method does the features discussed earlier but they take on a``blocky" look. This can be expected for total variations as has been very popular in use of reconstructing high contrast images \citep{Karl:2005jy}.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{tvfitted}
-\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tv}}
+\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tv}, Total Variations constraint.}
 \label{fig:tv}
 \end{figure}
 

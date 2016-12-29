@@ -21,14 +21,14 @@ The need to create a full 3-dimensional software package was necessitated by the
 The software itself has been developed in such a way that the code mirrors the processing. An object oriented paradigm is used and thus this different processes in the processing chain are broken up in to different classes, which are: 
 
 \begin{itemize} 
-\item IonoContainer - A container class that holds information on the ionosphere or auto correlation functions (ACFs)/spectrums, both intrinsic and estimated.
+\item IonoContainer - A container class that holds information on the ionosphere or auto correlation functions (ACFs)/spectra, both intrinsic and estimated.
 
-\item RadarDataFile - A class that holds and operates on the radar data to create estimates of the autocorrelation function. The class takes files containing ISR spectrums and then creates ISR data and as a final step outputs instances of the IonoContainer class that holds estimates of the plasma ACF.
+\item RadarDataFile - A class that holds and operates on the radar data to create estimates of the autocorrelation function. The class takes files containing ISR spectra and then creates ISR data and as a final step outputs instances of the IonoContainer class that holds estimates of the plasma ACF.
 
 \item FitterMethodsGen - A class that applies the fitter to the data and outputs an instance of IonoContainer with the measured parameters. 
 \end{itemize}
 
-The overall flow can be seen in Figure \ref{fig:swflow}, where  $\Theta$ is the plasma parameters $ g(\Theta)$ is a function that turns the plasma parameters to ISR spectrums, $ \mathbf{r}$ is the spectrums/ACFs for each point of time and space, $ \mathbf{Lr}$ is the radar's operator on the spectrums/ACFs, $ \rho$ is the measured ACFs from the radar and lastly $ \hat{\Theta}$ is the estimates of plasma parameters from $ \rho$ after least squares fitting.
+The overall flow can be seen in Figure \ref{fig:swflow}, where  $\Theta$ is the plasma parameters $ g(\Theta)$ is a function that turns the plasma parameters to ISR spectra, $ \mathbf{r}$ is the spectra/ACFs for each point of time and space, $ \mathbf{Lr}$ is the radar's operator on the spectra/ACFs, $ \rho$ is the measured ACFs from the radar and lastly $ \hat{\Theta}$ is the estimates of plasma parameters from $ \rho$ after least squares fitting.
 
 \begin{figure}[h!]
 \centering
