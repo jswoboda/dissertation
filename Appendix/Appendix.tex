@@ -19,23 +19,19 @@ This is the mathematical basis for calculating incoherent scatter spectra for a 
 \label{fig:circuit}
 \end{figure}
 
-The first step comes from \citep{kudeki:milla:1} where a lumped circuit model is used to describe the spectrum. In it the independent thermal fluctuations of each species of ions and electrons are treated as current sources and the macroscopic conductances are treated as discrete components. The electric field $E$, impinging from the radar, acts as a voltage. This lumped circuit model, seen in Figure \ref{fig:circuit}, is derived by taking the scalar component of Ampere's law in the direction of $\mathbf{k}$.  
-
+The first step comes from \citep{kudeki:milla:1} where a lumped circuit model is used to describe the spectrum. In it the independent thermal fluctuations of each species of ions and electrons are treated as current sources and the macroscopic conductances are treated as discrete components. The electric field $E$, impinging from the radar, acts as a voltage. This lumped circuit model, seen in Figure \ref{fig:circuit}, is derived by taking the scalar component of Ampere's law in the direction of $\mathbf{k}$.
 \begin{equation}
 \label{eq:ampere}
 -j\mathbf{k} \times \mathbf{H} = \mathbf{J} +j\omega \epsilon_0 \mathbf{E},
 \end{equation}
-
-\noindent which then yields,
-
+which then yields,
 \begin{equation} 
 \label{eq:ampscaler}
-0=(\sigma_i +\sigma_e)E +\frac{\omega}{k}e(n_{ti}-n_{te}) +j\omega \epsilon_0 E.
+0=(\sigma_i +\sigma_e)E +\frac{\omega}{k}e(n_{ti}-n_{te}) +j\omega \epsilon_0 E,
 \end{equation}
+where $ \epsilon_0$ is vacuum permittivity, $n_{ts}$ is the thermally driven, i.e random, density fluctuations for each species $s$, and $\sigma_s$ is the macroscopic conductivity from deviations from particle motions for each species $s$. 
 
-
-
-\noindent Using the electron current expression, $-\omega k^{-1}en_e = E\sigma_e -\omega k^{-1}en_{te}$, these equations can be rearranged to solve for $n_e$, 
+Using the electron current expression, $-\omega k^{-1}en_e = E\sigma_e -\omega k^{-1}en_{te}$, these equations can be rearranged to solve for $n_e$, 
 
 \begin{equation}
 \label{eq:neeq}
