@@ -4,16 +4,16 @@
 \graphicspath{{Appendix/Figures/}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The current antenna on the AMISR systems is made up 8x16 set of panel of half wave cross dipoles. Each panel has 32 cross dipoles in a 8x4 hexagonal configuration. In the current set up at the Poker Flat site this yields at 4096 element array in a 64x64 element hexagonal configuration.
+The current antenna on the AMISR systems is made up of a 8x16 set of panels of half wave cross dipoles. Each panel has 32 crossed dipoles in a 8x4 hexagonal configuration. In the current set up at the Poker Flat site this yields a 4096 element array in a 64x64 element hexagonal configuration.
 
 In order to simplify the antenna can be treated as two rectangular arrays of cross dipoles interleaved together. In the $x$ direction each of these arrays will have a spacing of $2d_x$ with $M/2$ elements. The $y$ direction will be of length $N$ elements and spacing $d_y$. Using basic planar phase array theory, \citep{Balanis:2005:ATA:1208379}, the pattern from the first array can be represented as 
 
 \begin{equation}
 \label{eqn:arrpat1}
-E_1(\theta,\phi) =\displaystyle \sum_{m=1}^{M/2}\sum_{n=1}^{N} \exp\left[-j2\left(m-1\right)kd_x\sin\theta\cos\phi -j\left(n-1\right) k d_y\sin\theta\sin\phi\right].
+E_1(\theta,\phi) =\displaystyle \sum_{m=1}^{M/2}\sum_{n=1}^{N} \exp\left[-j\left(m-1\right)k2d_x\sin\theta\cos\phi -j\left(n-1\right) k d_y\sin\theta\sin\phi\right].
 \end{equation}
 
-\noindent Since the second array can be though of a shifted version of the first in the $x$ and $y$ directions we get the following
+\noindent Since the second array can be seen as a shifted version of the first in the $x$ and $y$ directions, we obtain the following
 
 \begin{equation}
 \label{eqn:arrpat2}
@@ -22,7 +22,7 @@ E_2(\theta,\phi) =\displaystyle \sum_{m=1}^{M/2}\sum_{n=1}^{N} \exp[&-j\left(2m-
 \end{split}
 \end{equation}
 
-In order to simplify notation we will make the following substitutions, $\psi_x = -k d_x\sin\theta\cos\phi$, $\psi_y = -k d_y\sin\theta\sin\phi$. Using Equations \ref{eqn:arrpat1} and \ref{eqn:arrpat2} we can see the following relationship,
+In order to simplify notation we make the following substitutions, $\psi_x = -k d_x\sin\theta\cos\phi$, $\psi_y = -k d_y\sin\theta\sin\phi$. Using Equations \ref{eqn:arrpat1} and \ref{eqn:arrpat2} we then obtain
 
 \begin{equation}
 \label{eqn:arrpateqn}
@@ -31,7 +31,7 @@ E_2(\theta,\phi)  &=  \exp\left[j(\psi_y/2 + \psi_x)\right] E_1(\theta,\phi)  \\
 \end{split}
 \end{equation}
 
-\noindent Adding $E_1$ and $E_2$ together we get the following linear array pattern
+\noindent Adding $E_1$ and $E_2$ together we obtain a linear array pattern:
 
 \begin{equation} \label{eq1}
 \begin{split}
@@ -40,7 +40,7 @@ E(\theta,\phi) &= \displaystyle  \left(1+ \exp\left[j(\psi_y/2 + \psi_x)\right]\
 \end{split}
 \end{equation}
 
-Since the array is steerable this can be taken into account in the equations by simply changing the definitions of $\psi_x $ and $\psi_y$ to $\psi_x = k d_x(\sin\theta\cos\phi-\sin\theta_s\cos\phi_s)$, and $\psi_y = k d_y(\sin\theta\sin\phi-\sin\theta_s\sin\phi_s)$. Lastly the antenna pattern of a single cross dipole can be represented as $ \frac{1}{2}(1+\cos^2(\theta))$ \citep{Balanis:2005:ATA:1208379}. By taking the squared magnitude of the array factor and multiplying it with the pattern of the dipole we get Equation \ref{eqn:amisrpat},
+Since the array is steerable, this can be taken into account in the equations by simply changing the definitions of $\psi_x $ and $\psi_y$ to $\psi_x = k d_x(\sin\theta\cos\phi-\sin\theta_s\cos\phi_s)$, and $\psi_y = k d_y(\sin\theta\sin\phi-\sin\theta_s\sin\phi_s)$. Lastly the antenna pattern of a single cross dipole can be represented as $ \frac{1}{2}(1+\cos^2(\theta))$ \citep{Balanis:2005:ATA:1208379}. By taking the squared magnitude of the array factor and multiplying it with the pattern of the dipole we obtain Equation \ref{eqn:amisrpat},
 
 \begin{equation}
 \label{eqn:amisrpatfinal}
