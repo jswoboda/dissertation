@@ -344,6 +344,13 @@ The case using Tikhonov regularization where the $l^2$-norm of $\mathbf{x}_{m,l}
 \label{fig:tikpow}
 \end{figure}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=6in]{acftik}
+\caption{Example ACF at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
+\label{fig:tikpowacf}
+\end{figure}
+
 The image in Figure \ref{fig:tikD} is the result of using Tikhonov regularization on the spatial gradient of each lag of the ACF. This leads to an apparent smoothing of the plasma parameters but many of the important features in this simulation, such as the depletion in $N_e$ and enhancements in $T_e$ and $T_i$ are visible and more obvious than in Figure \ref{fig:fplparamst60inv}
 \begin{figure}[!ht]
 \centering
@@ -352,12 +359,26 @@ The image in Figure \ref{fig:tikD} is the result of using Tikhonov regularizatio
 \label{fig:tikD}
 \end{figure}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=6in]{acftikd}
+\caption{Example ACF at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
+\label{fig:tikDacf}
+\end{figure}
+
 Lastly for this case the result of the inversion using the total variations constraint is shown in Figure \ref{fig:tv}. This inversion method shows the features discussed earlier but they take on a``blocky" look, as was seen in the zeroth lag case. 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{tvfitted}
-\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tv}, Total Variations constraint.}
+\caption{Example ACF at $t=960$ s inverting lags with Equation \ref{eqn:tv}, Total Variations constraint.}
 \label{fig:tv}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=6in]{acftv}
+\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
+\label{fig:tvacf}
 \end{figure}
 
 \section{Summary}
