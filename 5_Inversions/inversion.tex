@@ -335,7 +335,7 @@ The results using standard fitting, and then linearly interpolating the results,
 % inverted and fitted data
 The results of using the inversion algorithms can be seen in Figures \ref{fig:tikpow}, \ref{fig:tikD} and \ref{fig:tv}. The value for the $\gamma$ term for each type of inversion the algorithm is chosen by running the algorithms and taking the value that yields lowest mean squared error between the inverted lag and the original input ACF. 
 
-The case using Tikhonov regularization where the $l^2$-norm of $\mathbf{x}_{m,l}$ is constrained is shown in Figure \ref{fig:tikpow}. This specific case shows an inability of the constraint to fill in data that may be lost due to the specific beam position. 
+The case using Tikhonov regularization where the $l^2$-norm of $\mathbf{x}_{m,l}$ is constrained is shown in Figure \ref{fig:tikpow}. An example ACF comparing the reconstruction to the input ACF and the estimated ACF using standard processing is shown in Figure \ref{fig:tikpowacf}. This specific case shows an inability of the constraint to fill in data that may be lost due to the specific beam position. This can also be seen in the ACF example as this reduced the amplitude of the ACF.
 
 \begin{figure}[!ht]
 \centering
@@ -347,11 +347,11 @@ The case using Tikhonov regularization where the $l^2$-norm of $\mathbf{x}_{m,l}
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{acftik}
-\caption{Example ACF at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
+\caption{Example ACF at time $t=960$ s and location $\mathbf{r}=[0  \text{km},0  \text{km},250 \text{km}]^T$ with reconstructing lags using Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
 \label{fig:tikpowacf}
 \end{figure}
 
-The image in Figure \ref{fig:tikD} is the result of using Tikhonov regularization on the spatial gradient of each lag of the ACF. This leads to an apparent smoothing of the plasma parameters but many of the important features in this simulation, such as the depletion in $N_e$ and enhancements in $T_e$ and $T_i$ are visible and more obvious than in Figure \ref{fig:fplparamst60inv}
+The image in Figure \ref{fig:tikD} is the result of using Tikhonov regularization on the spatial gradient of each lag of the ACF. This leads to an apparent smoothing of the plasma parameters but many of the important features in this simulation, such as the depletion in $N_e$ and enhancements in $T_e$ and $T_i$ are visible and more obvious than in Figure \ref{fig:fplparamst60inv}. An example ACF comparing the reconstruction to the input ACF and the estimated ACF using standard processing is shown in Figure \ref{fig:tikDacf}. The example reconstructed ACF does show more deviations from the input in the real part but at the higher lags it more closely resembles the true ACF. The imaginary part though, is much closer to the real ACF as this possibly reduced and random Doppler shifts.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{tikdfitted}
@@ -362,22 +362,22 @@ The image in Figure \ref{fig:tikD} is the result of using Tikhonov regularizatio
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{acftikd}
-\caption{Example ACF at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
+\caption{Example ACF at time $t=960$ s and location $\mathbf{r}=[0  \text{km},0  \text{km},250 \text{km}]^T$ with reconstructing lags using Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{Dx}_{m,l}$. }
 \label{fig:tikDacf}
 \end{figure}
 
-Lastly for this case the result of the inversion using the total variations constraint is shown in Figure \ref{fig:tv}. This inversion method shows the features discussed earlier but they take on a``blocky" look, as was seen in the zeroth lag case. 
+Lastly for this case the result of the inversion using the total variations constraint is shown in Figure \ref{fig:tv}. This inversion method shows the features discussed earlier but they take on a``blocky" look, as was seen in the zeroth lag case. An example ACF comparing the reconstruction to the input ACF and the estimated ACF using standard processing is shown in Figure \ref{fig:tvacf}. This shows similar behavior to the reconstruction ACF in Figure \ref{fig:tikDacf}, although the imaginary part of the ACF is much closer to the true value of zero.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{tvfitted}
-\caption{Example ACF at $t=960$ s inverting lags with Equation \ref{eqn:tv}, Total Variations constraint.}
+\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tv}, Total Variations constraint.}
 \label{fig:tv}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=6in]{acftv}
-\caption{Fitted Plasma Parameters at $t=960$ s inverting lags with Equation \ref{eqn:tikpow}, Tikhonov constraint on $\mathbf{x}_{m,l}$. }
+\caption{Example ACF at time $t=960$ s and location $\mathbf{r}=[0  \text{km},0  \text{km},250 \text{km}]^T$ reconstructing lags using Equation \ref{eqn:tv}, Total Variations constraint. }
 \label{fig:tvacf}
 \end{figure}
 
