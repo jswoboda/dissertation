@@ -23,7 +23,7 @@ where $\mathbf{k}_s$ and $\mathbf{k}_i$ are the wavenumbers for scattered and in
 \label{eqn:dop1}
 \omega=\mathbf{k} \cdot \mathbf{v},
 \end{equation}
-where $\omega$ is the frequency shift from the velocity along the Bragg vector \citep{sheffield2010}. $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
+where $\omega$ is the frequency shift in radians per second from the velocity along the Bragg vector \citep{sheffield2010}. $n_e(\mathbf{k}, \omega)$ can be thought of as both the Fourier Transform along time of $n_e(\mathbf{k},t)$ and the collective Doppler spectrum from the density at a specific Bragg vector $\mathbf{k}$.
 
 These fluctuations are driven by the random thermal motions of the electrons and the collective radiation they create is known as incoherent scatter \citep{kudeki:milla:1}. Another term for this is \textit{non-collective} scattering using the relation
 \begin{equation}
@@ -31,7 +31,7 @@ These fluctuations are driven by the random thermal motions of the electrons and
 k*\lambda_{e} << 1,
 \end{equation}
 where $\lambda_{e}$ is the electron Debye length, and $k=|\mathbf{k}|$. Satisfying this condition causes the spectrum to show collective effects of the velocity distribution of the particles \citep{sheffield2010}.
-Although the scattering is driven through a random process, it reveals several pieces of information about a plasma, especially in the ionosphere. Due to electrical interaction between the ions and electrons, a correlation structure develops, creating a shaped Doppler spectrum that a radar can detect. This Doppler spectrum is a power spectral density estimate of the electron density fluctuations across time $t$ and $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
+Although the scattering is driven through a random process, it reveals several pieces of information about a plasma, especially in the ionosphere. Due to electrical interaction between the ions and electrons, a correlation structure develops, creating a shaped Doppler spectrum that a radar can detect. This Doppler spectrum is a power spectral density estimate of the electron density fluctuations across time $t$  and at a specific Bragg vector $\mathbf{k}$. This power spectrum is denoted as $\langle \left|n_e(\mathbf{k},\omega)\right|^2\rangle$.
 
 The IS spectrum has a number of different sections separated in frequency.
 This thesis focuses on the ``ion line'' portion of the spectrum shown in Figure~\ref{fig:ispecch2}. This naming is due to the IS spectrum revealing a damped version of ion acoustic waves
@@ -70,7 +70,7 @@ For the case of a Maxwellian distributed plasma where collisions and magnetic fi
 \label{eq:pdfallc2}
 \langle e^{j\mathbf{k}\cdot\Delta \mathbf{r}}\rangle= e^{-\frac{1}{2}k^2C^2 \tau^2},
 \end{equation}
-where $C=\frac{K_bT_s}{m_s}$, $T_s$ is the temperature of the species, $K_b$ is Boltzmans constant and $m_s$ is the mass of the species in kg.
+where $C=\frac{K_bT_s}{m_s}$, $T_s$ is the temperature of the species in $^\circ$ K, $K_b$ is Boltzmans constant and $m_s$ is the mass of the species in kg.
 
 This formulation can also allows for the measurement of bulk of the plasma. This measurement is along the radars wave vector and results in the substitution of $\omega_s=\omega-\mathbf{k}\cdot\mathbf{V}_s$, where $\mathbf{V}_s$ is the bulk motion of the plasma species, into the Gordeyve integrals in Equation~\ref{eq:gord:body} for $\omega$. Generally all of the species will flow together, otherwise large electric fields would form, and this overall motion can be measured as a overall shift of the spectrum in frequency.
 
@@ -158,14 +158,14 @@ This continuum of scatterers is also distributed along range. A simple illustrat
 \caption{As the pulse in time traverses the ranges a, b, and c, it is multiplied by the electron density fluctuations at each of those points. The samples at each time are the summations of those returns from each point that the lines intersect in range. These different points are also delayed in time as well giving time delayed observations of the process at each point. }
 \label{fig:isrfigure}
 \end{figure}
-The sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout}.
+The sample values $x(t)$ at each point can be seen in Equation \ref{eqn:isrbrokenout},
 \begin{equation}
 \label{eqn:isrbrokenout}
 \begin{split}
  x(t_1)=& n_e(\text{a},t-\text{a}/c)s(t-2\text{a}/c) \\ 
  x(t_2)=& n_e(\text{a},t-\text{a}/c-T_s)s(t-2\text{a}/c-T_s) +  n_e(\text{b},t-\text{b}/c)s(t-2\text{b}/c)\\
  x(t_3)=& n_e(\text{a},t-\text{a}/c-2T_s)s(t-2\text{a}/c-2T_s)   +
- \\ & n_e(\text{b},t-\text{b}/c-T_s)s(t-2\text{b}/c-T_s) 
+ \\ & n_e(\text{b},t-\text{b}/c-T_s)s(t-2\text{b}/c-T_s). 
  \end{split}
 \end{equation}
 
@@ -200,13 +200,13 @@ With ISR this same frame work can be used, the term $L$ must now change to $R_L/
 In a pulsed radar system Doppler is measured starting with these steps:
 \begin{enumerate}
 \label{list:uno}
-\item radar sends a set of pulses that scatter off the targets 
-\item target returns are binned into a two-dimensional array representing range and interpulse period (IPP).
+\item The radar sends a set of pulses that scatter off the targets. 
+\item The target returns are binned into a two-dimensional array representing range and interpulse period (IPP).
 \end{enumerate}
 In the case of an \textit{underspread} target the pulse-Doppler processing method can be used, which is commonly denoted as \textit{coherent processing} \citep{richards2014fundamentals,richards2010principles,richards2014principles,skolnik2008radar}. The pulse-Doppler method consists of the following steps after the first two listed:
 \begin{enumerate}
   \setcounter{enumi}{2}
-  \item a discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \citep{richards2014fundamentals}. 
+  \item A discrete Fourier transform (DFT) across pulses is taken to determine the Doppler spectrum \citep{richards2014fundamentals}. 
 \item A power spectrum is formed by taking squared magnitude .  
 \end{enumerate}
 
@@ -220,7 +220,7 @@ where $T$ is the IPP time. These requirements fit within the definition of an  \
 
 The ionosphere cannot be assumed to be compactly supported in range if one wants to do F-region studies, which can stretch from 150-700 km in altitude. 
 Using the spectrum in Figure~\ref{fig:ispecch2}, it can be seen that the signal is at least 20~kHz in bandwidth.
-This broad bandwidth and unambiguous range requirement yields an \textit{underspread} target. 
+This broad bandwidth and unambiguous range requirement yields an \textit{overspread} target. 
 
 In order to measure an this class of target, an alternative Doppler processing method must be used. This method replaces steps \#2 and \#3 with an estimate of the autocorrelation function (ACF) within the IPP and a DFT across the lags is taken to get the Doppler spectrum.
 The formation of this spectrum is the same as forming Wigner-Ville distribution along range \citep{TFAcohen}. The formulation of the Wigner-Ville distribution is as follows using a signal $x(t)$,
@@ -249,7 +249,7 @@ More sophisticated approaches for ISR analysis exist that use information from m
 \caption{ISR signal processing chain, with signal processing operations as squares and data products as diamonds.}
 \label{fig:chain}
 \end{figure}
-The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter-pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$. To keep the number of integrated samples for each lag the same across all of range, the number of range gates for each IPP will be at most $N-(L-1)$. To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The entire operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
+The lag product formation is an initial estimate of the autocorrelation function. The sampled complex receiver voltage can be represented as $x(n) \in\mathbb{C}^N$ where $N$ is the number of samples in an inter-pulse period. For each range gate $m\in 0,1,...M-1$ a complex autocorrelation is estimated for each lag of $l \in 0,1...,L-1$. To keep the number of integrated samples for each lag the same across all of range, the number of range gates for each IPP will be at most $N-(L-1)$. To get better statistics this operation is performed for each pulse $j\in 0,1,...J-1$ and then summed over $J$ independent pulses. The operation to form the initial estimate of $\widehat{R}(m,l)$ may be expressed as
 
 \begin{equation}
 \label{eq:lagpro}
